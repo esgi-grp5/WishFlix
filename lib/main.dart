@@ -44,7 +44,7 @@ class _BottomNavState extends State<BottomNav> {
           Icons.home,
           color: Colors.black,
         ),
-        label: "Explore"));
+        label: "Accueil"));
     items.add(BottomNavigationBarItem(
         activeIcon: Icon(
           Icons.favorite,
@@ -227,7 +227,7 @@ class HomeScreen extends StatelessWidget {
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
-          children: <Widget>[HomeTop(), homeDown, homeDown],
+          children: <Widget>[HomeTop(), trendingMovies, trendingGames],
         ),
       ),
     );
@@ -247,7 +247,7 @@ class HomeTop extends StatefulWidget {
 
 class _HomeTop extends State<HomeTop> {
   var isFlightselected = true;
-  TextEditingController c = TextEditingController(text: languages[1]);
+  TextEditingController c = TextEditingController(text: "");
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -271,59 +271,6 @@ class _HomeTop extends State<HomeTop> {
                   padding: EdgeInsets.all(16.0),
                   child: Row(
                     children: <Widget>[
-                      Icon(
-                        Icons.language,
-                        color: Colors.white,
-                      ),
-                      SizedBox(
-                        width: width! * 0.05,
-                      ),
-                      PopupMenuButton(
-                        onSelected: (index) {
-                          setState(() {
-                            selectedLanguages = int.parse(index.toString());
-                          });
-                        },
-                        child: Row(
-                          children: <Widget>[
-                            Text(
-                              languages[selectedLanguages],
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16.0,
-                              ),
-                            ),
-                            Icon(
-                              Icons.keyboard_arrow_down,
-                              color: Colors.white,
-                            )
-                          ],
-                        ),
-                        itemBuilder: (BuildContext context) {
-                          return <PopupMenuItem<int>>[
-                            PopupMenuItem(
-                              child: Text(
-                                languages[0],
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16.0,
-                                ),
-                              ),
-                              value: 0,
-                            ),
-                            PopupMenuItem(
-                              child: Text(
-                                languages[1],
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16.0,
-                                ),
-                              ),
-                              value: 1,
-                            )
-                          ];
-                        },
-                      ),
                       Spacer(),
                       Icon(
                         Icons.settings,
@@ -336,7 +283,7 @@ class _HomeTop extends State<HomeTop> {
                   height: height! / 16,
                 ),
                 Text(
-                  'What are  \n you looking for',
+                  'Que voulez-vous ?',
                   style: TextStyle(
                     fontSize: 24.0,
                     color: Colors.white,
@@ -351,7 +298,7 @@ class _HomeTop extends State<HomeTop> {
                     elevation: 5.0,
                     borderRadius: BorderRadius.all(Radius.circular(30)),
                     child: TextField(
-                      //controller: c,
+                      controller: c,
                       style: TextStyle(
                         fontSize: 16.0,
                         color: Colors.black,
@@ -371,8 +318,8 @@ class _HomeTop extends State<HomeTop> {
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (context) {
                                   return SecondPage(
-                                      fromloc: languages[selectedLanguages],
-                                      toloc: c.text);
+                                      content_type: contentType[selectedType],
+                                      search_text: c.text);
                                 }));
                               },
                             ),
@@ -533,7 +480,7 @@ class _Choice08State extends State<Choice08>
 var viewallstyle =
     TextStyle(fontSize: 14, color: appTheme.primaryColor //Colors.teal
         );
-var homeDown = Column(
+var trendingMovies = Column(
   children: <Widget>[
     Padding(
       padding: const EdgeInsets.all(8.0),
@@ -545,11 +492,11 @@ var homeDown = Column(
           //   width: width! * 0.05,
           // ),
           Text(
-            "Currently Watched items",
+            "Films du moment",
             style: TextStyle(color: Colors.black, fontSize: 16),
           ),
           Spacer(),
-          Text("VIEW ALL", style: viewallstyle)
+          Text("AFFICHER PLUS", style: viewallstyle)
         ],
       ),
     ),
@@ -560,53 +507,45 @@ var homeDown = Column(
       // ConstrainedBox(
       //   constraints: BoxConstraints(maxHeight: 170, minHeight: height! * .13),
       child: ListView.builder(
-          itemBuilder: (context, index) => cities[index],
+          itemBuilder: (context, index) => movies[index],
           shrinkWrap: true,
           padding: EdgeInsets.all(0.0),
-          itemCount: cities.length,
+          itemCount: movies.length,
           scrollDirection: Axis.horizontal),
     ),
   ],
 );
-List<City> cities = [
-  City(
+List<Movie> movies = [
+  Movie(
     image: "assets/images/Kerman.png",
-    name: "Kerman",
-    monthyear: "Far 1399",
-    oldprice: "258500",
-    newprice: "150000",
-    discount: "58",
+    name: "Taken",
+    genre: "Action",
+    dateSortie: "Avril 2005",
   ),
-  City(
+  Movie(
     image: "assets/images/Mashhad.png",
-    name: "Mashhad",
-    monthyear: "Far 1399",
-    oldprice: "258500",
-    newprice: "150000",
-    discount: "58",
+    name: "Harry potter",
+    genre: "Fantastique",
+    dateSortie: "Aout 2002",
   ),
-  City(
+  Movie(
     image: "assets/images/Tehran.png",
-    name: "Tehran",
-    monthyear: "Far 1399",
-    oldprice: "258500",
-    newprice: "150000",
-    discount: "58",
+    name: "Avengers",
+    genre: "SF",
+    dateSortie: "Septembre 2019",
   ),
 ];
 
-class City extends StatelessWidget {
-  final String? image, monthyear, oldprice;
-  final String? name, discount, newprice;
+class Movie extends StatelessWidget {
+  final String? image, genre, dateSortie;
+  final String? name;
 
-  const City(
+  const Movie(
       {Key? key,
       this.image,
-      this.monthyear,
-      this.oldprice,
-      this.name,
-      this.discount,
-      this.newprice})
+      this.genre,
+      this.dateSortie,
+      this.name})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -665,7 +604,7 @@ class City extends StatelessWidget {
                                   color: Colors.white),
                             ),
                             Text(
-                              monthyear!,
+                              genre!,
                               style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400,
@@ -674,22 +613,6 @@ class City extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                        decoration: BoxDecoration(
-                            shape: BoxShape.rectangle,
-                            color: Colors.white,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        child: Text(
-                          discount! + "%",
-                          style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black),
-                        ),
-                      )
                     ],
                   ),
                   left: 10,
@@ -702,15 +625,165 @@ class City extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Text("\$ " + '${(newprice)}',
+            Text('${(dateSortie)}',
                 style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w400,
                     fontStyle: FontStyle.italic)),
-            SizedBox(
-              width: width! * 0.08,
-            ),
-            Text("\$ " + '${(oldprice)}',
+          ],
+        )
+      ],
+    );
+  }
+}
+
+
+var trendingGames = Column(
+  children: <Widget>[
+    Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          // SizedBox(
+          //   width: width! * 0.05,
+          // ),
+          Text(
+            "Jeux du moment",
+            style: TextStyle(color: Colors.black, fontSize: 16),
+          ),
+          Spacer(),
+          Text("AFFICHER PLUS", style: viewallstyle)
+        ],
+      ),
+    ),
+    Container(
+      height: height! * .25 < 170 ? height! * .25 : 170,
+      //height: height! * .25 < 300 ? height! * .25 : 300,
+      // child:
+      // ConstrainedBox(
+      //   constraints: BoxConstraints(maxHeight: 170, minHeight: height! * .13),
+      child: ListView.builder(
+          itemBuilder: (context, index) => games[index],
+          shrinkWrap: true,
+          padding: EdgeInsets.all(0.0),
+          itemCount: games.length,
+          scrollDirection: Axis.horizontal),
+    ),
+  ],
+);
+List<Game> games = [
+  Game(
+    image: "assets/images/Kerman.png",
+    name: "Call of duty",
+    genre: "Action",
+    dateSortie: "Fevrier 2019",
+  ),
+  Game(
+    image: "assets/images/Mashhad.png",
+    name: "World of warcraft",
+    genre: "MMORPG",
+    dateSortie: "Novrmbre 2004",
+  ),
+  Game(
+    image: "assets/images/Tehran.png",
+    name: "Diablo 3",
+    genre: "Hack and slash",
+    dateSortie: "Mai 2012",
+  ),
+];
+
+class Game extends StatelessWidget {
+  final String? image, genre, dateSortie;
+  final String? name;
+
+  const Game(
+      {Key? key,
+      this.image,
+      this.genre,
+      this.dateSortie,
+      this.name})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        ClipRRect(
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            child: Stack(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                  child: Container(
+                    height: height! * .137 < 160 ? height! * .137 : 160,
+                    width: width! * .5 < 250 ? width! * .5 : 250,
+                    //   child: Image.asset(image,fit: BoxFit.cover,)
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage(image!), fit: BoxFit.fill)),
+                  ),
+                ),
+                Positioned(
+                  height: 60,
+                  width: width! * .5 < 250 ? width! * .5 : 250,
+                  left: 5,
+                  //right: 0,
+                  bottom: 0,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                            colors: [Colors.black, Colors.black12],
+                            begin: Alignment.bottomCenter,
+                            end: Alignment.topCenter)),
+                  ),
+                ),
+                Positioned(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                        //decoration: BoxDecoration(
+                        //   shape: BoxShape.rectangle,
+                        //   color: Colors.black.withOpacity(.4),
+                        //  borderRadius: BorderRadius.all(Radius.circular(10))
+                        // ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              name!,
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                            Text(
+                              genre!,
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.white),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  left: 10,
+                  bottom: 10,
+                  right: 15,
+                )
+              ],
+            )),
+        Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Text('${(dateSortie)}',
                 style: TextStyle(
                     color: Colors.black87,
                     fontWeight: FontWeight.w400,
