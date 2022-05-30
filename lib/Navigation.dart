@@ -17,7 +17,7 @@ class Navigation extends StatelessWidget {
           Icons.home,
           color: Colors.black,
         ),
-        label: "Explore"));
+        label: "Accueil"));
     items.add(BottomNavigationBarItem(
         activeIcon: Icon(
           Icons.favorite,

@@ -8,18 +8,18 @@ final Color flightColor = prefix0.appTheme.primaryColor;
 final Color chipBackground =
     prefix0.appTheme.secondaryHeaderColor.withOpacity(.2);
 final Color borderColor = prefix0.appTheme.primaryColor.withAlpha(100);
-String? fromlocation;
-String? tolocation;
+String? contentType;
+String? searchText;
 
 class SecondPage extends StatelessWidget {
-  final String? fromloc;
-  final String? toloc;
-  SecondPage({this.fromloc, this.toloc});
+  final String? content_type;
+  final String? search_text;
+  SecondPage({this.content_type, this.search_text});
 
   @override
   Widget build(BuildContext context) {
-    fromlocation = fromloc;
-    tolocation = toloc;
+    contentType = content_type;
+    searchText = search_text;
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -31,7 +31,7 @@ class SecondPage extends StatelessWidget {
           elevation: 0.0,
           centerTitle: true,
           title: Text(
-            'Search Result',
+            'Recherche',
             style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),
           ),
         ),
@@ -54,7 +54,7 @@ class StackDown extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Text('Best Deals for Next 6 Months',
+            Text('Résultats les plus pertinents',
                 style: TextStyle(fontWeight: FontWeight.w900, fontSize: 20)),
             ListView(
               scrollDirection: Axis.vertical,
@@ -281,36 +281,15 @@ class StackTop extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              /*prefix0.locs[0]*/ fromlocation! +
-                                  /* ' Beauty and old place */ '\n (City name Can have any lentgh)',
+                              /*prefix0.locs[0]*/ searchText! +
+                                  /* ' Beauty and old place */ '\n ('+contentType!+')',
                               style: TextStyle(fontSize: 16.0),
                               // key: from,
-                            ),
-                            Divider(
-                              color: Colors.black12,
-                              height: prefix0.height! * .04,
-                            ),
-                            Text(
-                              /*prefix0.locs[1]*/ tolocation! /*+ ' Imam reza Holy Shrine'*/,
-                              style: TextStyle(
-                                  fontSize: 16.0, fontWeight: FontWeight.bold),
-                              // key: to,
                             ),
                           ],
                         ),
                       ),
                       Spacer(),
-                      Expanded(
-                          flex: 1,
-                          child: IconButton(
-                              icon: Icon(
-                                Icons.import_export,
-                                color: Colors.black,
-                                size: prefix0.height! * .07,
-                              ),
-                              onPressed: () {
-                                // TODO Swap To And From texts
-                              }))
                     ],
                   ),
                 ),
