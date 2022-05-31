@@ -4,7 +4,9 @@ class Profil extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text("Profil Clicked")),
+      body: Center(
+        child: Text("Profil"),
+      ),
     );
   }
 }
