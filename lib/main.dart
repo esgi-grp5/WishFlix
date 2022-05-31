@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'Notifications.dart' as prefix0;
-import 'package:url_launcher/url_launcher.dart';
 import 'Profil.dart';
 import 'SecondPage.dart';
 import 'WishList.dart';
@@ -38,45 +37,51 @@ class _BottomNavState extends State<BottomNav> {
   List<BottomNavigationBarItem> createItems() {
     List<BottomNavigationBarItem> items = [];
     items.add(BottomNavigationBarItem(
+        backgroundColor: appTheme.primaryColor,
         activeIcon: Icon(
           Icons.home,
-          color: appTheme.primaryColor,
+          color: appTheme.scaffoldBackgroundColor,
         ),
         icon: Icon(
           Icons.home,
-          color: Colors.black,
+          color: Colors.white,
         ),
         label: "Accueil"));
     items.add(BottomNavigationBarItem(
+        backgroundColor: appTheme.primaryColor,
         activeIcon: Icon(
           Icons.favorite,
-          color: appTheme.primaryColor,
+          color: appTheme.scaffoldBackgroundColor,
         ),
         icon: Icon(
           Icons.favorite,
-          color: Colors.black,
+          color: Colors.white,
         ),
         label: "WishList"));
     items.add(BottomNavigationBarItem(
+        backgroundColor: appTheme.primaryColor,
         activeIcon: Icon(
           Icons.person,
-          color: appTheme.primaryColor,
+          color: appTheme.scaffoldBackgroundColor,
         ),
         icon: Icon(
           Icons.person,
-          color: Colors.black,
+          color: Colors.white,
         ),
         label: "Profil"));
-    items.add(BottomNavigationBarItem(
-        activeIcon: Icon(
-          Icons.notifications,
-          color: appTheme.primaryColor,
-        ),
-        icon: Icon(
-          Icons.notifications,
-          color: Colors.black,
-        ),
-        label: "Notifications"));
+    items.add(
+      BottomNavigationBarItem(
+          backgroundColor: appTheme.primaryColor,
+          activeIcon: Icon(
+            Icons.notifications,
+            color: appTheme.scaffoldBackgroundColor,
+          ),
+          icon: Icon(
+            Icons.notifications,
+            color: Colors.white,
+          ),
+          label: "Notifications"),
+    );
     return items;
   }
 
@@ -86,8 +91,8 @@ class _BottomNavState extends State<BottomNav> {
         body: bodies.elementAt(sel),
         bottomNavigationBar: BottomNavigationBar(
           items: createItems(),
-          unselectedItemColor: Colors.black,
-          selectedItemColor: appTheme.primaryColor,
+          unselectedItemColor: Colors.white,
+          selectedItemColor: appTheme.scaffoldBackgroundColor,
           type: BottomNavigationBarType.shifting,
           showUnselectedLabels: false,
           showSelectedLabels: true,
@@ -118,8 +123,9 @@ class HomeScreen extends StatelessWidget {
           children: <Widget>[
             HomeTop(),
             trendingMovies,
+            trendingSeries,
+            trendingBooks,
             trendingGames,
-            trendingBooks
           ],
         ),
       ),
@@ -161,7 +167,7 @@ class _HomeTop extends State<HomeTop> {
                   child: Row(
                     children: <Widget>[
                       Image.asset(
-                        'images/logo.png',
+                        'assets/images/logo.png',
                         height: 50,
                       )
                     ],
@@ -171,7 +177,7 @@ class _HomeTop extends State<HomeTop> {
                   height: height! / 16,
                 ),
                 Text(
-                  'Que voulez-vous ?',
+                  'Que recherchez-vous ?',
                   style: TextStyle(
                     fontSize: 24.0,
                     color: HexColor("ff9900"),
@@ -180,7 +186,7 @@ class _HomeTop extends State<HomeTop> {
                 ),
                 SizedBox(height: height! * 0.0375),
                 Container(
-                  width: 300,
+                  width: 335,
                   padding: EdgeInsets.symmetric(horizontal: 32.0),
                   child: Material(
                     elevation: 5.0,
@@ -337,6 +343,7 @@ class _Choice08State extends State<Choice08>
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 120,
       padding: EdgeInsets.symmetric(horizontal: 18, vertical: 8),
       decoration: widget.selected!
           ? BoxDecoration(
@@ -346,7 +353,7 @@ class _Choice08State extends State<Choice08>
           : null,
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Icon(
             widget.icon,
@@ -354,10 +361,11 @@ class _Choice08State extends State<Choice08>
             color: HexColor("ff9900"),
           ),
           SizedBox(
-            width: width! * .025,
+            width: width! * .020,
           ),
           Text(
             widget.text!,
+            textAlign: TextAlign.left,
             style: TextStyle(color: HexColor("ff9900"), fontSize: 16),
           )
         ],
@@ -369,41 +377,8 @@ class _Choice08State extends State<Choice08>
 var viewallstyle =
     TextStyle(fontSize: 14, color: appTheme.primaryColor //Colors.teal
         );
-var trendingMovies = Column(
-  children: <Widget>[
-    Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          // SizedBox(
-          //   width: width! * 0.05,
-          // ),
-          Text(
-            "Films du moment",
-            style: TextStyle(color: Colors.black, fontSize: 16),
-          ),
-          Spacer(),
-          Text("AFFICHER PLUS", style: viewallstyle)
-        ],
-      ),
-    ),
-    Container(
-      height: height! * .25 < 170 ? height! * .25 : 170,
-      //height: height! * .25 < 300 ? height! * .25 : 300,
-      // child:
-      // ConstrainedBox(
-      //   constraints: BoxConstraints(maxHeight: 170, minHeight: height! * .13),
-      child: ListView.builder(
-          itemBuilder: (context, index) => movies[index],
-          shrinkWrap: true,
-          padding: EdgeInsets.all(0.0),
-          itemCount: movies.length,
-          scrollDirection: Axis.horizontal),
-    ),
-  ],
-);
+
+// Données essai
 List<Movie> movies = [
   Movie(
     image: "assets/images/Kerman.png",
@@ -425,137 +400,6 @@ List<Movie> movies = [
   ),
 ];
 
-class Movie extends StatelessWidget {
-  final String? image, genre, dateSortie;
-  final String? name;
-
-  const Movie({Key? key, this.image, this.genre, this.dateSortie, this.name})
-      : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
-            child: Stack(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: Container(
-                    height: height! * .137 < 160 ? height! * .137 : 160,
-                    width: width! * .5 < 250 ? width! * .5 : 250,
-                    //   child: Image.asset(image,fit: BoxFit.cover,)
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage(image!), fit: BoxFit.fill)),
-                  ),
-                ),
-                Positioned(
-                  height: 60,
-                  width: width! * .5 < 250 ? width! * .5 : 250,
-                  left: 5,
-                  //right: 0,
-                  bottom: 0,
-                  child: Container(
-                    decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                            colors: [Colors.black, Colors.black12],
-                            begin: Alignment.bottomCenter,
-                            end: Alignment.topCenter)),
-                  ),
-                ),
-                Positioned(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                        //decoration: BoxDecoration(
-                        //   shape: BoxShape.rectangle,
-                        //   color: Colors.black.withOpacity(.4),
-                        //  borderRadius: BorderRadius.all(Radius.circular(10))
-                        // ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              name!,
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            ),
-                            Text(
-                              genre!,
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.white),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  left: 10,
-                  bottom: 10,
-                  right: 15,
-                )
-              ],
-            )),
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Text('${(dateSortie)}',
-                style: TextStyle(
-                    color: Colors.black87,
-                    fontWeight: FontWeight.w400,
-                    fontStyle: FontStyle.italic)),
-          ],
-        )
-      ],
-    );
-  }
-}
-
-var trendingGames = Column(
-  children: <Widget>[
-    Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          // SizedBox(
-          //   width: width! * 0.05,
-          // ),
-          Text(
-            "Jeux du moment",
-            style: TextStyle(color: Colors.black, fontSize: 16),
-          ),
-          Spacer(),
-          Text("AFFICHER PLUS", style: viewallstyle)
-        ],
-      ),
-    ),
-    Container(
-      height: height! * .25 < 170 ? height! * .25 : 170,
-      //height: height! * .25 < 300 ? height! * .25 : 300,
-      // child:
-      // ConstrainedBox(
-      //   constraints: BoxConstraints(maxHeight: 170, minHeight: height! * .13),
-      child: ListView.builder(
-          itemBuilder: (context, index) => games[index],
-          shrinkWrap: true,
-          padding: EdgeInsets.all(0.0),
-          itemCount: games.length,
-          scrollDirection: Axis.horizontal),
-    ),
-  ],
-);
 List<Game> games = [
   Game(
     image: "assets/images/Kerman.png",
@@ -567,7 +411,7 @@ List<Game> games = [
     image: "assets/images/Mashhad.png",
     name: "World of warcraft",
     genre: "MMORPG",
-    dateSortie: "Novrmbre 2004",
+    dateSortie: "Novembre 2004",
   ),
   Game(
     image: "assets/images/Tehran.png",
@@ -577,137 +421,27 @@ List<Game> games = [
   ),
 ];
 
-class Game extends StatelessWidget {
-  final String? image, genre, dateSortie;
-  final String? name;
+List<Serie> series = [
+  Serie(
+    image: "assets/images/Kerman.png",
+    name: "Games of throne",
+    genre: "Aventure",
+    dateSortie: "Fevrier 2019",
+  ),
+  Serie(
+    image: "assets/images/Mashhad.png",
+    name: "The walking dead",
+    genre: "Horreur",
+    dateSortie: "Février 2013",
+  ),
+  Serie(
+    image: "assets/images/Tehran.png",
+    name: "THe boys",
+    genre: "SF",
+    dateSortie: "Octobre 2018",
+  ),
+];
 
-  const Game({Key? key, this.image, this.genre, this.dateSortie, this.name})
-      : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
-            child: Stack(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: Container(
-                    height: height! * .137 < 160 ? height! * .137 : 160,
-                    width: width! * .5 < 250 ? width! * .5 : 250,
-                    //   child: Image.asset(image,fit: BoxFit.cover,)
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage(image!), fit: BoxFit.fill)),
-                  ),
-                ),
-                Positioned(
-                  height: 60,
-                  width: width! * .5 < 250 ? width! * .5 : 250,
-                  left: 5,
-                  //right: 0,
-                  bottom: 0,
-                  child: Container(
-                    decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                            colors: [Colors.black, Colors.black12],
-                            begin: Alignment.bottomCenter,
-                            end: Alignment.topCenter)),
-                  ),
-                ),
-                Positioned(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                        //decoration: BoxDecoration(
-                        //   shape: BoxShape.rectangle,
-                        //   color: Colors.black.withOpacity(.4),
-                        //  borderRadius: BorderRadius.all(Radius.circular(10))
-                        // ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              name!,
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            ),
-                            Text(
-                              genre!,
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.white),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  left: 10,
-                  bottom: 10,
-                  right: 15,
-                )
-              ],
-            )),
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Text('${(dateSortie)}',
-                style: TextStyle(
-                    color: Colors.black87,
-                    fontWeight: FontWeight.w400,
-                    fontStyle: FontStyle.italic)),
-          ],
-        )
-      ],
-    );
-  }
-}
-
-var trendingBooks = Column(
-  children: <Widget>[
-    Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          // SizedBox(
-          //   width: width! * 0.05,
-          // ),
-          Text(
-            "Livres du moment",
-            style: TextStyle(color: Colors.black, fontSize: 16),
-          ),
-          Spacer(),
-          Text("AFFICHER PLUS", style: viewallstyle)
-        ],
-      ),
-    ),
-    Container(
-      height: height! * .25 < 170 ? height! * .25 : 170,
-      //height: height! * .25 < 300 ? height! * .25 : 300,
-      // child:
-      // ConstrainedBox(
-      //   constraints: BoxConstraints(maxHeight: 170, minHeight: height! * .13),
-      child: ListView.builder(
-          itemBuilder: (context, index) => games[index],
-          shrinkWrap: true,
-          padding: EdgeInsets.all(0.0),
-          itemCount: games.length,
-          scrollDirection: Axis.horizontal),
-    ),
-  ],
-);
 List<Book> books = [
   Book(
     image: "assets/images/Kerman.png",
@@ -719,7 +453,7 @@ List<Book> books = [
     image: "assets/images/Mashhad.png",
     name: "Coucou",
     genre: "Drama",
-    dateSortie: "Novrmbre 2004",
+    dateSortie: "Novembre 2004",
   ),
   Book(
     image: "assets/images/Tehran.png",
@@ -729,6 +463,66 @@ List<Book> books = [
   ),
 ];
 
+// Widgets trending
+
+var trendingMovies = TrendingSection(name: "Films du moment", list: movies);
+var trendingGames = TrendingSection(name: "Jeux du moment", list: games);
+var trendingSeries = TrendingSection(name: "Series du moment", list: series);
+var trendingBooks = TrendingSection(name: "Livres du moment", list: books);
+
+// CLASSES
+
+class Movie extends StatelessWidget {
+  final String? image, genre, dateSortie;
+  final String? name;
+
+  const Movie({Key? key, this.image, this.genre, this.dateSortie, this.name})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return WishElement(
+      image: image,
+      titre: name,
+      sousTitre: genre,
+      date: dateSortie,
+    );
+  }
+}
+
+class Game extends StatelessWidget {
+  final String? image, genre, dateSortie;
+  final String? name;
+
+  const Game({Key? key, this.image, this.genre, this.dateSortie, this.name})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return WishElement(
+      image: image,
+      titre: name,
+      sousTitre: genre,
+      date: dateSortie,
+    );
+  }
+}
+
+class Serie extends StatelessWidget {
+  final String? image, genre, dateSortie;
+  final String? name;
+
+  const Serie({Key? key, this.image, this.genre, this.dateSortie, this.name})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return WishElement(
+      image: image,
+      titre: name,
+      sousTitre: genre,
+      date: dateSortie,
+    );
+  }
+}
+
 class Book extends StatelessWidget {
   final String? image, genre, dateSortie;
   final String? name;
@@ -737,90 +531,11 @@ class Book extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
-            child: Stack(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: Container(
-                    height: height! * .137 < 160 ? height! * .137 : 160,
-                    width: width! * .5 < 250 ? width! * .5 : 250,
-                    //   child: Image.asset(image,fit: BoxFit.cover,)
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage(image!), fit: BoxFit.fill)),
-                  ),
-                ),
-                Positioned(
-                  height: 60,
-                  width: width! * .5 < 250 ? width! * .5 : 250,
-                  left: 5,
-                  //right: 0,
-                  bottom: 0,
-                  child: Container(
-                    decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                            colors: [Colors.black, Colors.black12],
-                            begin: Alignment.bottomCenter,
-                            end: Alignment.topCenter)),
-                  ),
-                ),
-                Positioned(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                        //decoration: BoxDecoration(
-                        //   shape: BoxShape.rectangle,
-                        //   color: Colors.black.withOpacity(.4),
-                        //  borderRadius: BorderRadius.all(Radius.circular(10))
-                        // ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              name!,
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            ),
-                            Text(
-                              genre!,
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.white),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  left: 10,
-                  bottom: 10,
-                  right: 15,
-                )
-              ],
-            )),
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Text('${(dateSortie)}',
-                style: TextStyle(
-                    color: Colors.black87,
-                    fontWeight: FontWeight.w400,
-                    fontStyle: FontStyle.italic)),
-          ],
-        )
-      ],
+    return WishElement(
+      image: image,
+      titre: name,
+      sousTitre: genre,
+      date: dateSortie,
     );
   }
 }
@@ -835,4 +550,166 @@ class HexColor extends Color {
   }
 
   HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
+}
+
+class WishElement extends StatefulWidget {
+  final String? image;
+  final String? titre;
+  final String? sousTitre;
+  final String? date;
+
+  WishElement(
+      {required this.image,
+      required this.titre,
+      required this.sousTitre,
+      required this.date});
+  @override
+  _WishElementState createState() => _WishElementState();
+}
+
+class _WishElementState extends State<WishElement>
+    with SingleTickerProviderStateMixin {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        ClipRRect(
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            child: Stack(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                  child: Container(
+                    height: height! * .137 < 160 ? height! * .137 : 160,
+                    width: width! * .5 < 250 ? width! * .5 : 250,
+                    //   child: Image.asset(image,fit: BoxFit.cover,)
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage(widget.image!),
+                            fit: BoxFit.fill)),
+                  ),
+                ),
+                Positioned(
+                  height: 60,
+                  width: width! * .5 < 250 ? width! * .5 : 250,
+                  left: 5,
+                  //right: 0,
+                  bottom: 0,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                            colors: [Colors.black, Colors.black12],
+                            begin: Alignment.bottomCenter,
+                            end: Alignment.topCenter)),
+                  ),
+                ),
+                Positioned(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                        //decoration: BoxDecoration(
+                        //   shape: BoxShape.rectangle,
+                        //   color: Colors.black.withOpacity(.4),
+                        //  borderRadius: BorderRadius.all(Radius.circular(10))
+                        // ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              widget.titre!,
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                            Text(
+                              widget.sousTitre!,
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.white),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  left: 10,
+                  bottom: 10,
+                  right: 15,
+                )
+              ],
+            )),
+        Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            SizedBox(
+              height: 25,
+            ),
+            Text('${(widget.date)}',
+                style: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w400,
+                    fontStyle: FontStyle.italic)),
+          ],
+        )
+      ],
+    );
+  }
+}
+
+class TrendingSection extends StatefulWidget {
+  final String? name;
+  final List<dynamic>? list;
+
+  TrendingSection({required this.name, required this.list});
+  @override
+  _TrendingSectionState createState() => _TrendingSectionState();
+}
+
+class _TrendingSectionState extends State<TrendingSection>
+    with SingleTickerProviderStateMixin {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              // SizedBox(
+              //   width: width! * 0.05,
+              // ),
+              Text(
+                widget.name!,
+                style: TextStyle(color: Colors.black, fontSize: 16),
+              ),
+              Spacer(),
+              Text("AFFICHER PLUS", style: viewallstyle)
+            ],
+          ),
+        ),
+        Container(
+          height: height! * .25 < 170 ? height! * .25 : 170,
+          //height: height! * .25 < 300 ? height! * .25 : 300,
+          // child:
+          // ConstrainedBox(
+          //   constraints: BoxConstraints(maxHeight: 170, minHeight: height! * .13),
+          child: ListView.builder(
+              itemBuilder: (context, index) => widget.list![index],
+              shrinkWrap: true,
+              padding: EdgeInsets.all(0.0),
+              itemCount: widget.list!.length,
+              scrollDirection: Axis.horizontal),
+        ),
+      ],
+    );
+  }
 }
