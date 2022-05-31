@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'main.dart' as prefix0;
 import 'main.dart';
@@ -12,14 +11,14 @@ String? contentType;
 String? searchText;
 
 class SecondPage extends StatelessWidget {
-  final String? content_type;
-  final String? search_text;
-  SecondPage({this.content_type, this.search_text});
+  final String? contentTypeTemp;
+  final String? searchTextTemp;
+  SecondPage({this.contentTypeTemp, this.searchTextTemp});
 
   @override
   Widget build(BuildContext context) {
-    contentType = content_type;
-    searchText = search_text;
+    contentType = contentTypeTemp;
+    searchText = searchTextTemp;
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -211,8 +210,8 @@ class FlightCard extends StatelessWidget {
 }
 
 class Tag extends StatelessWidget {
-  String? label;
-  Widget? avatar;
+  final String? label;
+  final Widget? avatar;
 
   Tag({this.avatar, this.label});
 
@@ -282,7 +281,9 @@ class StackTop extends StatelessWidget {
                           children: <Widget>[
                             Text(
                               /*prefix0.locs[0]*/ searchText! +
-                                  /* ' Beauty and old place */ '\n ('+contentType!+')',
+                                  /* ' Beauty and old place */ '\n (' +
+                                  contentType! +
+                                  ')',
                               style: TextStyle(fontSize: 16.0),
                               // key: from,
                             ),

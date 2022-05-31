@@ -15,11 +15,13 @@ void main() {
 }
 
 ThemeData appTheme = ThemeData(
-    primaryColor: Colors.purple,
-    /* Colors.tealAccent,*/
-    secondaryHeaderColor: Colors.blue /* Colors.teal*/
-    // fontFamily:
-    );
+  scaffoldBackgroundColor: HexColor("FFA31A"),
+  primaryColor: HexColor("1B1B1B"),
+  /* Colors.tealAccent,*/
+  secondaryHeaderColor: HexColor("1B1B1B"),
+  /* Colors.teal*/
+  fontFamily: 'Gotham',
+);
 
 int sel = 0;
 double? width;
@@ -227,7 +229,12 @@ class HomeScreen extends StatelessWidget {
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
-          children: <Widget>[HomeTop(), trendingMovies, trendingGames],
+          children: <Widget>[
+            HomeTop(),
+            trendingMovies,
+            trendingGames,
+            trendingBooks
+          ],
         ),
       ),
     );
@@ -235,10 +242,7 @@ class HomeScreen extends StatelessWidget {
 }
 
 var selectedType = 0;
-List<String> contentType = ['Films', 'Séries', 'Livres', 'Jeux'];
-
-var selectedLanguages = 0;
-List<String> languages = ['French (FR)', 'English (EN)'];
+List<String> contentType = ['Films', 'Séries', 'Livres', 'Jeux', 'Tous'];
 
 class HomeTop extends StatefulWidget {
   @override
@@ -246,7 +250,6 @@ class HomeTop extends StatefulWidget {
 }
 
 class _HomeTop extends State<HomeTop> {
-  var isFlightselected = true;
   TextEditingController c = TextEditingController(text: "");
   @override
   Widget build(BuildContext context) {
@@ -271,10 +274,9 @@ class _HomeTop extends State<HomeTop> {
                   padding: EdgeInsets.all(16.0),
                   child: Row(
                     children: <Widget>[
-                      Spacer(),
-                      Icon(
-                        Icons.settings,
-                        color: Colors.white,
+                      Image.asset(
+                        'images/logo.png',
+                        height: 50,
                       )
                     ],
                   ),
@@ -286,7 +288,7 @@ class _HomeTop extends State<HomeTop> {
                   'Que voulez-vous ?',
                   style: TextStyle(
                     fontSize: 24.0,
-                    color: Colors.white,
+                    color: HexColor("ff9900"),
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -318,8 +320,9 @@ class _HomeTop extends State<HomeTop> {
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (context) {
                                   return SecondPage(
-                                      content_type: contentType[selectedType],
-                                      search_text: c.text);
+                                      contentTypeTemp:
+                                          contentType[selectedType],
+                                      searchTextTemp: c.text);
                                 }));
                               },
                             ),
@@ -462,14 +465,14 @@ class _Choice08State extends State<Choice08>
           Icon(
             widget.icon,
             size: 20,
-            color: Colors.white,
+            color: HexColor("ff9900"),
           ),
           SizedBox(
             width: width! * .025,
           ),
           Text(
             widget.text!,
-            style: TextStyle(color: Colors.white, fontSize: 16),
+            style: TextStyle(color: HexColor("ff9900"), fontSize: 16),
           )
         ],
       ),
@@ -540,12 +543,7 @@ class Movie extends StatelessWidget {
   final String? image, genre, dateSortie;
   final String? name;
 
-  const Movie(
-      {Key? key,
-      this.image,
-      this.genre,
-      this.dateSortie,
-      this.name})
+  const Movie({Key? key, this.image, this.genre, this.dateSortie, this.name})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -637,7 +635,6 @@ class Movie extends StatelessWidget {
   }
 }
 
-
 var trendingGames = Column(
   children: <Widget>[
     Padding(
@@ -698,12 +695,7 @@ class Game extends StatelessWidget {
   final String? image, genre, dateSortie;
   final String? name;
 
-  const Game(
-      {Key? key,
-      this.image,
-      this.genre,
-      this.dateSortie,
-      this.name})
+  const Game({Key? key, this.image, this.genre, this.dateSortie, this.name})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -793,4 +785,168 @@ class Game extends StatelessWidget {
       ],
     );
   }
+}
+
+var trendingBooks = Column(
+  children: <Widget>[
+    Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          // SizedBox(
+          //   width: width! * 0.05,
+          // ),
+          Text(
+            "Livres du moment",
+            style: TextStyle(color: Colors.black, fontSize: 16),
+          ),
+          Spacer(),
+          Text("AFFICHER PLUS", style: viewallstyle)
+        ],
+      ),
+    ),
+    Container(
+      height: height! * .25 < 170 ? height! * .25 : 170,
+      //height: height! * .25 < 300 ? height! * .25 : 300,
+      // child:
+      // ConstrainedBox(
+      //   constraints: BoxConstraints(maxHeight: 170, minHeight: height! * .13),
+      child: ListView.builder(
+          itemBuilder: (context, index) => games[index],
+          shrinkWrap: true,
+          padding: EdgeInsets.all(0.0),
+          itemCount: games.length,
+          scrollDirection: Axis.horizontal),
+    ),
+  ],
+);
+List<Book> books = [
+  Book(
+    image: "assets/images/Kerman.png",
+    name: "Les hendek",
+    genre: "Policier",
+    dateSortie: "Fevrier 2019",
+  ),
+  Book(
+    image: "assets/images/Mashhad.png",
+    name: "Coucou",
+    genre: "Drama",
+    dateSortie: "Novrmbre 2004",
+  ),
+  Book(
+    image: "assets/images/Tehran.png",
+    name: "Paul et ses amis",
+    genre: "pas d'inspi",
+    dateSortie: "Mai 2012",
+  ),
+];
+
+class Book extends StatelessWidget {
+  final String? image, genre, dateSortie;
+  final String? name;
+
+  const Book({Key? key, this.image, this.genre, this.dateSortie, this.name})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        ClipRRect(
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            child: Stack(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                  child: Container(
+                    height: height! * .137 < 160 ? height! * .137 : 160,
+                    width: width! * .5 < 250 ? width! * .5 : 250,
+                    //   child: Image.asset(image,fit: BoxFit.cover,)
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage(image!), fit: BoxFit.fill)),
+                  ),
+                ),
+                Positioned(
+                  height: 60,
+                  width: width! * .5 < 250 ? width! * .5 : 250,
+                  left: 5,
+                  //right: 0,
+                  bottom: 0,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                            colors: [Colors.black, Colors.black12],
+                            begin: Alignment.bottomCenter,
+                            end: Alignment.topCenter)),
+                  ),
+                ),
+                Positioned(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                        //decoration: BoxDecoration(
+                        //   shape: BoxShape.rectangle,
+                        //   color: Colors.black.withOpacity(.4),
+                        //  borderRadius: BorderRadius.all(Radius.circular(10))
+                        // ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              name!,
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                            Text(
+                              genre!,
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.white),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  left: 10,
+                  bottom: 10,
+                  right: 15,
+                )
+              ],
+            )),
+        Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Text('${(dateSortie)}',
+                style: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w400,
+                    fontStyle: FontStyle.italic)),
+          ],
+        )
+      ],
+    );
+  }
+}
+
+class HexColor extends Color {
+  static int _getColorFromHex(String hexColor) {
+    hexColor = hexColor.toUpperCase().replaceAll("#", "");
+    if (hexColor.length == 6) {
+      hexColor = "FF" + hexColor;
+    }
+    return int.parse(hexColor, radix: 16);
+  }
+
+  HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
 }

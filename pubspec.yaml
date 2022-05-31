@@ -25,7 +25,18 @@ flutter:
   assets:
     - assets/images/
 
-  # fonts:
+  fonts:
+    - family: Gotham
+      fonts:
+        - asset: assets/fonts/Gotham-Font/GothamLight.ttf
+          weight: 300
+        - asset: assets/fonts/Gotham-Font/GothamMedium.ttf
+          weight: 500
+        - asset: assets/fonts/Gotham-Font/GothamBold.ttf
+          weight: 700
+    - family: Pacifico
+      fonts:
+        - asset: assets/fonts/Pacifico/Pacifico.ttf
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf
@@ -36,3 +47,4 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
+  
