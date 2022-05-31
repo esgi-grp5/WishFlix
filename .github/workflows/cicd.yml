@@ -15,7 +15,6 @@ jobs:
       - name: Build apk
         run: |
           flutter pub get
-          flutter format --set-exit-if-changed .
           flutter analyze
           flutter test
           flutter build apk --debug
@@ -30,7 +29,6 @@ jobs:
       - name: Build web
         run: |
           flutter pub get
-          flutter format --set-exit-if-changed .
           flutter analyze
           flutter test
           flutter build web
