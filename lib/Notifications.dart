@@ -26,10 +26,6 @@ class Notification extends StatelessWidget {
   }
 }
 
-var viewallstyle =
-    TextStyle(fontSize: 14, color: HexColor("1B1B1B") //Colors.teal
-        );
-
 class NotificationsTop extends StatefulWidget {
   @override
   _NotificationTop createState() => _NotificationTop();
@@ -41,14 +37,31 @@ class _NotificationTop extends State<NotificationsTop> {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
+        Opacity(
+          //semi red clippath with more height and with 0.5 opacity
+          opacity: 1,
+          child: ClipPath(
+            clipper: Clipper08(), //set our custom wave clipper
+            child: Container(
+              // color: HexColor("000000"),
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [HexColor("1B1B1B"), HexColor("FFA31A")])),
+              height: height! * .65 < 460 ? height! * .65 : 510, //400
+            ),
+          ),
+        ),
         ClipPath(
           clipper: Clipper08(),
           child: Container(
+            color: HexColor("1B1B1B"),
             height: height! * .65 < 450 ? height! * .65 : 500, //400
-            //color: Colors.tealAccent,
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    colors: [HexColor("1B1B1B"), HexColor("1B1B1B")])),
+            //color: Colors.tealAccen // decoration: BoxDecoration(
+            //   color: HexColor("1B1B1B"),
+            // ),t,
+
             child: Column(
               children: <Widget>[
                 SizedBox(
@@ -185,7 +198,7 @@ class _NotificationSectionState extends State<NotificationSection>
     return Column(
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(15),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -244,70 +257,73 @@ class _NotifElementState extends State<NotificationElement>
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
-            child: Container(
-              color: widget.backgroundColor,
-              child: Stack(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                    child: Container(
-                      height: height! * .2 < 70 ? height! * .2 : 70,
-                      width: width! - 20,
-                      //   child: Image.asset(image,fit: BoxFit.cover,)
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+              child: Container(
+                color: widget.backgroundColor,
+                child: Stack(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      child: Container(
+                        height: height! * .2 < 70 ? height! * .2 : 70,
+                        width: width! - 20,
+                        //   child: Image.asset(image,fit: BoxFit.cover,)
+                      ),
                     ),
-                  ),
-                  Positioned(
-                    top: 10,
-                    left: 10,
-                    bottom: 10,
-                    right: 15,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Container(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-                          // decoration: BoxDecoration(
-                          //     shape: BoxShape.rectangle,
-                          //     color: Colors.black.withOpacity(.4),
-                          //     borderRadius:
-                          //         BorderRadius.all(Radius.circular(10))),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                widget.titre!,
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
-                              Text(
-                                widget.sousTitre!,
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.white),
-                              ),
-                              Text(
-                                widget.description!,
-                                style: TextStyle(
-                                    fontSize: 9,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.white),
-                              ),
-                            ],
+                    Positioned(
+                      top: 10,
+                      left: 10,
+                      bottom: 10,
+                      right: 15,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 5),
+                            // decoration: BoxDecoration(
+                            //     shape: BoxShape.rectangle,
+                            //     color: Colors.black.withOpacity(.4),
+                            //     borderRadius:
+                            //         BorderRadius.all(Radius.circular(10))),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  widget.titre!,
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                                Text(
+                                  widget.sousTitre!,
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.white),
+                                ),
+                                Text(
+                                  widget.description!,
+                                  style: TextStyle(
+                                      fontSize: 9,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.white),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            )),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              )),
+        ),
         SizedBox(
           height: 8,
         ),

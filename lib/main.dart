@@ -149,16 +149,27 @@ class _HomeTop extends State<HomeTop> {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
+        Opacity(
+          //semi red clippath with more height and with 0.5 opacity
+          opacity: 1,
+          child: ClipPath(
+            clipper: Clipper08(), //set our custom wave clipper
+            child: Container(
+              // color: HexColor("000000"),
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [HexColor("1B1B1B"), HexColor("FFA31A")])),
+              height: height! * .65 < 460 ? height! * .65 : 510, //400
+            ),
+          ),
+        ),
         ClipPath(
           clipper: Clipper08(),
           child: Container(
+            color: HexColor("1B1B1B"),
             height: height! * .65 < 450 ? height! * .65 : 500, //400
-            //color: Colors.tealAccent,
-            decoration: BoxDecoration(
-                gradient: LinearGradient(colors: [
-              appTheme.primaryColor,
-              appTheme.secondaryHeaderColor
-            ])),
             child: Column(
               children: <Widget>[
                 SizedBox(
@@ -641,7 +652,7 @@ class _TrendingSectionState extends State<TrendingSection>
     return Column(
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(15),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -658,18 +669,21 @@ class _TrendingSectionState extends State<TrendingSection>
             ],
           ),
         ),
-        Container(
-          height: height! * .25 < 170 ? height! * .25 : 170,
-          //height: height! * .25 < 300 ? height! * .25 : 300,
-          // child:
-          // ConstrainedBox(
-          //   constraints: BoxConstraints(maxHeight: 170, minHeight: height! * .13),
-          child: ListView.builder(
-              itemBuilder: (context, index) => widget.list![index],
-              shrinkWrap: true,
-              padding: EdgeInsets.all(0.0),
-              itemCount: widget.list!.length,
-              scrollDirection: Axis.horizontal),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: Container(
+            height: height! * .25 < 170 ? height! * .25 : 170,
+            //height: height! * .25 < 300 ? height! * .25 : 300,
+            // child:
+            // ConstrainedBox(
+            //   constraints: BoxConstraints(maxHeight: 170, minHeight: height! * .13),
+            child: ListView.builder(
+                itemBuilder: (context, index) => widget.list![index],
+                shrinkWrap: true,
+                padding: EdgeInsets.all(0.0),
+                itemCount: widget.list!.length,
+                scrollDirection: Axis.horizontal),
+          ),
         ),
       ],
     );
