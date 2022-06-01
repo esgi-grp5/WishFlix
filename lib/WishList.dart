@@ -36,16 +36,27 @@ class _WishListTop extends State<WishListTop> {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
+        Opacity(
+          //semi red clippath with more height and with 0.5 opacity
+          opacity: 1,
+          child: ClipPath(
+            clipper: Clipper08(), //set our custom wave clipper
+            child: Container(
+              // color: HexColor("000000"),
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [HexColor("1B1B1B"), HexColor("FFA31A")])),
+              height: height! * .65 < 460 ? height! * .65 : 510, //400
+            ),
+          ),
+        ),
         ClipPath(
           clipper: Clipper08(),
           child: Container(
+            color: HexColor("1B1B1B"),
             height: height! * .65 < 450 ? height! * .65 : 500, //400
-            //color: Colors.tealAccent,
-            decoration: BoxDecoration(
-                gradient: LinearGradient(colors: [
-              appTheme.primaryColor,
-              appTheme.secondaryHeaderColor
-            ])),
             child: Column(
               children: <Widget>[
                 SizedBox(
