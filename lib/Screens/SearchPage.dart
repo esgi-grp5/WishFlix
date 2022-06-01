@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'Notifications.dart' as notifPage;
 // Classes
 import 'package:wishflix/Classes/HexColor.dart';
-import 'package:wishflix/Classes/Book.dart';
-import 'package:wishflix/Classes/Game.dart';
-import 'package:wishflix/Classes/Movie.dart';
-import 'package:wishflix/Classes/Serie.dart';
 // Widgets
 import 'package:wishflix/Widgets/Choice08.dart';
 import 'package:wishflix/Widgets/Clipper08.dart';
