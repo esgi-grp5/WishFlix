@@ -39,13 +39,6 @@ class _NotificationTop extends State<NotificationsTop> {
   TextEditingController c = TextEditingController(text: "");
   @override
   Widget build(BuildContext context) {
-    // return Stack(children: <Widget>[
-    //   Container(
-    //       // decoration: new BoxDecoration(
-    //       //   color: HexColor("1B1B1B"),
-    //       // ),
-    //       child: Text("Notification Clicked")),
-    // ]);
     return Stack(
       children: <Widget>[
         ClipPath(
@@ -98,49 +91,89 @@ List<NotificationElement> newNotifications = [
   NotificationElement(
     titre: "Nouveau épisode",
     sousTitre: "Game of thrones",
-    description: "Episode 6 saison 8 sorti le 31/10/2019",
+    description: "Episode 9 saison 8 sorti le 07/11/2019",
     idEpisode: "idEpisode",
+    backgroundColor: HexColor("FFA31A"),
   ),
   NotificationElement(
     titre: "Nouveau épisode",
     sousTitre: "Game of thrones",
-    description: "Episode 5 saison 8 sorti le 25/10/2019",
+    description: "Episode 8 saison 8 sorti le 07/11/2019",
     idEpisode: "idEpisode",
+    backgroundColor: HexColor("FFA31A"),
+  ),
+  NotificationElement(
+    titre: "Nouveau épisode",
+    sousTitre: "Game of thrones",
+    description: "Episode 7 saison 8 sorti le 31/10/2019",
+    idEpisode: "idEpisode",
+    backgroundColor: HexColor("FFA31A"),
+  ),
+  NotificationElement(
+    titre: "Nouveau épisode",
+    sousTitre: "Game of thrones",
+    description: "Episode 6 saison 8 sorti le 25/10/2019",
+    idEpisode: "idEpisode",
+    backgroundColor: HexColor("FFA31A"),
   ),
 ];
 List<NotificationElement> oldNotifications = [
   NotificationElement(
     titre: "Nouveau épisode",
     sousTitre: "Game of thrones",
+    description: "Episode 5 saison 8 sorti le 25/10/2019",
+    idEpisode: "idEpisode",
+    backgroundColor: HexColor("1B1B1B"),
+  ),
+  NotificationElement(
+    titre: "Nouveau épisode",
+    sousTitre: "Game of thrones",
     description: "Episode 4 saison 8 sorti le 25/10/2019",
     idEpisode: "idEpisode",
+    backgroundColor: HexColor("1B1B1B"),
   ),
   NotificationElement(
     titre: "Nouveau épisode",
     sousTitre: "Game of thrones",
     description: "Episode 3 saison 8 sorti le 18/10/2019",
     idEpisode: "idEpisode",
+    backgroundColor: HexColor("1B1B1B"),
   ),
   NotificationElement(
     titre: "Nouveau épisode",
     sousTitre: "Game of thrones",
     description: "Episode 2 saison 8 sorti le 11/10/2019",
     idEpisode: "idEpisode",
+    backgroundColor: HexColor("1B1B1B"),
+  ),
+  NotificationElement(
+    titre: "Nouveau épisode",
+    sousTitre: "Game of thrones",
+    description: "Episode 1 saison 8 sorti le 05/10/2019",
+    idEpisode: "idEpisode",
+    backgroundColor: HexColor("1B1B1B"),
   ),
 ];
 
 var newNotificationListWidget = NotificationSection(
-    name: "Nouvelles notifications", list: newNotifications, hauteur: 50);
+    name: "NEW", list: newNotifications, hauteur: 74, textColor: Colors.white);
 var oldNotificationListWidget = NotificationSection(
-    name: "Anciennes notifications", list: oldNotifications, hauteur: 30);
+    name: "OLD",
+    list: oldNotifications,
+    hauteur: 80,
+    textColor: HexColor("1B1B1B"));
 
 class NotificationSection extends StatefulWidget {
   final String? name;
   final List<dynamic>? list;
   final int? hauteur;
+  final Color textColor;
 
   NotificationSection(
-      {required this.name, required this.list, required this.hauteur});
+      {required this.name,
+      required this.list,
+      required this.hauteur,
+      required this.textColor});
   @override
   _NotificationSectionState createState() => _NotificationSectionState();
 }
@@ -162,10 +195,11 @@ class _NotificationSectionState extends State<NotificationSection>
               // ),
               Text(
                 widget.name!,
-                style: TextStyle(color: Colors.black, fontSize: 16),
+                style: TextStyle(color: widget.textColor, fontSize: 16),
               ),
               Spacer(),
-              Text("MARQUER COMME LU", style: viewallstyle)
+              Text("MARQUER COMME LU",
+                  style: TextStyle(fontSize: 14, color: widget.textColor))
             ],
           ),
         ),
@@ -192,12 +226,14 @@ class NotificationElement extends StatefulWidget {
   final String? sousTitre;
   final String? description;
   final String? idEpisode;
+  final Color backgroundColor;
 
   NotificationElement(
       {required this.titre,
       required this.sousTitre,
       required this.description,
-      required this.idEpisode});
+      required this.idEpisode,
+      required this.backgroundColor});
   @override
   _NotifElementState createState() => _NotifElementState();
 }
@@ -210,78 +246,71 @@ class _NotifElementState extends State<NotificationElement>
       children: <Widget>[
         ClipRRect(
             borderRadius: BorderRadius.all(Radius.circular(20)),
-            child: Stack(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: Container(
-                    height: height! * .137 < 160 ? height! * .137 : 160,
-                    width: width! - 20,
-                    //   child: Image.asset(image,fit: BoxFit.cover,)
+            child: Container(
+              color: widget.backgroundColor,
+              child: Stack(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: Container(
+                      height: height! * .2 < 70 ? height! * .2 : 70,
+                      width: width! - 20,
+                      //   child: Image.asset(image,fit: BoxFit.cover,)
+                    ),
                   ),
-                ),
-                Positioned(
-                  height: 60,
-                  width: width! - 20,
-                  left: 5,
-                  //right: 0,
-                  bottom: 0,
-                  child: Container(
-                    decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                            colors: [Colors.black, Colors.black12],
-                            begin: Alignment.bottomCenter,
-                            end: Alignment.topCenter)),
-                  ),
-                ),
-                Positioned(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                        //decoration: BoxDecoration(
-                        //   shape: BoxShape.rectangle,
-                        //   color: Colors.black.withOpacity(.4),
-                        //  borderRadius: BorderRadius.all(Radius.circular(10))
-                        // ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              widget.titre!,
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            ),
-                            Text(
-                              widget.sousTitre!,
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.white),
-                            ),
-                            Text(
-                              widget.description!,
-                              style: TextStyle(
-                                  fontSize: 9,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.white),
-                            ),
-                          ],
+                  Positioned(
+                    top: 10,
+                    left: 10,
+                    bottom: 10,
+                    right: 15,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Container(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                          // decoration: BoxDecoration(
+                          //     shape: BoxShape.rectangle,
+                          //     color: Colors.black.withOpacity(.4),
+                          //     borderRadius:
+                          //         BorderRadius.all(Radius.circular(10))),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                widget.titre!,
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ),
+                              Text(
+                                widget.sousTitre!,
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.white),
+                              ),
+                              Text(
+                                widget.description!,
+                                style: TextStyle(
+                                    fontSize: 9,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.white),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  left: 10,
-                  bottom: 10,
-                  right: 15,
-                )
-              ],
+                      ],
+                    ),
+                  )
+                ],
+              ),
             )),
+        SizedBox(
+          height: 8,
+        ),
       ],
     );
   }
