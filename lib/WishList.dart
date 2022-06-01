@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'HexColor.dart';
 import 'main.dart';
+import 'Clipper08.dart';
 
 class WishList extends StatelessWidget {
   @override
@@ -9,7 +10,13 @@ class WishList extends StatelessWidget {
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
-          children: <Widget>[WishListTop(), myMovieList, myGameList],
+          children: <Widget>[
+            WishListTop(),
+            myMovieList,
+            mySerieList,
+            myBookList,
+            myGameList
+          ],
         ),
       ),
     );
@@ -49,7 +56,7 @@ class _WishListTop extends State<WishListTop> {
                   child: Row(
                     children: <Widget>[
                       Image.asset(
-                        'images/logo.png',
+                        'assets/images/logo.png',
                         height: 50,
                       )
                     ],
@@ -59,7 +66,7 @@ class _WishListTop extends State<WishListTop> {
                   height: height! / 16,
                 ),
                 Text(
-                  'WishList',
+                  'Ma liste',
                   style: TextStyle(
                     fontSize: 24.0,
                     color: HexColor("ff9900"),
@@ -166,115 +173,8 @@ class _WishListTop extends State<WishListTop> {
   }
 }
 
-var myMovieList = Column(
-  children: <Widget>[
-    Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          // SizedBox(
-          //   width: width! * 0.05,
-          // ),
-          Text(
-            "Mes films",
-            style: TextStyle(color: Colors.black, fontSize: 16),
-          ),
-          Spacer(),
-          Text("AFFICHER PLUS", style: viewallstyle)
-        ],
-      ),
-    ),
-    Container(
-      height: height! * .25 < 170 ? height! * .25 : 170,
-      //height: height! * .25 < 300 ? height! * .25 : 300,
-      // child:
-      // ConstrainedBox(
-      //   constraints: BoxConstraints(maxHeight: 170, minHeight: height! * .13),
-      child: ListView.builder(
-          itemBuilder: (context, index) => myMovies[index],
-          shrinkWrap: true,
-          padding: EdgeInsets.all(0.0),
-          itemCount: myMovies.length,
-          scrollDirection: Axis.horizontal),
-    ),
-  ],
-);
-
-List<Movie> myMovies = [
-  Movie(
-    image: "assets/images/Kerman.png",
-    name: "Taken",
-    genre: "Action",
-    dateSortie: "Avril 2005",
-  ),
-  Movie(
-    image: "assets/images/Mashhad.png",
-    name: "Harry potter",
-    genre: "Fantastique",
-    dateSortie: "Aout 2002",
-  ),
-  Movie(
-    image: "assets/images/Tehran.png",
-    name: "Avengers",
-    genre: "SF",
-    dateSortie: "Septembre 2019",
-  ),
-];
-
-var myGameList = Column(
-  children: <Widget>[
-    Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          // SizedBox(
-          //   width: width! * 0.05,
-          // ),
-          Text(
-            "Jeux du moment",
-            style: TextStyle(color: Colors.black, fontSize: 16),
-          ),
-          Spacer(),
-          Text("AFFICHER PLUS", style: viewallstyle)
-        ],
-      ),
-    ),
-    Container(
-      height: height! * .25 < 170 ? height! * .25 : 170,
-      //height: height! * .25 < 300 ? height! * .25 : 300,
-      // child:
-      // ConstrainedBox(
-      //   constraints: BoxConstraints(maxHeight: 170, minHeight: height! * .13),
-      child: ListView.builder(
-          itemBuilder: (context, index) => myGames[index],
-          shrinkWrap: true,
-          padding: EdgeInsets.all(0.0),
-          itemCount: myGames.length,
-          scrollDirection: Axis.horizontal),
-    ),
-  ],
-);
-List<Game> myGames = [
-  Game(
-    image: "assets/images/Kerman.png",
-    name: "Call of duty",
-    genre: "Action",
-    dateSortie: "Fevrier 2019",
-  ),
-  Game(
-    image: "assets/images/Mashhad.png",
-    name: "World of warcraft",
-    genre: "MMORPG",
-    dateSortie: "Novrmbre 2004",
-  ),
-  Game(
-    image: "assets/images/Tehran.png",
-    name: "Diablo 3",
-    genre: "Hack and slash",
-    dateSortie: "Mai 2012",
-  ),
-];
+// Widgets trending
+var myMovieList = TrendingSection(name: "Films du moment", list: movies);
+var mySerieList = TrendingSection(name: "Series du moment", list: series);
+var myBookList = TrendingSection(name: "Livres du moment", list: books);
+var myGameList = TrendingSection(name: "Jeux du moment", list: games);
