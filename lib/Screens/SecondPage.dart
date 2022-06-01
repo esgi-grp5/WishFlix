@@ -1,13 +1,25 @@
 import 'package:flutter/material.dart';
-import 'main.dart' as prefix0;
-import 'main.dart';
+import 'Notifications.dart' as notifPage;
+// Classes
+import 'package:wishflix/Classes/HexColor.dart';
+import 'package:wishflix/Classes/Book.dart';
+import 'package:wishflix/Classes/Game.dart';
+import 'package:wishflix/Classes/Movie.dart';
+import 'package:wishflix/Classes/Serie.dart';
+// Widgets
+import 'package:wishflix/Widgets/Choice08.dart';
 import 'package:wishflix/Widgets/Clipper08.dart';
 
-final Color discountBackground = prefix0.appTheme.primaryColor;
-final Color flightColor = prefix0.appTheme.primaryColor;
+import 'package:wishflix/Screens/main.dart' as mainPage;
+
+double? width;
+double? height;
+
+final Color discountBackground = mainPage.appTheme.primaryColor;
+final Color flightColor = mainPage.appTheme.primaryColor;
 final Color chipBackground =
-    prefix0.appTheme.secondaryHeaderColor.withOpacity(.2);
-final Color borderColor = prefix0.appTheme.primaryColor.withAlpha(100);
+    mainPage.appTheme.secondaryHeaderColor.withOpacity(.2);
+final Color borderColor = mainPage.appTheme.primaryColor.withAlpha(100);
 String? contentType;
 String? searchText;
 
@@ -18,10 +30,14 @@ class SecondPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    width = MediaQuery.of(context).size.shortestSide;
+    height = MediaQuery.of(context).size.longestSide;
+
     contentType = contentTypeTemp;
     searchText = searchTextTemp;
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: mainPage.appTheme.primaryColor,
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
             onPressed: () {
@@ -36,13 +52,14 @@ class SecondPage extends StatelessWidget {
           ),
         ),
         body: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(
-            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[StackTop(), StackDown()],
-          ),
-        ));
+            scrollDirection: Axis.vertical,
+            child: Column(
+              children: <Widget>[
+                StackTop(),
+                StackDown(),
+              ],
+            )));
+    // children: <Widget>[StackTop(), StackDown()],
   }
 }
 
@@ -124,8 +141,8 @@ class FlightCard extends StatelessWidget {
         child: Stack(
           children: <Widget>[
             Container(
-              //height: prefix0.height/6,
-              width: prefix0.width! * .8,
+              //height: mainPage.height/6,
+              width: width! * .8,
               padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.lerp(
@@ -144,7 +161,7 @@ class FlightCard extends StatelessWidget {
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       SizedBox(
-                        width: prefix0.width! * .02,
+                        width: width! * .02,
                       ),
                       Text(
                         oldprice! + '\$',
@@ -157,7 +174,7 @@ class FlightCard extends StatelessWidget {
                     ],
                   ),
                   SizedBox(
-                    height: prefix0.height! * .03,
+                    height: height! * .03,
                   ),
                   Wrap(
                     spacing: 5.0,
@@ -184,11 +201,11 @@ class FlightCard extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: prefix0.height! * .025,
+              top: height! * .025,
               right: 15,
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 2, vertical: 3),
-                width: prefix0.width! * .09,
+                width: width! * .09,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(5)),
                     color: discountBackground.withOpacity(.2)),
@@ -235,71 +252,182 @@ class Tag extends StatelessWidget {
   }
 }
 
-class StackTop extends StatelessWidget {
+var selectedType = 0;
+
+class StackTop extends StatefulWidget {
+  @override
+  _StackTop createState() => _StackTop();
+}
+
+class _StackTop extends State<StackTop> {
+  TextEditingController c = TextEditingController(text: searchText);
   @override
   Widget build(BuildContext context) {
-    // Key from;
-    // Key to;
-    return Material(
-      elevation: 0,
-      child: Stack(
-        children: <Widget>[
-          ClipPath(
-            clipper: Clipper08(),
+    return Stack(
+      children: <Widget>[
+        Opacity(
+          //semi red clippath with more height and with 0.5 opacity
+          opacity: 1,
+          child: ClipPath(
+            clipper: Clipper08(), //set our custom wave clipper
             child: Container(
-              height: height! * .272, //400
+              // color: HexColor("000000"),
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    appTheme.primaryColor,
-                    appTheme.primaryColor.withAlpha(240)
-                  ],
-                ),
-              ),
+                  gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [HexColor("1B1B1B"), HexColor("FFA31A")])),
+              height: 410, //400
+              width: width,
             ),
           ),
-          Column(
-            children: <Widget>[
-              SizedBox(
-                height: prefix0.height! * .04,
-              ),
-              Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20))),
-                margin:
-                    EdgeInsets.symmetric(horizontal: prefix0.height! * .035),
-                elevation: 10,
-                child: Container(
-                  padding: EdgeInsets.all(prefix0.height! * .035),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: <Widget>[
-                      Expanded(
-                        flex: 5,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              /*prefix0.locs[0]*/ searchText! +
-                                  /* ' Beauty and old place */ '\n (' +
-                                  contentType! +
-                                  ')',
-                              style: TextStyle(fontSize: 16.0),
-                              // key: from,
-                            ),
-                          ],
+        ),
+        ClipPath(
+          clipper: Clipper08(),
+          child: Container(
+            color: HexColor("1B1B1B"),
+            height: 400, //400
+            width: width,
+
+            child: Column(
+              children: <Widget>[
+                Column(
+                  children: <Widget>[
+                    SizedBox(
+                      height: mainPage.height! * .1,
+                    ),
+                    Container(
+                      width: 335,
+                      padding: EdgeInsets.symmetric(horizontal: 32.0),
+                      child: Material(
+                        elevation: 5.0,
+                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                        child: TextField(
+                          controller: c,
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            color: Colors.black,
+                          ),
+                          cursorColor: mainPage.appTheme.primaryColor,
+                          decoration: InputDecoration(
+                              border: InputBorder.none,
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 32, vertical: 13),
+                              suffixIcon: Material(
+                                child: InkWell(
+                                  child: Icon(
+                                    Icons.search,
+                                    color: Colors.black,
+                                  ),
+                                  onTap: () {
+                                    // Refresh results
+                                  },
+                                ),
+                                elevation: 2.0,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(30)),
+                              )),
                         ),
                       ),
-                      Spacer(),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
+                SizedBox(
+                  height: height! * .05,
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    InkWell(
+                      child: Choice08(
+                          icon: Icons.filter_alt_off,
+                          text: "TOUS",
+                          selected: selectedType == 4),
+                      onTap: () {
+                        setState(() {
+                          selectedType = 4;
+                        });
+                      },
+                    ),
+                    SizedBox(
+                      width: width! * 0.055,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: height! * .015,
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    InkWell(
+                      child: Choice08(
+                          icon: Icons.movie_outlined,
+                          text: "Films",
+                          selected: selectedType == 0),
+                      onTap: () {
+                        setState(() {
+                          selectedType = 0;
+                        });
+                      },
+                    ),
+                    SizedBox(
+                      width: width! * 0.055,
+                    ),
+                    InkWell(
+                      child: Choice08(
+                          icon: Icons.theaters,
+                          text: "Séries",
+                          selected: selectedType == 1),
+                      onTap: () {
+                        setState(() {
+                          selectedType = 1;
+                        });
+                      },
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: height! * 0.015,
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    InkWell(
+                      child: Choice08(
+                          icon: Icons.book,
+                          text: "Livres",
+                          selected: selectedType == 2),
+                      onTap: () {
+                        setState(() {
+                          selectedType = 2;
+                        });
+                      },
+                    ),
+                    SizedBox(
+                      width: width! * 0.055,
+                    ),
+                    InkWell(
+                      child: Choice08(
+                          icon: Icons.gamepad,
+                          text: "Jeux",
+                          selected: selectedType == 3),
+                      onTap: () {
+                        setState(() {
+                          selectedType = 3;
+                        });
+                      },
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

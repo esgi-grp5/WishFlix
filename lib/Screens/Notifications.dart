@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wishflix/Classes/HexColor.dart';
 import 'package:wishflix/Widgets/Clipper08.dart';
+import 'package:wishflix/Screens/main.dart' as mainPage;
 
 double? width;
 double? height;
@@ -12,6 +13,21 @@ class Notification extends StatelessWidget {
     height = MediaQuery.of(context).size.longestSide;
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: mainPage.appTheme.primaryColor,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        elevation: 0.0,
+        centerTitle: true,
+        title: Text(
+          'NOTIFICATIONS',
+          style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),
+        ),
+      ),
       // backgroundColor: HexColor("1B1B1B"),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -49,7 +65,7 @@ class _NotificationTop extends State<NotificationsTop> {
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                       colors: [HexColor("1B1B1B"), HexColor("FFA31A")])),
-              height: height! * .65 < 460 ? height! * .65 : 510, //400
+              height: 460, //400
             ),
           ),
         ),
@@ -57,7 +73,7 @@ class _NotificationTop extends State<NotificationsTop> {
           clipper: Clipper08(),
           child: Container(
             color: HexColor("1B1B1B"),
-            height: height! * .65 < 450 ? height! * .65 : 500, //400
+            height: 450, //400
             //color: Colors.tealAccen // decoration: BoxDecoration(
             //   color: HexColor("1B1B1B"),
             // ),t,
@@ -67,37 +83,11 @@ class _NotificationTop extends State<NotificationsTop> {
                 SizedBox(
                   height: height! / 16,
                 ),
-                SizedBox(
-                  height: height! / 16,
-                ),
-                Text(
-                  'Notifications',
-                  style: TextStyle(
-                    fontSize: 24.0,
-                    color: HexColor("ff9900"),
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: height! * 0.0375),
                 newNotificationListWidget
               ],
             ),
           ),
         ),
-        Positioned(
-            left: 20,
-            top: 65,
-            child: Container(
-              child: IconButton(
-                  icon: Icon(
-                    Icons.arrow_back,
-                    size: 30,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  }),
-            )),
       ],
     );
   }

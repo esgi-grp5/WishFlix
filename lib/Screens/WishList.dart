@@ -125,6 +125,9 @@ class _WishListTop extends State<WishListTop> {
                     ),
                   ],
                 ),
+                SizedBox(
+                  height: height! * .015,
+                ),
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -157,7 +160,7 @@ class _WishListTop extends State<WishListTop> {
                   ],
                 ),
                 SizedBox(
-                  height: height! * 0.01,
+                  height: height! * 0.015,
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.min,
@@ -211,37 +214,6 @@ class _WishListTop extends State<WishListTop> {
                           builder: (context) => prefix0.Notification()),
                     );
                   }),
-            )),
-        Positioned(
-            right: 30,
-            top: 54,
-            child: Container(
-              child: IconButton(
-                  icon: Icon(
-                    Icons.circle_outlined,
-                    size: 20,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => prefix0.Notification()),
-                    );
-                  }),
-            )),
-        Positioned(
-            right: 50,
-            top: 74,
-            child: Container(
-              child: Text(
-                '6',
-                style: TextStyle(
-                  fontSize: 11,
-                  color: HexColor("FFA31A"),
-                ),
-                textAlign: TextAlign.center,
-              ),
             )),
       ],
     );

@@ -169,7 +169,8 @@ class _HomeTop extends State<HomeTop> {
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                       colors: [HexColor("1B1B1B"), HexColor("FFA31A")])),
-              height: height! * .65 < 460 ? height! * .65 : 510, //400
+              // height: height! * .65 < 460 ? height! * .65 : 510, //400
+              height: 460, //400
             ),
           ),
         ),
@@ -177,7 +178,8 @@ class _HomeTop extends State<HomeTop> {
           clipper: Clipper08(),
           child: Container(
             color: HexColor("1B1B1B"),
-            height: height! * .65 < 450 ? height! * .65 : 500, //400
+            height: 450, //400
+            // height: height! * .65 < 450 ? height! * .65 : 500, //400
             child: Column(
               children: <Widget>[
                 SizedBox(
@@ -246,7 +248,7 @@ class _HomeTop extends State<HomeTop> {
                   ),
                 ),
                 SizedBox(
-                  height: height! * 0.025,
+                  height: height! * 0.03,
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.min,
@@ -280,7 +282,7 @@ class _HomeTop extends State<HomeTop> {
                   ],
                 ),
                 SizedBox(
-                  height: height! * 0.01,
+                  height: height! * 0.015,
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.min,
@@ -334,37 +336,6 @@ class _HomeTop extends State<HomeTop> {
                           builder: (context) => prefix0.Notification()),
                     );
                   }),
-            )),
-        Positioned(
-            right: 30,
-            top: 54,
-            child: Container(
-              child: IconButton(
-                  icon: Icon(
-                    Icons.circle_outlined,
-                    size: 20,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => prefix0.Notification()),
-                    );
-                  }),
-            )),
-        Positioned(
-            right: 50,
-            top: 74,
-            child: Container(
-              child: Text(
-                '6',
-                style: TextStyle(
-                  fontSize: 11,
-                  color: HexColor("FFA31A"),
-                ),
-                textAlign: TextAlign.center,
-              ),
             )),
       ],
     );
