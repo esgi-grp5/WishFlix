@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'Notifications.dart' as prefix0;
+
 // Classes
 import 'package:wishflix/Classes/HexColor.dart';
 import 'package:wishflix/Classes/Book.dart';
@@ -191,7 +193,56 @@ class _WishListTop extends State<WishListTop> {
               ],
             ),
           ),
-        )
+        ),
+        Positioned(
+            right: 20,
+            top: 65,
+            child: Container(
+              child: IconButton(
+                  icon: Icon(
+                    Icons.notifications,
+                    size: 30,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => prefix0.Notification()),
+                    );
+                  }),
+            )),
+        Positioned(
+            right: 30,
+            top: 54,
+            child: Container(
+              child: IconButton(
+                  icon: Icon(
+                    Icons.circle_outlined,
+                    size: 20,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => prefix0.Notification()),
+                    );
+                  }),
+            )),
+        Positioned(
+            right: 50,
+            top: 74,
+            child: Container(
+              child: Text(
+                '6',
+                style: TextStyle(
+                  fontSize: 11,
+                  color: HexColor("FFA31A"),
+                ),
+                textAlign: TextAlign.center,
+              ),
+            )),
       ],
     );
   }

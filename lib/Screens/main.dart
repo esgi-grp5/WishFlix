@@ -79,19 +79,19 @@ class _BottomNavState extends State<BottomNav> {
           color: Colors.white,
         ),
         label: "Profil"));
-    items.add(
-      BottomNavigationBarItem(
-          backgroundColor: appTheme.primaryColor,
-          activeIcon: Icon(
-            Icons.notifications,
-            color: appTheme.scaffoldBackgroundColor,
-          ),
-          icon: Icon(
-            Icons.notifications,
-            color: Colors.white,
-          ),
-          label: "Notifications"),
-    );
+    // items.add(
+    //   BottomNavigationBarItem(
+    //       backgroundColor: appTheme.primaryColor,
+    //       activeIcon: Icon(
+    //         Icons.notifications,
+    //         color: appTheme.scaffoldBackgroundColor,
+    //       ),
+    //       icon: Icon(
+    //         Icons.notifications,
+    //         color: Colors.white,
+    //       ),
+    //       label: "Notifications"),
+    // );
     return items;
   }
 
@@ -316,7 +316,56 @@ class _HomeTop extends State<HomeTop> {
               ],
             ),
           ),
-        )
+        ),
+        Positioned(
+            right: 20,
+            top: 65,
+            child: Container(
+              child: IconButton(
+                  icon: Icon(
+                    Icons.notifications,
+                    size: 30,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => prefix0.Notification()),
+                    );
+                  }),
+            )),
+        Positioned(
+            right: 30,
+            top: 54,
+            child: Container(
+              child: IconButton(
+                  icon: Icon(
+                    Icons.circle_outlined,
+                    size: 20,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => prefix0.Notification()),
+                    );
+                  }),
+            )),
+        Positioned(
+            right: 50,
+            top: 74,
+            child: Container(
+              child: Text(
+                '6',
+                style: TextStyle(
+                  fontSize: 11,
+                  color: HexColor("FFA31A"),
+                ),
+                textAlign: TextAlign.center,
+              ),
+            )),
       ],
     );
   }

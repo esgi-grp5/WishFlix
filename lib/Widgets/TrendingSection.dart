@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../Classes/HexColor.dart';
+import 'package:wishflix/Classes/HexColor.dart';
 
 double? width;
 double? height;
