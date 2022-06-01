@@ -67,17 +67,6 @@ class _NotificationTop extends State<NotificationsTop> {
                 SizedBox(
                   height: height! / 16,
                 ),
-                Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Row(
-                    children: <Widget>[
-                      Image.asset(
-                        'assets/images/logo.png',
-                        height: 50,
-                      )
-                    ],
-                  ),
-                ),
                 SizedBox(
                   height: height! / 16,
                 ),
@@ -94,7 +83,21 @@ class _NotificationTop extends State<NotificationsTop> {
               ],
             ),
           ),
-        )
+        ),
+        Positioned(
+            left: 20,
+            top: 65,
+            child: Container(
+              child: IconButton(
+                  icon: Icon(
+                    Icons.arrow_back,
+                    size: 30,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  }),
+            )),
       ],
     );
   }
@@ -128,6 +131,13 @@ List<NotificationElement> newNotifications = [
     description: "Episode 6 saison 8 sorti le 25/10/2019",
     idEpisode: "idEpisode",
     backgroundColor: HexColor("FFA31A"),
+  ),
+  NotificationElement(
+    titre: "",
+    sousTitre: "",
+    description: "",
+    idEpisode: "null",
+    backgroundColor: HexColor("1B1B1B"),
   ),
 ];
 List<NotificationElement> oldNotifications = [
@@ -169,7 +179,7 @@ List<NotificationElement> oldNotifications = [
 ];
 
 var newNotificationListWidget = NotificationSection(
-    name: "NEW", list: newNotifications, hauteur: 74, textColor: Colors.white);
+    name: "NEW", list: newNotifications, hauteur: 63, textColor: Colors.white);
 var oldNotificationListWidget = NotificationSection(
     name: "OLD",
     list: oldNotifications,
