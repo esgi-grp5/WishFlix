@@ -3,6 +3,8 @@ import 'Notifications.dart' as prefix0;
 import 'Profil.dart';
 import 'SecondPage.dart';
 import 'WishList.dart';
+import 'HexColor.dart';
+import 'Clipper08.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -301,34 +303,6 @@ class _HomeTop extends State<HomeTop> {
   }
 }
 
-class Clipper08 extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    final Path path = Path();
-    path.lineTo(0.0, size.height);
-    // ignore: non_constant_identifier_names
-    var End = Offset(size.width / 2, size.height - 30.0);
-    // ignore: non_constant_identifier_names
-    var Control = Offset(size.width / 4, size.height - 50.0);
-
-    path.quadraticBezierTo(Control.dx, Control.dy, End.dx, End.dy);
-    // ignore: non_constant_identifier_names
-    var End2 = Offset(size.width, size.height - 80.0);
-    // ignore: non_constant_identifier_names
-    var Control2 = Offset(size.width * .75, size.height - 10.0);
-
-    path.quadraticBezierTo(Control2.dx, Control2.dy, End2.dx, End2.dy);
-    path.lineTo(size.width, 0.0);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper oldClipper) {
-    return true;
-  }
-}
-
 class Choice08 extends StatefulWidget {
   final IconData? icon;
   final String? text;
@@ -538,18 +512,6 @@ class Book extends StatelessWidget {
       date: dateSortie,
     );
   }
-}
-
-class HexColor extends Color {
-  static int _getColorFromHex(String hexColor) {
-    hexColor = hexColor.toUpperCase().replaceAll("#", "");
-    if (hexColor.length == 6) {
-      hexColor = "FF" + hexColor;
-    }
-    return int.parse(hexColor, radix: 16);
-  }
-
-  HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
 }
 
 class WishElement extends StatefulWidget {

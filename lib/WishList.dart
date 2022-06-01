@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'HexColor.dart';
 import 'main.dart';
+import 'Clipper08.dart';
 
 class WishList extends StatelessWidget {
   @override
