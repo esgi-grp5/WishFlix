@@ -173,7 +173,7 @@ var newNotificationListWidget = NotificationSection(
 var oldNotificationListWidget = NotificationSection(
     name: "OLD",
     list: oldNotifications,
-    hauteur: 80,
+    hauteur: 68,
     textColor: HexColor("1B1B1B"));
 
 class NotificationSection extends StatefulWidget {
