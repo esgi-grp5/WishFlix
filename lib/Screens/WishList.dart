@@ -1,11 +1,26 @@
 import 'package:flutter/material.dart';
-import 'HexColor.dart';
-import 'main.dart';
-import 'Clipper08.dart';
+import 'Notifications.dart' as prefix0;
+
+// Classes
+import 'package:wishflix/Classes/HexColor.dart';
+import 'package:wishflix/Classes/Book.dart';
+import 'package:wishflix/Classes/Game.dart';
+import 'package:wishflix/Classes/Movie.dart';
+import 'package:wishflix/Classes/Serie.dart';
+// Widgets
+import 'package:wishflix/Widgets/TrendingSection.dart';
+import 'package:wishflix/Widgets/Choice08.dart';
+import 'package:wishflix/Widgets/Clipper08.dart';
+
+double? width;
+double? height;
 
 class WishList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    width = MediaQuery.of(context).size.shortestSide;
+    height = MediaQuery.of(context).size.longestSide;
+
     return Scaffold(
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -48,7 +63,8 @@ class _WishListTop extends State<WishListTop> {
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                       colors: [HexColor("1B1B1B"), HexColor("FFA31A")])),
-              height: height! * .65 < 460 ? height! * .65 : 510, //400
+              // height: height! * .65 < 460 ? height! * .65 : 510, //400
+              height: (height! * .6) + 10,
             ),
           ),
         ),
@@ -56,7 +72,7 @@ class _WishListTop extends State<WishListTop> {
           clipper: Clipper08(),
           child: Container(
             color: HexColor("1B1B1B"),
-            height: height! * .65 < 450 ? height! * .65 : 500, //400
+            height: height! * .6, //400
             child: Column(
               children: <Widget>[
                 SizedBox(
@@ -110,6 +126,9 @@ class _WishListTop extends State<WishListTop> {
                     ),
                   ],
                 ),
+                SizedBox(
+                  height: height! * .015,
+                ),
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -142,7 +161,7 @@ class _WishListTop extends State<WishListTop> {
                   ],
                 ),
                 SizedBox(
-                  height: height! * 0.01,
+                  height: height! * 0.015,
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.min,
@@ -178,14 +197,34 @@ class _WishListTop extends State<WishListTop> {
               ],
             ),
           ),
-        )
+        ),
+        Positioned(
+            right: 20,
+            top: 65,
+            child: Container(
+              child: IconButton(
+                  icon: Icon(
+                    Icons.notifications,
+                    size: 30,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => prefix0.Notification()),
+                    );
+                  }),
+            )),
       ],
     );
   }
 }
 
-// Widgets trending
-var myMovieList = TrendingSection(name: "Films du moment", list: movies);
-var mySerieList = TrendingSection(name: "Series du moment", list: series);
-var myBookList = TrendingSection(name: "Livres du moment", list: books);
-var myGameList = TrendingSection(name: "Jeux du moment", list: games);
+var myMovieList =
+    TrendingSection(name: "Films du moment", list: Movie.getDemo());
+var mySerieList = TrendingSection(name: "Jeux du moment", list: Game.getDemo());
+var myBookList =
+    TrendingSection(name: "Series du moment", list: Serie.getDemo());
+var myGameList =
+    TrendingSection(name: "Livres du moment", list: Book.getDemo());

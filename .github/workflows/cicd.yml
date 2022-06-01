@@ -10,25 +10,10 @@ jobs:
           java-version: '12.x'
       - uses: subosito/flutter-action@v1
         with:
-          flutter-version: '2.8.0'
+          flutter-version: '3.0.1'
           channel: stable
       - name: Build apk
         run: |
           flutter pub get
           flutter analyze
-          flutter test
-          flutter build apk --debug
-  build-web:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: subosito/flutter-action@v1
-        with:
-          flutter-version: '2.8.0'
-          channel: stable 
-      - name: Build web
-        run: |
-          flutter pub get
-          flutter analyze
-          flutter test
-          flutter build web
+          flutter build apk lib/Screens/main.dart
