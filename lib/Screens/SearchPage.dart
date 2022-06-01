@@ -22,11 +22,14 @@ final Color chipBackground =
 final Color borderColor = mainPage.appTheme.primaryColor.withAlpha(100);
 String? contentType;
 String? searchText;
+int? contentTypeId;
 
 class SecondPage extends StatelessWidget {
   final String? contentTypeTemp;
   final String? searchTextTemp;
-  SecondPage({this.contentTypeTemp, this.searchTextTemp});
+  final int? contentTypeIdTemp;
+  SecondPage(
+      {this.contentTypeTemp, this.searchTextTemp, this.contentTypeIdTemp});
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +38,8 @@ class SecondPage extends StatelessWidget {
 
     contentType = contentTypeTemp;
     searchText = searchTextTemp;
+    contentTypeId = contentTypeIdTemp;
+    selectedType = contentTypeIdTemp!;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: mainPage.appTheme.primaryColor,

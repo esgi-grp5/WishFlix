@@ -237,6 +237,7 @@ class _HomeTop extends State<HomeTop> {
                                   return SecondPage(
                                       contentTypeTemp:
                                           contentType[selectedType],
+                                      contentTypeIdTemp: selectedType,
                                       searchTextTemp: c.text);
                                 }));
                               },
