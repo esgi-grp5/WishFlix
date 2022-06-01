@@ -1,11 +1,24 @@
 import 'package:flutter/material.dart';
-import 'HexColor.dart';
-import 'main.dart';
-import 'Clipper08.dart';
+// Classes
+import 'package:wishflix/Classes/HexColor.dart';
+import 'package:wishflix/Classes/Book.dart';
+import 'package:wishflix/Classes/Game.dart';
+import 'package:wishflix/Classes/Movie.dart';
+import 'package:wishflix/Classes/Serie.dart';
+// Widgets
+import 'package:wishflix/Widgets/TrendingSection.dart';
+import 'package:wishflix/Widgets/Choice08.dart';
+import 'package:wishflix/Widgets/Clipper08.dart';
+
+double? width;
+double? height;
 
 class WishList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    width = MediaQuery.of(context).size.shortestSide;
+    height = MediaQuery.of(context).size.longestSide;
+
     return Scaffold(
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -184,8 +197,10 @@ class _WishListTop extends State<WishListTop> {
   }
 }
 
-// Widgets trending
-var myMovieList = TrendingSection(name: "Films du moment", list: movies);
-var mySerieList = TrendingSection(name: "Series du moment", list: series);
-var myBookList = TrendingSection(name: "Livres du moment", list: books);
-var myGameList = TrendingSection(name: "Jeux du moment", list: games);
+var myMovieList =
+    TrendingSection(name: "Films du moment", list: Movie.getDemo());
+var mySerieList = TrendingSection(name: "Jeux du moment", list: Game.getDemo());
+var myBookList =
+    TrendingSection(name: "Series du moment", list: Serie.getDemo());
+var myGameList =
+    TrendingSection(name: "Livres du moment", list: Book.getDemo());

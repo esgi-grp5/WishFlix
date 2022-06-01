@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'HexColor.dart';
-import 'Clipper08.dart';
+import 'package:wishflix/Classes/HexColor.dart';
+import 'package:wishflix/Widgets/Clipper08.dart';
 
 double? width;
 double? height;

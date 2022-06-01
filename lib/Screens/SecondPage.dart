@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'main.dart' as prefix0;
 import 'main.dart';
-import 'Clipper08.dart';
+import 'package:wishflix/Widgets/Clipper08.dart';
 
 final Color discountBackground = prefix0.appTheme.primaryColor;
 final Color flightColor = prefix0.appTheme.primaryColor;
