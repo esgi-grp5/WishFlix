@@ -65,7 +65,7 @@ class _NotificationTop extends State<NotificationsTop> {
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                       colors: [HexColor("1B1B1B"), HexColor("FFA31A")])),
-              height: 460, //400
+              height: (height! * .6) + 10 - 85, //400
             ),
           ),
         ),
@@ -73,7 +73,7 @@ class _NotificationTop extends State<NotificationsTop> {
           clipper: Clipper08(),
           child: Container(
             color: HexColor("1B1B1B"),
-            height: 450, //400
+            height: (height! * .6) - 85, //400
             //color: Colors.tealAccen // decoration: BoxDecoration(
             //   color: HexColor("1B1B1B"),
             // ),t,

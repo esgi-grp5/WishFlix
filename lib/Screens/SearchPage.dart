@@ -277,7 +277,7 @@ class _StackTop extends State<StackTop> {
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                       colors: [HexColor("1B1B1B"), HexColor("FFA31A")])),
-              height: 410, //400
+              height: (height! * .6) + 10 - 85, //400
               width: width,
             ),
           ),
@@ -286,7 +286,7 @@ class _StackTop extends State<StackTop> {
           clipper: Clipper08(),
           child: Container(
             color: HexColor("1B1B1B"),
-            height: 400, //400
+            height: height! * .6 - 85, //400
             width: width,
 
             child: Column(

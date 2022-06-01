@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'Notifications.dart' as prefix0;
 import 'Profil.dart';
-import 'SecondPage.dart';
+import 'SearchPage.dart';
 import 'WishList.dart';
 // Classes
 import 'package:wishflix/Classes/HexColor.dart';
@@ -170,7 +170,7 @@ class _HomeTop extends State<HomeTop> {
                       end: Alignment.bottomRight,
                       colors: [HexColor("1B1B1B"), HexColor("FFA31A")])),
               // height: height! * .65 < 460 ? height! * .65 : 510, //400
-              height: 460, //400
+              height: (height! * .6) + 10, //400
             ),
           ),
         ),
@@ -178,7 +178,7 @@ class _HomeTop extends State<HomeTop> {
           clipper: Clipper08(),
           child: Container(
             color: HexColor("1B1B1B"),
-            height: 450, //400
+            height: height! * .6, //400
             // height: height! * .65 < 450 ? height! * .65 : 500, //400
             child: Column(
               children: <Widget>[

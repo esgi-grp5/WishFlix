@@ -63,7 +63,8 @@ class _WishListTop extends State<WishListTop> {
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                       colors: [HexColor("1B1B1B"), HexColor("FFA31A")])),
-              height: height! * .65 < 460 ? height! * .65 : 510, //400
+              // height: height! * .65 < 460 ? height! * .65 : 510, //400
+              height: (height! * .6) + 10,
             ),
           ),
         ),
@@ -71,7 +72,7 @@ class _WishListTop extends State<WishListTop> {
           clipper: Clipper08(),
           child: Container(
             color: HexColor("1B1B1B"),
-            height: height! * .65 < 450 ? height! * .65 : 500, //400
+            height: height! * .6, //400
             child: Column(
               children: <Widget>[
                 SizedBox(
