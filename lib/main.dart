@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'Notifications.dart' as prefix0;
 import 'package:url_launcher/url_launcher.dart';
@@ -12,6 +13,10 @@ void main() {
     theme: appTheme,
     title: "Wishlist",
   ));
+
+  AudioPlayer player = new AudioPlayer();
+  const alarmAudioPath = "assets/sounds/introsound.mp3";
+  player.play(alarmAudioPath, isLocal: true);
 }
 
 ThemeData appTheme = ThemeData(
@@ -540,12 +545,7 @@ class Movie extends StatelessWidget {
   final String? image, genre, dateSortie;
   final String? name;
 
-  const Movie(
-      {Key? key,
-      this.image,
-      this.genre,
-      this.dateSortie,
-      this.name})
+  const Movie({Key? key, this.image, this.genre, this.dateSortie, this.name})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -637,7 +637,6 @@ class Movie extends StatelessWidget {
   }
 }
 
-
 var trendingGames = Column(
   children: <Widget>[
     Padding(
@@ -698,12 +697,7 @@ class Game extends StatelessWidget {
   final String? image, genre, dateSortie;
   final String? name;
 
-  const Game(
-      {Key? key,
-      this.image,
-      this.genre,
-      this.dateSortie,
-      this.name})
+  const Game({Key? key, this.image, this.genre, this.dateSortie, this.name})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
