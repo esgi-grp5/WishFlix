@@ -43,7 +43,7 @@ class _SplashScreen extends State<SplashScreen> {
     return MaterialApp(
         title: 'WishFlix',
         home: AnimatedSplashScreen.withScreenFunction(
-            duration: 2000,
+            duration: 1000,
             splash: 'assets/images/logo_mini.png',
             splashIconSize: 125,
             centered: true,
