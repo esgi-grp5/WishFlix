@@ -19,11 +19,11 @@ String? contentType;
 String? searchText;
 int? contentTypeId;
 
-class SecondPage extends StatelessWidget {
+class SearchPage extends StatelessWidget {
   final String? contentTypeTemp;
   final String? searchTextTemp;
   final int? contentTypeIdTemp;
-  SecondPage(
+  SearchPage(
       {this.contentTypeTemp, this.searchTextTemp, this.contentTypeIdTemp});
 
   @override
