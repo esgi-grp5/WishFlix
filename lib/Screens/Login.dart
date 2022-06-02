@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
-import 'package:wishflix/Screens/Main.dart' as rootPage;
+import 'package:wishflix/Screens/main.dart' as rootPage;
 
 const users = const {
   'yan.parmentier@gmail.com': 'admin',
