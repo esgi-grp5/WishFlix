@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:wishflix/Screens/Login.dart';
 import 'package:wishflix/Screens/main.dart' as rootPage;
+import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:page_transition/page_transition.dart';
 
 // import 'package:wishflix/Screens/main.dart';
 
@@ -9,6 +11,8 @@ class SplashScreen extends StatefulWidget {
   @override
   _SplashScreen createState() => _SplashScreen();
 }
+
+var nextScreen;
 
 class _SplashScreen extends State<SplashScreen> {
   TextEditingController c = TextEditingController(text: "");
@@ -19,10 +23,11 @@ class _SplashScreen extends State<SplashScreen> {
       // Vefif si connecté
       bool isLogin = false;
       if (!isLogin) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => LoginScreen()),
-        );
+        nextScreen = LoginScreen();
+        // Navigator.pushReplacement(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => LoginScreen()),
+        // );
       } /*else {
         Navigator.pushReplacement(
           context,
@@ -35,14 +40,33 @@ class _SplashScreen extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: rootPage.appTheme.primaryColor,
-        // Ajouter logo
-        body: Center(
-          child: Image.asset(
-            'assets/images/logo_mini.png',
-            height: 150,
-          ),
-        ));
+    return MaterialApp(
+        title: 'WishFlix',
+        home: AnimatedSplashScreen.withScreenFunction(
+            duration: 2000,
+            splash: 'assets/images/logo_mini.png',
+            splashIconSize: 125,
+            centered: true,
+            screenFunction: () async {
+              bool isLogin = false;
+              if (!isLogin) {
+                return LoginScreen();
+              } /*else{
+                 return rootPage.RootScreen();
+              }*/
+            },
+            // nextScreen: LoginScreen(),
+            splashTransition: SplashTransition.sizeTransition,
+            pageTransitionType: PageTransitionType.fade,
+            backgroundColor: rootPage.appTheme.primaryColor));
+    // return Scaffold(
+    //     backgroundColor: rootPage.appTheme.primaryColor,
+    //     // Ajouter logo
+    //     body: Center(
+    //       child: Image.asset(
+    //         'assets/images/logo_mini.png',
+    //         height: 150,
+    //       ),
+    //     ));
   }
 }
