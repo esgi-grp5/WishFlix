@@ -28,9 +28,9 @@ void main() {
 
 ThemeData appTheme = ThemeData(
   scaffoldBackgroundColor: HexColor("FFA31A"),
-  primaryColor: HexColor("1B1B1B"),
+  primaryColor: HexColor("000000"),
   /* Colors.tealAccent,*/
-  secondaryHeaderColor: HexColor("1B1B1B"),
+  secondaryHeaderColor: HexColor("000000"),
   /* Colors.teal*/
   fontFamily: 'Gotham',
 );
@@ -171,7 +171,10 @@ class _HomeTop extends State<HomeTop> {
                   gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
-                      colors: [HexColor("1B1B1B"), HexColor("FFA31A")])),
+                      colors: [
+                    appTheme.primaryColor,
+                    appTheme.scaffoldBackgroundColor
+                  ])),
               // height: height! * .65 < 460 ? height! * .65 : 510, //400
               height: (height! * .6) + 10, //400
             ),
@@ -180,7 +183,7 @@ class _HomeTop extends State<HomeTop> {
         ClipPath(
           clipper: Clipper08(),
           child: Container(
-            color: HexColor("1B1B1B"),
+            color: appTheme.primaryColor,
             height: height! * .6, //400
             // height: height! * .65 < 450 ? height! * .65 : 500, //400
             child: Column(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'Notifications.dart' as prefix0;
+import 'package:wishflix/Screens/Notifications.dart' as prefix0;
+import 'package:wishflix/Screens/main.dart' as mainPage;
 
 // Classes
 import 'package:wishflix/Classes/HexColor.dart';
@@ -62,7 +63,10 @@ class _WishListTop extends State<WishListTop> {
                   gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
-                      colors: [HexColor("1B1B1B"), HexColor("FFA31A")])),
+                      colors: [
+                    mainPage.appTheme.primaryColor,
+                    mainPage.appTheme.scaffoldBackgroundColor
+                  ])),
               // height: height! * .65 < 460 ? height! * .65 : 510, //400
               height: (height! * .6) + 10,
             ),
@@ -71,7 +75,7 @@ class _WishListTop extends State<WishListTop> {
         ClipPath(
           clipper: Clipper08(),
           child: Container(
-            color: HexColor("1B1B1B"),
+            color: mainPage.appTheme.primaryColor,
             height: height! * .6, //400
             child: Column(
               children: <Widget>[

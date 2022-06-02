@@ -276,7 +276,10 @@ class _StackTop extends State<StackTop> {
                   gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
-                      colors: [HexColor("1B1B1B"), HexColor("FFA31A")])),
+                      colors: [
+                    mainPage.appTheme.primaryColor,
+                    mainPage.appTheme.scaffoldBackgroundColor
+                  ])),
               height: (height! * .6) + 10 - 85, //400
               width: width,
             ),
@@ -285,7 +288,7 @@ class _StackTop extends State<StackTop> {
         ClipPath(
           clipper: Clipper08(),
           child: Container(
-            color: HexColor("1B1B1B"),
+            color: mainPage.appTheme.primaryColor,
             height: height! * .6 - 85, //400
             width: width,
 

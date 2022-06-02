@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 import '../Classes/HexColor.dart';
-import 'main.dart';
+import 'package:wishflix/Screens/Main.dart' as mainPage;
 
 const users = const {
   'yan.parmentier@gmail.com': 'admin',
@@ -52,13 +52,13 @@ class LoginScreen extends StatelessWidget {
       onSignup: _signupUser,
       onSubmitAnimationCompleted: () {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => RootScreen(),
+          builder: (context) => mainPage.RootScreen(),
         ));
       },
       onRecoverPassword: _recoverPassword,
       theme: LoginTheme(
         primaryColor: Colors.black,
-        accentColor: HexColor("FFA31A"),
+        accentColor: mainPage.appTheme.scaffoldBackgroundColor,
         errorColor: Colors.red,
         bodyStyle: TextStyle(
           fontStyle: FontStyle.italic,
