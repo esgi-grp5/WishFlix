@@ -20,6 +20,7 @@ void main() {
 
 ThemeData appTheme = ThemeData(
   scaffoldBackgroundColor: HexColor("FFA31A"),
+  backgroundColor: HexColor("FFA31A"),
   primaryColor: HexColor("000000"),
   /* Colors.tealAccent,*/
   secondaryHeaderColor: HexColor("000000"),
