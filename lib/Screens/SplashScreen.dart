@@ -1,4 +1,4 @@
-import 'package:audioplayers/audioplayers.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:wishflix/Screens/Login.dart';
 import 'package:wishflix/Screens/main.dart' as rootPage;
@@ -36,8 +36,11 @@ class _SplashScreen extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    AudioPlayer audioPlayer = AudioPlayer();
-    audioPlayer.play("assets/sounds/introsound.mp3", isLocal: true);
+    final assetsAudioPlayer = AssetsAudioPlayer();
+    assetsAudioPlayer.open(
+        Audio("assets/sounds/introsound.mp3"),
+    );
+    assetsAudioPlayer.play();
     return Scaffold(
         backgroundColor: rootPage.appTheme.primaryColor,
         // Ajouter logo
