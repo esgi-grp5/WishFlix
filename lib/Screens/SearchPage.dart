@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-// Classes
-import 'package:wishflix/Classes/HexColor.dart';
 // Widgets
 import 'package:wishflix/Widgets/Choice08.dart';
 import 'package:wishflix/Widgets/Clipper08.dart';

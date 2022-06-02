@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
-import '../Classes/HexColor.dart';
 import 'package:wishflix/Screens/Main.dart' as mainPage;
 
 const users = const {
@@ -72,7 +71,7 @@ class LoginScreen extends StatelessWidget {
           color: Colors.white,
         ),
         cardTheme: CardTheme(
-          color: HexColor("FFA31A"),
+          color: mainPage.appTheme.scaffoldBackgroundColor,
           elevation: 5,
           margin: EdgeInsets.only(top: 15),
           shape:

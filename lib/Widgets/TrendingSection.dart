@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wishflix/Classes/HexColor.dart';
+import 'package:wishflix/Screens/main.dart' as mainPage;
 
 double? width;
 double? height;
@@ -36,7 +36,8 @@ class _TrendingSectionState extends State<TrendingSection>
               ),
               Spacer(),
               Text("AFFICHER PLUS",
-                  style: TextStyle(fontSize: 14, color: HexColor("1B1B1B")))
+                  style: TextStyle(
+                      fontSize: 14, color: mainPage.appTheme.primaryColor))
             ],
           ),
         ),

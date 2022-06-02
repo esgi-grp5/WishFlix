@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:wishflix/Screens/Login.dart';
-import 'package:wishflix/Classes/HexColor.dart';
 import 'package:wishflix/Screens/main.dart' as mainPage;
 
 // import 'package:wishflix/Screens/main.dart';

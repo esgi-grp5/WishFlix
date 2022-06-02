@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:wishflix/Classes/HexColor.dart';
 import 'package:wishflix/Widgets/Clipper08.dart';
 import 'package:wishflix/Screens/main.dart' as mainPage;
 
