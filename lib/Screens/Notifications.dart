@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wishflix/Classes/HexColor.dart';
 import 'package:wishflix/Widgets/Clipper08.dart';
-import 'package:wishflix/Screens/main.dart' as mainPage;
+import 'package:wishflix/Screens/main.dart' as rootPage;
 
 double? width;
 double? height;
@@ -14,7 +13,7 @@ class Notification extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: mainPage.appTheme.primaryColor,
+        backgroundColor: rootPage.appTheme.primaryColor,
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -28,7 +27,6 @@ class Notification extends StatelessWidget {
           style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),
         ),
       ),
-      // backgroundColor: HexColor("1B1B1B"),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
@@ -64,7 +62,10 @@ class _NotificationTop extends State<NotificationsTop> {
                   gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
-                      colors: [HexColor("1B1B1B"), HexColor("FFA31A")])),
+                      colors: [
+                    rootPage.appTheme.primaryColor,
+                    rootPage.appTheme.scaffoldBackgroundColor
+                  ])),
               height: (height! * .6) + 10 - 85, //400
             ),
           ),
@@ -72,12 +73,8 @@ class _NotificationTop extends State<NotificationsTop> {
         ClipPath(
           clipper: Clipper08(),
           child: Container(
-            color: HexColor("1B1B1B"),
+            color: rootPage.appTheme.primaryColor,
             height: (height! * .6) - 85, //400
-            //color: Colors.tealAccen // decoration: BoxDecoration(
-            //   color: HexColor("1B1B1B"),
-            // ),t,
-
             child: Column(
               children: <Widget>[
                 SizedBox(
@@ -99,35 +96,35 @@ List<NotificationElement> newNotifications = [
     sousTitre: "Game of thrones",
     description: "Episode 9 saison 8 sorti le 07/11/2019",
     idEpisode: "idEpisode",
-    backgroundColor: HexColor("FFA31A"),
+    backgroundColor: rootPage.appTheme.scaffoldBackgroundColor,
   ),
   NotificationElement(
     titre: "Nouveau épisode",
     sousTitre: "Game of thrones",
     description: "Episode 8 saison 8 sorti le 07/11/2019",
     idEpisode: "idEpisode",
-    backgroundColor: HexColor("FFA31A"),
+    backgroundColor: rootPage.appTheme.scaffoldBackgroundColor,
   ),
   NotificationElement(
     titre: "Nouveau épisode",
     sousTitre: "Game of thrones",
     description: "Episode 7 saison 8 sorti le 31/10/2019",
     idEpisode: "idEpisode",
-    backgroundColor: HexColor("FFA31A"),
+    backgroundColor: rootPage.appTheme.scaffoldBackgroundColor,
   ),
   NotificationElement(
     titre: "Nouveau épisode",
     sousTitre: "Game of thrones",
     description: "Episode 6 saison 8 sorti le 25/10/2019",
     idEpisode: "idEpisode",
-    backgroundColor: HexColor("FFA31A"),
+    backgroundColor: rootPage.appTheme.scaffoldBackgroundColor,
   ),
   NotificationElement(
     titre: "",
     sousTitre: "",
     description: "",
     idEpisode: "null",
-    backgroundColor: HexColor("1B1B1B"),
+    backgroundColor: rootPage.appTheme.primaryColor,
   ),
 ];
 List<NotificationElement> oldNotifications = [
@@ -136,35 +133,35 @@ List<NotificationElement> oldNotifications = [
     sousTitre: "Game of thrones",
     description: "Episode 5 saison 8 sorti le 25/10/2019",
     idEpisode: "idEpisode",
-    backgroundColor: HexColor("1B1B1B"),
+    backgroundColor: rootPage.appTheme.primaryColor,
   ),
   NotificationElement(
     titre: "Nouveau épisode",
     sousTitre: "Game of thrones",
     description: "Episode 4 saison 8 sorti le 25/10/2019",
     idEpisode: "idEpisode",
-    backgroundColor: HexColor("1B1B1B"),
+    backgroundColor: rootPage.appTheme.primaryColor,
   ),
   NotificationElement(
     titre: "Nouveau épisode",
     sousTitre: "Game of thrones",
     description: "Episode 3 saison 8 sorti le 18/10/2019",
     idEpisode: "idEpisode",
-    backgroundColor: HexColor("1B1B1B"),
+    backgroundColor: rootPage.appTheme.primaryColor,
   ),
   NotificationElement(
     titre: "Nouveau épisode",
     sousTitre: "Game of thrones",
     description: "Episode 2 saison 8 sorti le 11/10/2019",
     idEpisode: "idEpisode",
-    backgroundColor: HexColor("1B1B1B"),
+    backgroundColor: rootPage.appTheme.primaryColor,
   ),
   NotificationElement(
     titre: "Nouveau épisode",
     sousTitre: "Game of thrones",
     description: "Episode 1 saison 8 sorti le 05/10/2019",
     idEpisode: "idEpisode",
-    backgroundColor: HexColor("1B1B1B"),
+    backgroundColor: rootPage.appTheme.primaryColor,
   ),
 ];
 
@@ -174,7 +171,7 @@ var oldNotificationListWidget = NotificationSection(
     name: "OLD",
     list: oldNotifications,
     hauteur: 68,
-    textColor: HexColor("1B1B1B"));
+    textColor: rootPage.appTheme.primaryColor);
 
 class NotificationSection extends StatefulWidget {
   final String? name;

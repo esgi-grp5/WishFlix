@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wishflix/Screens/Login.dart';
-import 'package:wishflix/Classes/HexColor.dart';
+import 'package:wishflix/Screens/main.dart' as rootPage;
 
 // import 'package:wishflix/Screens/main.dart';
 
@@ -36,7 +36,7 @@ class _SplashScreen extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: HexColor("1B1B1B"),
+        backgroundColor: rootPage.appTheme.primaryColor,
         // Ajouter logo
         body: Center(
           child: Image.asset(
