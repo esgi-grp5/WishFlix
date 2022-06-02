@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:wishflix/Screens/Login.dart';
 import 'Notifications.dart' as prefix0;
 import 'Profil.dart';
 import 'SearchPage.dart';
 import 'WishList.dart';
+import 'Login.dart';
 // Classes
 import 'package:wishflix/Classes/HexColor.dart';
 import 'package:wishflix/Classes/Book.dart';
@@ -17,7 +19,7 @@ import 'package:wishflix/Widgets/Clipper08.dart';
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: BottomNav(),
+    home: LoginScreen(),
     theme: appTheme,
     title: "Wishlist",
   ));
