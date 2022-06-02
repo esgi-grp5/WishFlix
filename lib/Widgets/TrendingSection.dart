@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wishflix/Screens/main.dart' as mainPage;
+import 'package:wishflix/Screens/main.dart' as rootPage;
 
 double? width;
 double? height;
@@ -37,7 +37,7 @@ class _TrendingSectionState extends State<TrendingSection>
               Spacer(),
               Text("AFFICHER PLUS",
                   style: TextStyle(
-                      fontSize: 14, color: mainPage.appTheme.primaryColor))
+                      fontSize: 14, color: rootPage.appTheme.primaryColor))
             ],
           ),
         ),

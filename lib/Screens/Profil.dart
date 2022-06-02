@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wishflix/Widgets/Clipper08.dart';
 import 'package:wishflix/Classes/HexColor.dart';
-import 'package:wishflix/Screens/main.dart' as mainPage;
+import 'package:wishflix/Screens/main.dart' as rootPage;
 import 'Notifications.dart' as notificationPage;
 
 double? width;
@@ -50,8 +50,8 @@ class _ProfilTop extends State<ProfilTop> {
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                       colors: [
-                    mainPage.appTheme.primaryColor,
-                    mainPage.appTheme.scaffoldBackgroundColor
+                    rootPage.appTheme.primaryColor,
+                    rootPage.appTheme.scaffoldBackgroundColor
                   ])),
               // height: height! * .65 < 460 ? height! * .65 : 510, //400
               height: (height! * .6) + 10, //400
@@ -61,7 +61,7 @@ class _ProfilTop extends State<ProfilTop> {
         ClipPath(
           clipper: Clipper08(),
           child: Container(
-            color: mainPage.appTheme.primaryColor,
+            color: rootPage.appTheme.primaryColor,
             height: height! * .6, //400
             // height: height! * .65 < 450 ? height! * .65 : 500, //400
             child: Column(

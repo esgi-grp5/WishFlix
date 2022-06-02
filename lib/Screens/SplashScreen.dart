@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wishflix/Screens/Login.dart';
-import 'package:wishflix/Screens/main.dart' as mainPage;
+import 'package:wishflix/Screens/main.dart' as rootPage;
 
 // import 'package:wishflix/Screens/main.dart';
 
@@ -36,7 +36,7 @@ class _SplashScreen extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: mainPage.appTheme.primaryColor,
+        backgroundColor: rootPage.appTheme.primaryColor,
         // Ajouter logo
         body: Center(
           child: Image.asset(

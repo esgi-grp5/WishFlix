@@ -1,24 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:wishflix/Screens/Notifications.dart' as prefix0;
+// Screens
+import 'package:wishflix/Screens/SearchPage.dart';
 import 'package:wishflix/Screens/main.dart' as rootPage;
+import 'package:wishflix/Screens/Notifications.dart' as notifPage;
 
 // Classes
-import 'package:wishflix/Classes/HexColor.dart';
 import 'package:wishflix/Classes/Book.dart';
 import 'package:wishflix/Classes/Game.dart';
 import 'package:wishflix/Classes/Movie.dart';
 import 'package:wishflix/Classes/Serie.dart';
+import 'package:wishflix/Classes/HexColor.dart';
+
 // Widgets
-import 'package:wishflix/Widgets/TrendingSection.dart';
 import 'package:wishflix/Widgets/Choice08.dart';
 import 'package:wishflix/Widgets/Clipper08.dart';
+import 'package:wishflix/Widgets/TrendingSection.dart';
 
 double? width;
 double? height;
 
-class WishList extends StatelessWidget {
+class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // Navigation.selindex=0;
+
     width = MediaQuery.of(context).size.shortestSide;
     height = MediaQuery.of(context).size.longestSide;
 
@@ -27,11 +32,11 @@ class WishList extends StatelessWidget {
         scrollDirection: Axis.vertical,
         child: Column(
           children: <Widget>[
-            WishListTop(),
-            myMovieList,
-            mySerieList,
-            myBookList,
-            myGameList
+            HomeTop(),
+            trendingMovies,
+            trendingSeries,
+            trendingBooks,
+            trendingGames,
           ],
         ),
       ),
@@ -39,14 +44,23 @@ class WishList extends StatelessWidget {
   }
 }
 
-var selectedType = 4;
+// Widgets trending
 
-class WishListTop extends StatefulWidget {
+var trendingMovies =
+    TrendingSection(name: "Films du moment", list: Movie.getDemo());
+var trendingGames =
+    TrendingSection(name: "Jeux du moment", list: Game.getDemo());
+var trendingSeries =
+    TrendingSection(name: "Series du moment", list: Serie.getDemo());
+var trendingBooks =
+    TrendingSection(name: "Livres du moment", list: Book.getDemo());
+
+class HomeTop extends StatefulWidget {
   @override
-  _WishListTop createState() => _WishListTop();
+  _HomeTop createState() => _HomeTop();
 }
 
-class _WishListTop extends State<WishListTop> {
+class _HomeTop extends State<HomeTop> {
   TextEditingController c = TextEditingController(text: "");
   @override
   Widget build(BuildContext context) {
@@ -68,7 +82,7 @@ class _WishListTop extends State<WishListTop> {
                     rootPage.appTheme.scaffoldBackgroundColor
                   ])),
               // height: height! * .65 < 460 ? height! * .65 : 510, //400
-              height: (height! * .6) + 10,
+              height: (height! * .6) + 10, //400
             ),
           ),
         ),
@@ -77,6 +91,7 @@ class _WishListTop extends State<WishListTop> {
           child: Container(
             color: rootPage.appTheme.primaryColor,
             height: height! * .6, //400
+            // height: height! * .65 < 450 ? height! * .65 : 500, //400
             child: Column(
               children: <Widget>[
                 SizedBox(
@@ -97,7 +112,7 @@ class _WishListTop extends State<WishListTop> {
                   height: height! / 16,
                 ),
                 Text(
-                  'Ma liste',
+                  'Que recherchez-vous ?',
                   style: TextStyle(
                     fontSize: 24.0,
                     color: HexColor("ff9900"),
@@ -105,33 +120,46 @@ class _WishListTop extends State<WishListTop> {
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: height! * 0.0375),
-                SizedBox(
-                  height: height! * 0.025,
-                ),
-                // myMovieList,
-                // myGameList
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    InkWell(
-                      child: Choice08(
-                          icon: Icons.filter_alt_off,
-                          text: "TOUS",
-                          selected: selectedType == 4),
-                      onTap: () {
-                        setState(() {
-                          selectedType = 4;
-                        });
-                      },
+                Container(
+                  width: 335,
+                  padding: EdgeInsets.symmetric(horizontal: 32.0),
+                  child: Material(
+                    elevation: 5.0,
+                    borderRadius: BorderRadius.all(Radius.circular(30)),
+                    child: TextField(
+                      controller: c,
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        color: Colors.black,
+                      ),
+                      cursorColor: rootPage.appTheme.primaryColor,
+                      decoration: InputDecoration(
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 32, vertical: 13),
+                          suffixIcon: Material(
+                            child: InkWell(
+                              child: Icon(
+                                Icons.search,
+                                color: Colors.black,
+                              ),
+                              onTap: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return SearchPage(
+                                      contentTypeIdTemp: selectedType,
+                                      searchTextTemp: c.text);
+                                }));
+                              },
+                            ),
+                            elevation: 2.0,
+                            borderRadius: BorderRadius.all(Radius.circular(30)),
+                          )),
                     ),
-                    SizedBox(
-                      width: width! * 0.055,
-                    ),
-                  ],
+                  ),
                 ),
                 SizedBox(
-                  height: height! * .015,
+                  height: height! * 0.03,
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.min,
@@ -216,7 +244,7 @@ class _WishListTop extends State<WishListTop> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => prefix0.Notification()),
+                          builder: (context) => notifPage.Notification()),
                     );
                   }),
             )),
@@ -224,11 +252,3 @@ class _WishListTop extends State<WishListTop> {
     );
   }
 }
-
-var myMovieList =
-    TrendingSection(name: "Films du moment", list: Movie.getDemo());
-var mySerieList = TrendingSection(name: "Jeux du moment", list: Game.getDemo());
-var myBookList =
-    TrendingSection(name: "Series du moment", list: Serie.getDemo());
-var myGameList =
-    TrendingSection(name: "Livres du moment", list: Book.getDemo());
