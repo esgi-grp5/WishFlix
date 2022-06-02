@@ -16,6 +16,7 @@ dependencies:
   flutter_login: ^3.2.0
   animated_splash_screen: ^1.2.0
   page_transition: ^2.0.5
+  audioplayers: ^0.20.1
 
 dev_dependencies:
   flutter_test:
@@ -32,6 +33,7 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/sounds/
 
   fonts:
     - family: Gotham
