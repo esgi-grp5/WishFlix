@@ -52,10 +52,30 @@ class LoginScreen extends StatelessWidget {
       onSignup: _signupUser,
       onSubmitAnimationCompleted: () {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => RootScreen(),
+          builder: (context) => HomeScreen(),
         ));
       },
       onRecoverPassword: _recoverPassword,
+      messages: LoginMessages(
+        loginButton: "Connexion",
+        signupButton: "Inscription",
+        forgotPasswordButton: "Mot de passe oublié ?",
+        recoverPasswordButton: "Récupérer le mot de passe",
+        goBackButton: "Retour",
+        confirmPasswordError: "Les mots de passe ne correspondent pas",
+        recoverPasswordIntro: "Entrez votre adresse email",
+        recoverPasswordDescription:
+            "Un email contenant un lien de récupération vous sera envoyé",
+        recoverPasswordSuccess:
+            "Un email contenant un lien de récupération vous a été envoyé",
+        passwordHint: "Mot de passe",
+        confirmPasswordHint: "Confirmer le mot de passe",
+        confirmSignupButton: "S'inscrire",
+        confirmRecoverIntro: "Votre mot de passe a été réinitialisé",
+        signUpSuccess: "Inscription réussie",
+        confirmSignupIntro: "Votre compte a été créé",
+        confirmSignupSuccess: "Votre compte a été créé",
+      ),
       theme: LoginTheme(
         primaryColor: Colors.black,
         accentColor: HexColor("FFA31A"),
