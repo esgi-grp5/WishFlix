@@ -46,11 +46,6 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final inputBorder = BorderRadius.vertical(
-      bottom: Radius.circular(10.0),
-      top: Radius.circular(20.0),
-    );
-
     return FlutterLogin(
       logo: AssetImage('assets/images/logo.png'),
       onLogin: _authUser,
