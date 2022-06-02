@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:wishflix/Screens/Login.dart';
-import 'Notifications.dart' as prefix0;
-import 'Profil.dart';
-import 'SearchPage.dart';
-import 'WishList.dart';
-import 'Login.dart';
+// Pages
+import 'package:wishflix/Screens/WishList.dart';
+import 'package:wishflix/Screens/SearchPage.dart';
+import 'package:wishflix/Screens/Profil.dart';
+import 'package:wishflix/Screens/SplashScreen.dart';
+import 'package:wishflix/Screens/Notifications.dart' as prefix0;
 // Classes
 import 'package:wishflix/Classes/HexColor.dart';
 import 'package:wishflix/Classes/Book.dart';
@@ -19,9 +19,10 @@ import 'package:wishflix/Widgets/Clipper08.dart';
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: LoginScreen(),
+    // home: LoginScreen(),
+    home: SplashScreen(),
     theme: appTheme,
-    title: "Wishlist",
+    title: "WishList",
   ));
 }
 
@@ -39,13 +40,13 @@ double? width;
 double? height;
 final bodies = [HomeScreen(), WishList(), Profil(), prefix0.Notification()];
 
-class BottomNav extends StatefulWidget {
-  BottomNav({Key? key}) : super(key: key);
+class RootScreen extends StatefulWidget {
+  RootScreen({Key? key}) : super(key: key);
 
-  _BottomNavState createState() => _BottomNavState();
+  _RootScreenState createState() => _RootScreenState();
 }
 
-class _BottomNavState extends State<BottomNav> {
+class _RootScreenState extends State<RootScreen> {
   List<BottomNavigationBarItem> createItems() {
     List<BottomNavigationBarItem> items = [];
     items.add(BottomNavigationBarItem(
@@ -236,7 +237,7 @@ class _HomeTop extends State<HomeTop> {
                               onTap: () {
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (context) {
-                                  return SecondPage(
+                                  return SearchPage(
                                       contentTypeTemp:
                                           contentType[selectedType],
                                       contentTypeIdTemp: selectedType,
