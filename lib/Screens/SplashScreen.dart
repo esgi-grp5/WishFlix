@@ -59,14 +59,5 @@ class _SplashScreen extends State<SplashScreen> {
             splashTransition: SplashTransition.sizeTransition,
             pageTransitionType: PageTransitionType.fade,
             backgroundColor: rootPage.appTheme.primaryColor));
-    // return Scaffold(
-    //     backgroundColor: rootPage.appTheme.primaryColor,
-    //     // Ajouter logo
-    //     body: Center(
-    //       child: Image.asset(
-    //         'assets/images/logo_mini.png',
-    //         height: 150,
-    //       ),
-    //     ));
   }
 }
