@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wishflix/Screens/Notifications.dart' as prefix0;
 import 'package:wishflix/Screens/main.dart' as rootPage;
 
@@ -6,17 +7,53 @@ import 'package:wishflix/Screens/main.dart' as rootPage;
 import 'package:wishflix/Classes/HexColor.dart';
 import 'package:wishflix/Classes/Music.dart';
 import 'package:wishflix/Classes/Game.dart';
-import 'package:wishflix/Classes/Movie.dart';
+// import 'package:wishflix/Classes/Movie.dart';
+// import 'package:wishflix/Model/Movie.dart';
 import 'package:wishflix/Classes/Serie.dart';
 // Widgets
 import 'package:wishflix/Widgets/TrendingSection.dart';
 import 'package:wishflix/Widgets/Choice08.dart';
 import 'package:wishflix/Widgets/Clipper08.dart';
+import 'package:wishflix/bloc/movie/movie_bloc.dart';
+import 'package:wishflix/bloc/movie/movie_events.dart';
+import 'package:wishflix/bloc/movie/movie_states.dart';
+import 'package:wishflix/core/di/locator.dart';
+import 'package:wishflix/repository/movie_repository.dart';
+
+import '../models/movie_model.dart';
 
 double? width;
 double? height;
 
-class WishList extends StatelessWidget {
+class WishList extends StatefulWidget {
+  const WishList({Key? key}) : super(key: key);
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _WishListState createState() => _WishListState();
+}
+
+class _WishListState extends State<WishList> {
+    final MovieRepository _movieRepository = MovieRepository();
+    final MovieBloc movieBloc = locator<MovieBloc>();
+
+    loadMovies() {
+      movieBloc.add(GetAllMoviesEvent());
+    }
+
+    @override
+    void initState() {
+      Movie movie = Movie(
+        image: 'assets/images/Tehran.png',
+        name: 'Name test',
+        genre: 'genre test',
+        dateSortie: 'Novembre 2002');
+
+      _movieRepository.insertMovie(movie);
+      loadMovies();
+      super.initState();
+    }
+
   @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.shortestSide;
@@ -28,7 +65,50 @@ class WishList extends StatelessWidget {
         child: Column(
           children: <Widget>[
             WishListTop(),
-            myMovieList,
+            Column(
+              children: [
+                SingleChildScrollView(
+                  child: ListView(
+                    shrinkWrap: true,
+                    children: [
+                      BlocBuilder<MovieBloc, MovieState>(
+                      buildWhen: (previous, current) => previous is MovieListLoadingState,
+                      builder: (context, state) {
+                        if (state is MovieListSuccessState) {
+                          return ListView(
+                            shrinkWrap: true,
+                            children: state.movies
+                                .map((movie) => ListTile(
+                                      title: Text(movie.name),
+                                      subtitle: Text(movie.genre),
+                                      // onTap: () {
+                                      //   // Navigator.pushNamed(context, '/movie');
+                                      //   Navigator.push(
+                                      //       context,
+                                      //       MaterialPageRoute(
+                                      //         builder: (context) =>
+                                      //             MovieScreen(movie: movie),
+                                      //       ));
+                                      // },
+                                    ))
+                                .toList(),
+                          );
+                        }
+                        if (state is MovieListLoadingState) {
+                          return const Center(child: CircularProgressIndicator());
+                        }
+                        if (state is MovieListErrorState) {
+                          return Center(child: Text(state.error));
+                        }
+                        return Container();
+                      },
+          ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            // myMovieList,
             mySerieList,
             myMusicList,
             myGameList
@@ -225,8 +305,8 @@ class _WishListTop extends State<WishListTop> {
   }
 }
 
-var myMovieList =
-    TrendingSection(name: "Mes films", list: Movie.getDemo());
+// var myMovieList =
+//     TrendingSection(name: "Mes films", list: Movie.getDemo());
 var mySerieList = TrendingSection(name: "Mes séries", list: Serie.getDemo());
 var myMusicList =
     TrendingSection(name: "Mes musiques", list: Music.getDemo());

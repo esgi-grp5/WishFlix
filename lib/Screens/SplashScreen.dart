@@ -41,11 +41,11 @@ class _SplashScreen extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final assetsAudioPlayer = AssetsAudioPlayer();
-    assetsAudioPlayer.open(
-        Audio("assets/sounds/introsound.mp3"),
-    );
-    assetsAudioPlayer.play();
+    // final assetsAudioPlayer = AssetsAudioPlayer();
+    // assetsAudioPlayer.open(
+    //     Audio("assets/sounds/introsound.mp3"),
+    // );
+    // assetsAudioPlayer.play();
     return MaterialApp(
         title: 'WishFlix',
         home: AnimatedSplashScreen.withScreenFunction(

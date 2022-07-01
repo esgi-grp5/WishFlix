@@ -7,8 +7,10 @@ import 'package:wishflix/Screens/HomeScreen.dart';
 import 'package:wishflix/Screens/Notifications.dart' as notifPage;
 // Classes
 import 'package:wishflix/Classes/HexColor.dart';
+import 'package:wishflix/core/di/locator.dart';
 
 void main() {
+  setupLocator();
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     // home: LoginScreen(),

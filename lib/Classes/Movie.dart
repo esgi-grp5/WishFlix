@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wishflix/Widgets/WishElement.dart';
 
 class Movie extends StatelessWidget {
-  final String? image, genre, dateSortie;
-  final String? name;
+  final String? image, genre, dateSortie, name;
 
   const Movie({Key? key, this.image, this.genre, this.dateSortie, this.name})
       : super(key: key);
