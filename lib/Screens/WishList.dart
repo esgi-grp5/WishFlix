@@ -4,7 +4,7 @@ import 'package:wishflix/Screens/main.dart' as rootPage;
 
 // Classes
 import 'package:wishflix/Classes/HexColor.dart';
-import 'package:wishflix/Classes/Book.dart';
+import 'package:wishflix/Classes/Music.dart';
 import 'package:wishflix/Classes/Game.dart';
 import 'package:wishflix/Classes/Movie.dart';
 import 'package:wishflix/Classes/Serie.dart';
@@ -30,7 +30,7 @@ class WishList extends StatelessWidget {
             WishListTop(),
             myMovieList,
             mySerieList,
-            myBookList,
+            myMusicList,
             myGameList
           ],
         ),
@@ -173,8 +173,8 @@ class _WishListTop extends State<WishListTop> {
                   children: <Widget>[
                     InkWell(
                       child: Choice08(
-                          icon: Icons.book,
-                          text: "Livres",
+                          icon: Icons.music_note,
+                          text: "Musiques",
                           selected: selectedType == 2),
                       onTap: () {
                         setState(() {
@@ -226,9 +226,9 @@ class _WishListTop extends State<WishListTop> {
 }
 
 var myMovieList =
-    TrendingSection(name: "Films du moment", list: Movie.getDemo());
-var mySerieList = TrendingSection(name: "Jeux du moment", list: Game.getDemo());
-var myBookList =
-    TrendingSection(name: "Series du moment", list: Serie.getDemo());
+    TrendingSection(name: "Mes films", list: Movie.getDemo());
+var mySerieList = TrendingSection(name: "Mes séries", list: Serie.getDemo());
+var myMusicList =
+    TrendingSection(name: "Mes musiques", list: Music.getDemo());
 var myGameList =
-    TrendingSection(name: "Livres du moment", list: Book.getDemo());
+    TrendingSection(name: "Mes jeux", list: Game.getDemo());
