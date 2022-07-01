@@ -33,7 +33,7 @@ double? width;
 double? height;
 final bodies = [HomeScreen(), WishList(), Profil(), notifPage.Notification()];
 int selectedType = 0;
-List<String> contentType = ['Films', 'Séries', 'Livres', 'Jeux', 'Tous'];
+List<String> contentType = ['Films', 'Séries', 'Musiques', 'Jeux', 'Tous'];
 
 class RootScreen extends StatefulWidget {
   RootScreen({Key? key}) : super(key: key);

@@ -5,7 +5,7 @@ import 'package:wishflix/Screens/main.dart' as rootPage;
 import 'package:wishflix/Screens/Notifications.dart' as notifPage;
 
 // Classes
-import 'package:wishflix/Classes/Book.dart';
+import 'package:wishflix/Classes/Music.dart';
 import 'package:wishflix/Classes/Game.dart';
 import 'package:wishflix/Classes/Movie.dart';
 import 'package:wishflix/Classes/Serie.dart';
@@ -35,7 +35,7 @@ class HomeScreen extends StatelessWidget {
             HomeTop(),
             trendingMovies,
             trendingSeries,
-            trendingBooks,
+            trendingMusics,
             trendingGames,
           ],
         ),
@@ -52,8 +52,8 @@ var trendingGames =
     TrendingSection(name: "Jeux du moment", list: Game.getDemo());
 var trendingSeries =
     TrendingSection(name: "Series du moment", list: Serie.getDemo());
-var trendingBooks =
-    TrendingSection(name: "Livres du moment", list: Book.getDemo());
+var trendingMusics =
+    TrendingSection(name: "Musiques du moment", list: Music.getDemo());
 
 class HomeTop extends StatefulWidget {
   @override
@@ -201,8 +201,8 @@ class _HomeTop extends State<HomeTop> {
                   children: <Widget>[
                     InkWell(
                       child: Choice08(
-                          icon: Icons.book,
-                          text: "Livres",
+                          icon: Icons.music_note,
+                          text: "Musiques",
                           selected: selectedType == 2),
                       onTap: () {
                         setState(() {

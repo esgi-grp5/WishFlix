@@ -205,8 +205,8 @@ class _StackTop extends State<StackTop> {
                   children: <Widget>[
                     InkWell(
                       child: Choice08(
-                          icon: Icons.book,
-                          text: "Livres",
+                          icon: Icons.music_note,
+                          text: "Musiques",
                           selected: selectedType == 2),
                       onTap: () {
                         setState(() {
