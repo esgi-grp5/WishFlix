@@ -34,25 +34,25 @@ class WishList extends StatefulWidget {
 }
 
 class _WishListState extends State<WishList> {
-    final MovieRepository _movieRepository = MovieRepository();
-    final MovieBloc movieBloc = locator<MovieBloc>();
+  final MovieRepository _movieRepository = MovieRepository();
+  final MovieBloc movieBloc = locator<MovieBloc>();
 
-    loadMovies() {
-      movieBloc.add(GetAllMoviesEvent());
-    }
+  loadMovies() {
+    movieBloc.add(GetAllMoviesEvent());
+  }
 
-    @override
-    void initState() {
-      Movie movie = Movie(
+  @override
+  void initState() {
+    Movie movie = Movie(
         image: 'assets/images/Tehran.png',
         name: 'Name test',
         genre: 'genre test',
         dateSortie: 'Novembre 2002');
 
-      _movieRepository.insertMovie(movie);
-      loadMovies();
-      super.initState();
-    }
+    _movieRepository.insertMovie(movie);
+    loadMovies();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,42 +68,38 @@ class _WishListState extends State<WishList> {
             Column(
               children: [
                 SingleChildScrollView(
-                  child: ListView(
-                    shrinkWrap: true,
-                    children: [
-                      BlocBuilder<MovieBloc, MovieState>(
-                      buildWhen: (previous, current) => previous is MovieListLoadingState,
-                      builder: (context, state) {
-                        if (state is MovieListSuccessState) {
-                          return ListView(
-                            shrinkWrap: true,
-                            children: state.movies
-                                .map((movie) => ListTile(
-                                      title: Text(movie.name),
-                                      subtitle: Text(movie.genre),
-                                      // onTap: () {
-                                      //   // Navigator.pushNamed(context, '/movie');
-                                      //   Navigator.push(
-                                      //       context,
-                                      //       MaterialPageRoute(
-                                      //         builder: (context) =>
-                                      //             MovieScreen(movie: movie),
-                                      //       ));
-                                      // },
-                                    ))
-                                .toList(),
-                          );
-                        }
-                        if (state is MovieListLoadingState) {
-                          return const Center(child: CircularProgressIndicator());
-                        }
-                        if (state is MovieListErrorState) {
-                          return Center(child: Text(state.error));
-                        }
-                        return Container();
-                      },
-          ),
-                    ],
+                  child: BlocBuilder<MovieBloc, MovieState>(
+                    buildWhen: (previous, current) =>
+                        previous is MovieListLoadingState,
+                    builder: (context, state) {
+                      if (state is MovieListSuccessState) {
+                        return ListView(
+                          shrinkWrap: true,
+                          children: state.movies
+                              .map((movie) => ListTile(
+                                    title: Text(movie.name),
+                                    subtitle: Text(movie.genre),
+                                    // onTap: () {
+                                    //   // Navigator.pushNamed(context, '/movie');
+                                    //   Navigator.push(
+                                    //       context,
+                                    //       MaterialPageRoute(
+                                    //         builder: (context) =>
+                                    //             MovieScreen(movie: movie),
+                                    //       ));
+                                    // },
+                                  ))
+                              .toList(),
+                        );
+                      }
+                      if (state is MovieListLoadingState) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                      if (state is MovieListErrorState) {
+                        return Center(child: Text(state.error));
+                      }
+                      return Container();
+                    },
                   ),
                 ),
               ],
@@ -308,7 +304,5 @@ class _WishListTop extends State<WishListTop> {
 // var myMovieList =
 //     TrendingSection(name: "Mes films", list: Movie.getDemo());
 var mySerieList = TrendingSection(name: "Mes séries", list: Serie.getDemo());
-var myMusicList =
-    TrendingSection(name: "Mes musiques", list: Music.getDemo());
-var myGameList =
-    TrendingSection(name: "Mes jeux", list: Game.getDemo());
+var myMusicList = TrendingSection(name: "Mes musiques", list: Music.getDemo());
+var myGameList = TrendingSection(name: "Mes jeux", list: Game.getDemo());
