@@ -10,6 +10,7 @@ import 'package:wishflix/Classes/Game.dart';
 // import 'package:wishflix/Classes/Movie.dart';
 // import 'package:wishflix/Model/Movie.dart';
 import 'package:wishflix/Classes/Serie.dart';
+import 'package:wishflix/Widgets/CustomBottomNavBar.dart';
 // Widgets
 import 'package:wishflix/Widgets/TrendingSection.dart';
 import 'package:wishflix/Widgets/Choice08.dart';
@@ -60,6 +61,7 @@ class _WishListScreenState extends State<WishListScreen> {
     height = MediaQuery.of(context).size.longestSide;
 
     return Scaffold(
+      bottomNavigationBar: CustomBottomNavBar(1),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(

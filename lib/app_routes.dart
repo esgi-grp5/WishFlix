@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter_notes/app/screens/note/note_screen.dart';
-import 'package:flutter/material.dart';
 import 'package:wishflix/Screens/HomeScreen.dart';
 import 'package:wishflix/Screens/LoginScreen.dart';
 import 'package:wishflix/Screens/NotificationsScreen.dart';
