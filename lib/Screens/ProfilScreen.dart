@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:wishflix/Widgets/Clipper08.dart';
 import 'package:wishflix/Classes/HexColor.dart';
 import 'package:wishflix/Screens/main.dart' as rootPage;
-import 'Notifications.dart' as notificationPage;
+import 'NotificationsScreen.dart' as notificationPage;
 
 double? width;
 double? height;
 
-class Profil extends StatelessWidget {
+class ProfilScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.shortestSide;
@@ -129,7 +129,7 @@ class _ProfilTop extends State<ProfilTop> {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              notificationPage.Notification()),
+                              notificationPage.NotificationScreen()),
                     );
                   }),
             )),

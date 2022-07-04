@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 // Screens
-import 'package:wishflix/Screens/SearchPage.dart';
+import 'package:wishflix/Screens/SearchScreen.dart';
 import 'package:wishflix/Screens/main.dart' as rootPage;
-import 'package:wishflix/Screens/Notifications.dart' as notifPage;
+import 'package:wishflix/Screens/NotificationsScreen.dart' as notifPage;
 
 // Classes
 import 'package:wishflix/Classes/Music.dart';
@@ -146,7 +146,7 @@ class _HomeTop extends State<HomeTop> {
                               onTap: () {
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (context) {
-                                  return SearchPage(
+                                  return SearchScreen(
                                       contentTypeIdTemp: selectedType,
                                       searchTextTemp: c.text);
                                 }));
@@ -244,7 +244,7 @@ class _HomeTop extends State<HomeTop> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => notifPage.Notification()),
+                          builder: (context) => notifPage.NotificationScreen()),
                     );
                   }),
             )),

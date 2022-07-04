@@ -55,8 +55,8 @@ class MovieCacheProvider {
 
   Future<int> deleteMovie(int id) async {
     await initDatabase();
-    return await database.delete(tableName, where: "id = ?", whereArgs: [id]);
     print("id: $id");
+    return await database.delete(tableName, where: "id = ?", whereArgs: [id]);
     // return await database.rawDelete('DELETE FROM $tableName WHERE id = ?', [id]);
   }
 

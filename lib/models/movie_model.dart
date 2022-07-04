@@ -1,12 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:wishflix/Widgets/WishElement.dart';
 import 'package:uuid/uuid.dart';
-
 
 // Create uuid object
 const uuid = Uuid();
 
-class Movie{
+class Movie {
   Movie(
       {required this.image,
       required this.genre,

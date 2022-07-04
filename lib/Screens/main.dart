@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 // Pages
-import 'package:wishflix/Screens/WishList.dart';
-import 'package:wishflix/Screens/Profil.dart';
+import 'package:wishflix/Screens/WishListScreen.dart';
+import 'package:wishflix/Screens/ProfilScreen.dart';
 import 'package:wishflix/Screens/SplashScreen.dart';
 import 'package:wishflix/Screens/HomeScreen.dart';
-import 'package:wishflix/Screens/Notifications.dart' as notifPage;
+import 'package:wishflix/Screens/NotificationsScreen.dart' as notifPage;
 // Classes
 import 'package:wishflix/Classes/HexColor.dart';
 import 'package:wishflix/core/di/locator.dart';
@@ -13,7 +13,6 @@ void main() {
   setupLocator();
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    // home: LoginScreen(),
     home: SplashScreen(),
     theme: appTheme,
     title: "WishList",
@@ -33,7 +32,12 @@ ThemeData appTheme = ThemeData(
 int sel = 0;
 double? width;
 double? height;
-final bodies = [HomeScreen(), WishList(), Profil(), notifPage.Notification()];
+final bodies = [
+  HomeScreen(),
+  WishListScreen(),
+  ProfilScreen(),
+  notifPage.NotificationScreen()
+];
 int selectedType = 0;
 List<String> contentType = ['Films', 'Séries', 'Musiques', 'Jeux', 'Tous'];
 

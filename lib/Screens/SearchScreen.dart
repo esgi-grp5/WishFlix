@@ -17,10 +17,10 @@ String? contentType;
 String? searchText;
 int selectedType = 0;
 
-class SearchPage extends StatelessWidget {
+class SearchScreen extends StatelessWidget {
   final String? searchTextTemp;
   final int? contentTypeIdTemp;
-  SearchPage({this.searchTextTemp, this.contentTypeIdTemp});
+  SearchScreen({this.searchTextTemp, this.contentTypeIdTemp});
 
   @override
   Widget build(BuildContext context) {

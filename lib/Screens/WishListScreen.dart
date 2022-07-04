@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wishflix/Screens/Notifications.dart' as prefix0;
+import 'package:wishflix/Screens/NotificationsScreen.dart' as prefix0;
 import 'package:wishflix/Screens/main.dart' as rootPage;
 
 // Classes
@@ -25,15 +25,15 @@ import '../models/movie_model.dart';
 double? width;
 double? height;
 
-class WishList extends StatefulWidget {
-  const WishList({Key? key}) : super(key: key);
+class WishListScreen extends StatefulWidget {
+  const WishListScreen({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
-  _WishListState createState() => _WishListState();
+  _WishListScreenState createState() => _WishListScreenState();
 }
 
-class _WishListState extends State<WishList> {
+class _WishListScreenState extends State<WishListScreen> {
   final MovieRepository _movieRepository = MovieRepository();
   final MovieBloc movieBloc = locator<MovieBloc>();
 
@@ -292,7 +292,7 @@ class _WishListTop extends State<WishListTop> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => prefix0.Notification()),
+                          builder: (context) => prefix0.NotificationScreen()),
                     );
                   }),
             )),

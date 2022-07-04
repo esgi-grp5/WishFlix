@@ -5,7 +5,7 @@ import 'package:wishflix/Screens/main.dart' as rootPage;
 double? width;
 double? height;
 
-class Notification extends StatelessWidget {
+class NotificationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.shortestSide;
