@@ -12,7 +12,8 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
   final MovieRepository _movieRepository = MovieRepository();
 
   // lier les states à l'evenement GetAllMoviesEvent
-  void _onGetAllMovies(GetAllMoviesEvent event, Emitter<MovieState> emit) async {
+  void _onGetAllMovies(
+      GetAllMoviesEvent event, Emitter<MovieState> emit) async {
     // state de loading va etre écouté par l'UI
     emit(MovieListLoadingState());
     try {
