@@ -4,7 +4,15 @@ import 'package:wishflix/Widgets/WishElement.dart';
 class Music extends StatelessWidget {
   final String? image, genre, annee, name, artist, album;
 
-  const Music({Key? key, this.image, this.genre, this.annee, this.name, this.artist, this.album}) : super(key: key);
+  const Music(
+      {Key? key,
+      this.image,
+      this.genre,
+      this.annee,
+      this.name,
+      this.artist,
+      this.album})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return WishElement(
