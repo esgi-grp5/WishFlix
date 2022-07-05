@@ -24,6 +24,10 @@ class MusicRepository {
     return await _cache.deleteMusic(id);
   }
 
+  Future<void> deleteAll() async {
+    return await _cache.deleteAll();
+  }
+
   closeDatabase() async {
     await _cache.closeDatabase();
   }

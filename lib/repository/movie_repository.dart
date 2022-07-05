@@ -1,7 +1,5 @@
-
+import 'package:wishflix/models/movie_model.dart';
 import 'package:wishflix/providers/movie_cache_provider.dart';
-
-import '../models/movie_model.dart';
 
 class MovieRepository {
   final MovieCacheProvider _cache = MovieCacheProvider();
@@ -24,6 +22,10 @@ class MovieRepository {
 
   Future<int> deleteMovie(int id) async {
     return await _cache.deleteMovie(id);
+  }
+
+  Future<void> deleteAll() async {
+    return await _cache.deleteAll();
   }
 
   closeDatabase() async {

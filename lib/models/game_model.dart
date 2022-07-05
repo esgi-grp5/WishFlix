@@ -7,12 +7,10 @@ class Game {
   Game(
       {required this.image,
       required this.genre,
-      required this.annee,
-      required this.name,
-      required this.artist,
-      required this.album});
+      required this.dateSortie,
+      required this.name});
 
-  String image, genre, annee, name, artist, album;
+  String image, genre, dateSortie, name;
 
   int id = uuid.v4().hashCode;
 
@@ -20,10 +18,8 @@ class Game {
     return Game(
       image: json['image'],
       genre: json['genre'],
-      annee: json['annee'],
+      dateSortie: json['dateSortie'],
       name: json['name'],
-      artist: json['artist'],
-      album: json['album'],
     );
   }
 
@@ -33,9 +29,7 @@ class Game {
     data['image'] = image;
     data['name'] = name;
     data['genre'] = genre;
-    data['annee'] = annee;
-    data['artist'] = artist;
-    data['album'] = album;
+    data['dateSortie'] = dateSortie;
     return data;
   }
 
@@ -46,9 +40,7 @@ class Game {
       'image': image,
       'name': name,
       'genre': genre,
-      'annee': annee,
-      'artist': artist,
-      'album': album,
+      'dateSortie': dateSortie,
     }.toString();
   }
 }

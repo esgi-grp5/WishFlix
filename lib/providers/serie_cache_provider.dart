@@ -59,6 +59,18 @@ class SerieCacheProvider {
     // return await database.rawDelete('DELETE FROM $tableName WHERE id = ?', [id]);
   }
 
+  Future<void> deleteAll() async {
+    await initDatabase();
+    await database.execute("drop table if exists $tableName");
+    return await database.execute('''CREATE TABLE $tableName (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    image TEXT,
+                    name TEXT,
+                    genre TEXT,
+                    dateSortie TEXT
+                    )''');
+  }
+
   closeDatabase() async {
     await database.close();
   }

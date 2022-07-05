@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:wishflix/Classes/Serie.dart';
+import 'package:wishflix/models/serie_model.dart';
 
 abstract class SerieEvent extends Equatable {
   const SerieEvent();

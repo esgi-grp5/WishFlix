@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 // Classes
-import 'package:wishflix/Classes/HexColor.dart';
+import 'package:wishflix/HexColor.dart';
 import 'package:wishflix/app_routes.dart';
+import 'package:wishflix/bloc/game/game_bloc.dart';
 import 'package:wishflix/bloc/movie/movie_bloc.dart';
+import 'package:wishflix/bloc/music/music_bloc.dart';
 import 'package:wishflix/bloc/serie/serie_bloc.dart';
 import 'package:wishflix/core/di/locator.dart';
 
@@ -17,6 +19,8 @@ class MyApp extends StatelessWidget {
 
   final MovieBloc movieBloc = locator<MovieBloc>();
   final SerieBloc serieBloc = locator<SerieBloc>();
+  final GameBloc gameBloc = locator<GameBloc>();
+  final MusicBloc musicBloc = locator<MusicBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +38,12 @@ class MyApp extends StatelessWidget {
             ),
             BlocProvider<SerieBloc>(
               create: (_) => serieBloc,
+            ),
+            BlocProvider<GameBloc>(
+              create: (_) => gameBloc,
+            ),
+            BlocProvider<MusicBloc>(
+              create: (_) => musicBloc,
             ),
           ], child: widget ?? Container());
         });
