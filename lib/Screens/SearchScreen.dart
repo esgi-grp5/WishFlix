@@ -4,9 +4,11 @@ import 'package:wishflix/Widgets/Choice08.dart';
 import 'package:wishflix/Widgets/Clipper08.dart';
 
 import 'package:wishflix/Screens/main.dart' as rootPage;
+import 'package:wishflix/Widgets/CustomBottomNavBar.dart';
 
 double? width;
 double? height;
+int sel = 0;
 
 final Color discountBackground = rootPage.appTheme.primaryColor;
 final Color flightColor = rootPage.appTheme.primaryColor;
@@ -17,10 +19,10 @@ String? contentType;
 String? searchText;
 int selectedType = 0;
 
-class SearchPage extends StatelessWidget {
+class SearchScreen extends StatelessWidget {
   final String? searchTextTemp;
   final int? contentTypeIdTemp;
-  SearchPage({this.searchTextTemp, this.contentTypeIdTemp});
+  SearchScreen({this.searchTextTemp, this.contentTypeIdTemp});
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,7 @@ class SearchPage extends StatelessWidget {
     debugPrint('searchText: $searchText');
     selectedType = contentTypeIdTemp!;
     return Scaffold(
+        bottomNavigationBar: CustomBottomNavBar(0),
         appBar: AppBar(
           backgroundColor: rootPage.appTheme.primaryColor,
           leading: IconButton(

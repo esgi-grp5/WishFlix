@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 // Screens
-import 'package:wishflix/Screens/SearchPage.dart';
+import 'package:wishflix/Screens/SearchScreen.dart';
 import 'package:wishflix/Screens/main.dart' as rootPage;
-import 'package:wishflix/Screens/Notifications.dart' as notifPage;
+// import 'package:wishflix/Screens/NotificationsScreen.dart' as notifPage;
 
 // Classes
 import 'package:wishflix/Classes/Music.dart';
@@ -14,7 +14,9 @@ import 'package:wishflix/Classes/HexColor.dart';
 // Widgets
 import 'package:wishflix/Widgets/Choice08.dart';
 import 'package:wishflix/Widgets/Clipper08.dart';
+import 'package:wishflix/Widgets/CustomBottomNavBar.dart';
 import 'package:wishflix/Widgets/TrendingSection.dart';
+import 'package:wishflix/app_routes.dart';
 
 double? width;
 double? height;
@@ -23,11 +25,13 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Navigation.selindex=0;
+    debugPrint('--------- HOME SCREEN main.dart');
 
     width = MediaQuery.of(context).size.shortestSide;
     height = MediaQuery.of(context).size.longestSide;
 
     return Scaffold(
+      bottomNavigationBar: CustomBottomNavBar(0),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
@@ -146,7 +150,7 @@ class _HomeTop extends State<HomeTop> {
                               onTap: () {
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (context) {
-                                  return SearchPage(
+                                  return SearchScreen(
                                       contentTypeIdTemp: selectedType,
                                       searchTextTemp: c.text);
                                 }));
@@ -241,11 +245,7 @@ class _HomeTop extends State<HomeTop> {
                     color: Colors.white,
                   ),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => notifPage.Notification()),
-                    );
+                    Navigator.pushNamed(context, kNotifRoute);
                   }),
             )),
       ],

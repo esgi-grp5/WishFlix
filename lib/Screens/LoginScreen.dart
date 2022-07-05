@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:wishflix/Screens/main.dart' as rootPage;
+import 'package:wishflix/app_routes.dart';
 
 const users = const {
   'yan.parmentier@gmail.com': 'admin',
@@ -45,14 +46,13 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint('--------- LOGIN SCREEN');
     return FlutterLogin(
       logo: AssetImage('assets/images/logo.png'),
       onLogin: _authUser,
       onSignup: _signupUser,
       onSubmitAnimationCompleted: () {
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => rootPage.RootScreen(),
-        ));
+        Navigator.pushNamed(context, kHomeRoute);
       },
       onRecoverPassword: _recoverPassword,
       messages: LoginMessages(
