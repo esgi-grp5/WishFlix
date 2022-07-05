@@ -1,36 +1,27 @@
+// Flutter
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 // Screens
 import 'package:wishflix/Screens/SearchScreen.dart';
 import 'package:wishflix/Screens/main.dart' as rootPage;
-// import 'package:wishflix/Screens/NotificationsScreen.dart' as notifPage;
-
-// Classes
+// General
 import 'package:wishflix/HexColor.dart';
-
+import 'package:wishflix/app_routes.dart';
+import 'package:wishflix/core/di/locator.dart';
+// Classes
+import 'package:wishflix/Widgets/CustomBottomNavBar.dart';
 // Widgets
 import 'package:wishflix/Widgets/Choice08.dart';
 import 'package:wishflix/Widgets/Clipper08.dart';
-import 'package:wishflix/Widgets/CustomBottomNavBar.dart';
 import 'package:wishflix/Widgets/WishElement.dart';
-import 'package:wishflix/app_routes.dart';
-import 'package:wishflix/bloc/game/game_bloc.dart';
-import 'package:wishflix/bloc/game/game_events.dart';
-import 'package:wishflix/bloc/game/game_states.dart';
-import 'package:wishflix/bloc/movie/movie_bloc.dart';
-import 'package:wishflix/bloc/movie/movie_events.dart';
-import 'package:wishflix/bloc/movie/movie_states.dart';
-import 'package:wishflix/bloc/music/music_bloc.dart';
-import 'package:wishflix/bloc/music/music_events.dart';
-import 'package:wishflix/bloc/music/music_states.dart';
-import 'package:wishflix/bloc/serie/serie_bloc.dart';
-import 'package:wishflix/bloc/serie/serie_events.dart';
-import 'package:wishflix/bloc/serie/serie_states.dart';
-import 'package:wishflix/core/di/locator.dart';
+// Blocs
+import 'package:wishflix/bloc/export_bloc.dart';
+// Models
 import 'package:wishflix/models/game_model.dart';
 import 'package:wishflix/models/movie_model.dart';
 import 'package:wishflix/models/music_model.dart';
 import 'package:wishflix/models/serie_model.dart';
+// Repository
 import 'package:wishflix/repository/game_repository.dart';
 import 'package:wishflix/repository/movie_repository.dart';
 import 'package:wishflix/repository/music_repository.dart';
