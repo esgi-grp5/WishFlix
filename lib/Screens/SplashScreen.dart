@@ -4,7 +4,6 @@ import 'package:wishflix/Screens/LoginScreen.dart';
 import 'package:wishflix/Screens/main.dart' as rootPage;
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:wishflix/app_routes.dart';
 
 // import 'package:wishflix/Screens/main.dart';
 

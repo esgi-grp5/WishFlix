@@ -1,11 +1,11 @@
 import 'package:sqflite/sqflite.dart';
-import 'package:wishflix/models/movie_model.dart';
+import 'package:wishflix/models/serie_model.dart';
 
-class MovieCacheProvider {
-  static const _name = "MoviesDatabase.db";
+class SerieCacheProvider {
+  static const _name = "SeriesDatabase.db";
   static const _version = 2;
   late Database database;
-  static const tableName = 'movies';
+  static const tableName = 'series';
 
   initDatabase() async {
     database = await openDatabase(_name, version: _version,
@@ -20,27 +20,27 @@ class MovieCacheProvider {
     });
   }
 
-  Future<int> insertMovie(Movie movie) async {
+  Future<int> insertSerie(Serie serie) async {
     await initDatabase();
-    return await database.insert(tableName, movie.toMap(),
+    return await database.insert(tableName, serie.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
-  Future<int> updateMovie(Movie movie) async {
+  Future<int> updateSerie(Serie serie) async {
     await initDatabase();
-    return await database.update(tableName, movie.toMap(),
+    return await database.update(tableName, serie.toMap(),
         where: "id = ?",
-        whereArgs: [movie.id],
+        whereArgs: [serie.id],
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
-  Future<List<Movie>> getAllMovies() async {
+  Future<List<Serie>> getAllSeries() async {
     await initDatabase();
     var result = await database.query(tableName);
-    return result.map((e) => Movie.fromJson(e)).toList();
+    return result.map((e) => Serie.fromJson(e)).toList();
   }
 
-  Future<Map<String, dynamic>?> getMovies(int id) async {
+  Future<Map<String, dynamic>?> getSeries(int id) async {
     await initDatabase();
     var result =
         await database.query(tableName, where: "id = ?", whereArgs: [id]);
@@ -52,7 +52,7 @@ class MovieCacheProvider {
     return null;
   }
 
-  Future<int> deleteMovie(int id) async {
+  Future<int> deleteSerie(int id) async {
     await initDatabase();
     print("id: $id");
     return await database.delete(tableName, where: "id = ?", whereArgs: [id]);
