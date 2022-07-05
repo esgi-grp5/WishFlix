@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:wishflix/Screens/HomeScreen.dart' as homePage;
 import 'package:wishflix/Screens/main.dart' as rootPage;
 import 'package:wishflix/app_routes.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   final int index;
   CustomBottomNavBar(this.index);
-  // flutter init function
-  @override
-  void initState() {}
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
