@@ -14,8 +14,9 @@ class MusicCacheProvider {
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     image TEXT,
                     name TEXT,
+                    artist TEXT,
                     genre TEXT,
-                    dateSortie TEXT
+                    annee TEXT
                     )''');
     });
   }
@@ -57,6 +58,19 @@ class MusicCacheProvider {
     print("id: $id");
     return await database.delete(tableName, where: "id = ?", whereArgs: [id]);
     // return await database.rawDelete('DELETE FROM $tableName WHERE id = ?', [id]);
+  }
+
+  Future<void> deleteAll() async {
+    await initDatabase();
+    await database.execute("drop table if exists $tableName");
+    return await database.execute('''CREATE TABLE $tableName (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    image TEXT,
+                    name TEXT,
+                    artist TEXT,
+                    genre TEXT,
+                    annee TEXT
+                    )''');
   }
 
   closeDatabase() async {

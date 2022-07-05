@@ -4,24 +4,31 @@ import 'package:wishflix/Screens/NotificationsScreen.dart' as prefix0;
 import 'package:wishflix/Screens/main.dart' as rootPage;
 
 // Classes
-import 'package:wishflix/Classes/HexColor.dart';
-import 'package:wishflix/Classes/Music.dart';
-import 'package:wishflix/Classes/Game.dart';
+import 'package:wishflix/HexColor.dart';
 import 'package:wishflix/Widgets/CustomBottomNavBar.dart';
 // Widgets
-import 'package:wishflix/Widgets/TrendingSection.dart';
 import 'package:wishflix/Widgets/Choice08.dart';
 import 'package:wishflix/Widgets/Clipper08.dart';
 import 'package:wishflix/Widgets/WishElement.dart';
+import 'package:wishflix/bloc/game/game_bloc.dart';
+import 'package:wishflix/bloc/game/game_events.dart';
+import 'package:wishflix/bloc/game/game_states.dart';
 import 'package:wishflix/bloc/movie/movie_bloc.dart';
 import 'package:wishflix/bloc/movie/movie_events.dart';
 import 'package:wishflix/bloc/movie/movie_states.dart';
+import 'package:wishflix/bloc/music/music_bloc.dart';
+import 'package:wishflix/bloc/music/music_events.dart';
+import 'package:wishflix/bloc/music/music_states.dart';
 import 'package:wishflix/bloc/serie/serie_bloc.dart';
 import 'package:wishflix/bloc/serie/serie_events.dart';
 import 'package:wishflix/bloc/serie/serie_states.dart';
 import 'package:wishflix/core/di/locator.dart';
+import 'package:wishflix/models/game_model.dart';
+import 'package:wishflix/models/music_model.dart';
 import 'package:wishflix/models/serie_model.dart';
+import 'package:wishflix/repository/game_repository.dart';
 import 'package:wishflix/repository/movie_repository.dart';
+import 'package:wishflix/repository/music_repository.dart';
 import 'package:wishflix/repository/serie_repository.dart';
 
 import '../models/movie_model.dart';
@@ -44,17 +51,27 @@ class _WishListScreenState extends State<WishListScreen> {
   // SERIE
   final SerieRepository _serieRepository = SerieRepository();
   final SerieBloc serieBloc = locator<SerieBloc>();
+  // MUSIQUE
+  final MusicRepository _musicRepository = MusicRepository();
+  final MusicBloc musicBloc = locator<MusicBloc>();
+  // JEUX
+  final GameRepository _gameRepository = GameRepository();
+  final GameBloc gameBloc = locator<GameBloc>();
 
-  loadMovies() {
+  loadAllBloc() {
     movieBloc.add(GetAllMoviesEvent());
-  }
-
-  loadSeries() {
     serieBloc.add(GetAllSeriesEvent());
+    musicBloc.add(GetAllMusicsEvent());
+    gameBloc.add(GetAllGamesEvent());
   }
 
   @override
   void initState() {
+    // _gameRepository.deleteAll();
+    // _movieRepository.deleteAll();
+    // _serieRepository.deleteAll();
+    // _musicRepository.deleteAll();
+
     Movie movie = Movie(
         image: 'assets/images/Tehran.png',
         name: 'Name test',
@@ -62,9 +79,14 @@ class _WishListScreenState extends State<WishListScreen> {
         dateSortie: 'Novembre 2002');
 
     _movieRepository.insertMovie(movie);
+
+    movie = Movie(
+        image: 'assets/images/Tehran.png',
+        name: 'Name test',
+        genre: 'genre test',
+        dateSortie: 'Novembre 2002');
+
     _movieRepository.insertMovie(movie);
-    _movieRepository.insertMovie(movie);
-    loadMovies();
 
     Serie serie = Serie(
       image: "assets/images/Kerman.png",
@@ -74,9 +96,50 @@ class _WishListScreenState extends State<WishListScreen> {
     );
 
     _serieRepository.insertSerie(serie);
+    serie = Serie(
+      image: "assets/images/Kerman.png",
+      name: "Games of throne",
+      genre: "Aventure",
+      dateSortie: "Fevrier 2019",
+    );
+
     _serieRepository.insertSerie(serie);
-    _serieRepository.insertSerie(serie);
-    loadSeries();
+
+    Music music = Music(
+      image: "assets/images/Kerman.png",
+      name: "Lose yourself",
+      artist: "eminem",
+      genre: "Rap",
+      annee: "2002",
+    );
+
+    _musicRepository.insertMusic(music);
+    music = Music(
+      image: "assets/images/Kerman.png",
+      name: "Lose yourself",
+      artist: "eminem",
+      genre: "Rap",
+      annee: "2002",
+    );
+    _musicRepository.insertMusic(music);
+
+    Game game = Game(
+      image: "assets/images/Kerman.png",
+      name: "Call of duty",
+      genre: "Action",
+      dateSortie: "Fevrier 2019",
+    );
+
+    _gameRepository.insertGame(game);
+    game = Game(
+      image: "assets/images/Kerman.png",
+      name: "Call of duty",
+      genre: "Action",
+      dateSortie: "Fevrier 2019",
+    );
+    _gameRepository.insertGame(game);
+
+    loadAllBloc();
 
     super.initState();
   }
@@ -290,52 +353,6 @@ class _WishListTop extends State<WishListTop> {
   }
 }
 
-// var myMovieList =
-//     TrendingSection(name: "Mes films", list: Movie.getDemo());
-// var mySerieList = TrendingSection(name: "Mes séries", list: Serie.getDemo());
-var myMusicList = TrendingSection(name: "Mes musiques", list: Music.getDemo());
-var myGameList = TrendingSection(name: "Mes jeux", list: Game.getDemo());
-
-// var myMovieList =
-//         Column(
-//           children: [
-//             SingleChildScrollView(
-//               child: BlocBuilder<MovieBloc, MovieState>(
-//                 buildWhen: (previous, current) => previous is MovieListLoadingState,
-//                 builder: (context, state) {
-//                   if (state is MovieListSuccessState) {
-//                     return ListView(
-//                       shrinkWrap: true,
-//                       children: state.movies
-//                           .map((movie) => ListTile(
-//                                 title: Text(movie.name),
-//                                 subtitle: Text(movie.genre),
-//                                 // onTap: () {
-//                                 //   // Navigator.pushNamed(context, '/movie');
-//                                 //   Navigator.push(
-//                                 //       context,
-//                                 //       MaterialPageRoute(
-//                                 //         builder: (context) =>
-//                                 //             MovieScreen(movie: movie),
-//                                 //       ));
-//                                 // },
-//                               ))
-//                           .toList(),
-//                     );
-//                   }
-//                   if (state is MovieListLoadingState) {
-//                     return const Center(child: CircularProgressIndicator());
-//                   }
-//                   if (state is MovieListErrorState) {
-//                     return Center(child: Text(state.error));
-//                   }
-//                   return Container();
-//                 },
-//               ),
-//             ),
-//           ],
-//         );
-
 var myMovieList = Column(
   children: <Widget>[
     Padding(
@@ -460,10 +477,127 @@ var mySerieList = Column(
     ),
   ],
 );
-
-// WishElement(
-//   image: movie.image,
-//   titre: movie.name,
-//   sousTitre: movie.genre,
-//   date: movie.dateSortie,
-// ),
+var myGameList = Column(
+  children: <Widget>[
+    Padding(
+      padding: const EdgeInsets.all(15),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          // SizedBox(
+          //   width: width! * 0.05,
+          // ),
+          Text(
+            "Vos jeux",
+            style: TextStyle(color: Colors.black, fontSize: 16),
+          ),
+          Spacer(),
+          Text("AFFICHER PLUS",
+              style: TextStyle(
+                  fontSize: 14, color: rootPage.appTheme.primaryColor))
+        ],
+      ),
+    ),
+    Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Container(
+        height: height! * .25 < 170 ? height! * .25 : 170,
+        //height: height! * .25 < 300 ? height! * .25 : 300,
+        // child:
+        // ConstrainedBox(
+        //   constraints: BoxConstraints(maxHeight: 170, minHeight: height! * .13),
+        child: BlocBuilder<GameBloc, GameState>(
+          buildWhen: (previous, current) => previous is GameListLoadingState,
+          builder: (context, state) {
+            if (state is GameListSuccessState) {
+              return ListView(
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: true,
+                children: state.games
+                    .map(
+                      (game) => WishElement(
+                        image: game.image,
+                        titre: game.name,
+                        sousTitre: game.genre,
+                        date: game.dateSortie,
+                      ),
+                    )
+                    .toList(),
+              );
+            }
+            if (state is GameListLoadingState) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (state is GameListErrorState) {
+              return Center(child: Text(state.error));
+            }
+            return Container();
+          },
+        ),
+      ),
+    ),
+  ],
+);
+var myMusicList = Column(
+  children: <Widget>[
+    Padding(
+      padding: const EdgeInsets.all(15),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          // SizedBox(
+          //   width: width! * 0.05,
+          // ),
+          Text(
+            "Vos jeux",
+            style: TextStyle(color: Colors.black, fontSize: 16),
+          ),
+          Spacer(),
+          Text("AFFICHER PLUS",
+              style: TextStyle(
+                  fontSize: 14, color: rootPage.appTheme.primaryColor))
+        ],
+      ),
+    ),
+    Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Container(
+        height: height! * .25 < 170 ? height! * .25 : 170,
+        //height: height! * .25 < 300 ? height! * .25 : 300,
+        // child:
+        // ConstrainedBox(
+        //   constraints: BoxConstraints(maxHeight: 170, minHeight: height! * .13),
+        child: BlocBuilder<MusicBloc, MusicState>(
+          buildWhen: (previous, current) => previous is MusicListLoadingState,
+          builder: (context, state) {
+            if (state is MusicListSuccessState) {
+              return ListView(
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: true,
+                children: state.musics
+                    .map(
+                      (music) => WishElement(
+                        image: music.image,
+                        titre: music.name,
+                        sousTitre: music.artist,
+                        date: music.annee,
+                      ),
+                    )
+                    .toList(),
+              );
+            }
+            if (state is MusicListLoadingState) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (state is MusicListErrorState) {
+              return Center(child: Text(state.error));
+            }
+            return Container();
+          },
+        ),
+      ),
+    ),
+  ],
+);

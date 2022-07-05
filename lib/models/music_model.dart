@@ -7,10 +7,11 @@ class Music {
   Music(
       {required this.image,
       required this.genre,
-      required this.dateSortie,
+      required this.artist,
+      required this.annee,
       required this.name});
 
-  String image, genre, dateSortie, name;
+  String image, genre, name, artist, annee;
 
   int id = uuid.v4().hashCode;
 
@@ -18,8 +19,9 @@ class Music {
     return Music(
       image: json['image'],
       genre: json['genre'],
-      dateSortie: json['dateSortie'],
       name: json['name'],
+      artist: json['artist'],
+      annee: json['annee'],
     );
   }
 
@@ -29,7 +31,8 @@ class Music {
     data['image'] = image;
     data['name'] = name;
     data['genre'] = genre;
-    data['dateSortie'] = dateSortie;
+    data['artist'] = artist;
+    data['annee'] = annee;
     return data;
   }
 
@@ -40,7 +43,8 @@ class Music {
       'image': image,
       'name': name,
       'genre': genre,
-      'dateSortie': dateSortie
+      'artist': artist,
+      'annee': annee,
     }.toString();
   }
 }

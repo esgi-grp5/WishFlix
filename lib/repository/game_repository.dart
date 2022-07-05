@@ -16,6 +16,10 @@ class GameRepository {
     return await _cache.getAllGames();
   }
 
+  Future<void> deleteAll() async {
+    return await _cache.deleteAll();
+  }
+
   Future<Map<String, dynamic>?> getGames(int id) async {
     return await _cache.getGames(id);
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wishflix/Widgets/Clipper08.dart';
-import 'package:wishflix/Classes/HexColor.dart';
+import 'package:wishflix/HexColor.dart';
 import 'package:wishflix/Screens/main.dart' as rootPage;
 import 'package:wishflix/Widgets/CustomBottomNavBar.dart';
 import 'package:wishflix/app_routes.dart';
