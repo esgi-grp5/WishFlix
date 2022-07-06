@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:wishflix/Screens/main.dart' as rootPage;
+import 'package:wishflix/Widgets/General/OAuth.dart';
 import 'package:wishflix/core/di/app_routes.dart';
+import 'package:http/http.dart' as http;
 
 const users = const {
   'yan.parmentier@gmail.com': 'admin',
@@ -44,9 +48,40 @@ class LoginScreen extends StatelessWidget {
     });
   }
 
+  Future<String> userExists(token) async {
+    // login, password, token
+    var data;
+
+    var response = await http.get(
+      Uri.parse('http://87.106.171.75:3000/hello'),
+      headers: <String, String>{
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    print('Token: $token');
+
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+    debugPrint('--------- Hello response code : ${response.statusCode}');
+    if (response.statusCode == 200) {
+      Map<String, dynamic> res = jsonDecode(response.body);
+      if (res.containsKey("data")) {
+        data = res["data"];
+        debugPrint('--------- data : $data');
+      }
+    }
+    return data;
+  }
+
   @override
   Widget build(BuildContext context) {
     debugPrint('--------- LOGIN SCREEN');
+    final OAuth oAuth = OAuth();
+    String token = oAuth.getToken();
+
+    userExists(token);
+
     return FlutterLogin(
       logo: AssetImage('assets/images/logo.png'),
       onLogin: _authUser,

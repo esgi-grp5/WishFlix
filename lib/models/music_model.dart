@@ -18,8 +18,6 @@ class Music extends Base {
   String artist, album;
 
   factory Music.fromJson(Map<String, dynamic> json) {
-    debugPrint('--------- JSON : $json');
-
     return Music(
       image: json['image'],
       genre: json['genre'],

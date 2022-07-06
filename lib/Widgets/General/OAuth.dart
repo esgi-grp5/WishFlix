@@ -12,14 +12,20 @@ class OAuth {
 
   OAuth._internal();
 
-  Future<String> getToken() async {
+  Future<String> requestToken() async {
     // Get token from api OAuth
-    var url = Uri.parse('http://87.106.171.75:3000/oauth/');
-    var body = {
-      "client_id": "flutter",
-      "client_secret": "Xh7BY4MaPMwkmD-.3ULr"
-    };
-    var response = await http.post(url, body: body);
+
+    var response = await http.post(
+      Uri.parse('http://87.106.171.75:3000/oauth'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'client_id': "flutter",
+        'client_secret': "Xh7BY4MaPMwkmD-.3ULr"
+      }),
+    );
+
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
     debugPrint('--------- OAuth response code : ${response.statusCode}');
@@ -30,6 +36,10 @@ class OAuth {
         debugPrint('--------- OAuth token : $token');
       }
     }
+    return token;
+  }
+
+  String getToken() {
     return token;
   }
 }
