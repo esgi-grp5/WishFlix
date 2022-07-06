@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     debugPrint('--------- MAIN SCREEN main.dart');
 
-    oAuth.getToken();
+    oAuth.requestToken();
 
     final GameBloc gameBloc = locator<GameBloc>();
     final MovieRepository _movieRepository = MovieRepository();
