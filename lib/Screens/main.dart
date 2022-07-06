@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
   final GameBloc gameBloc = locator<GameBloc>();
   final MusicBloc musicBloc = locator<MusicBloc>();
 
-  OAuth oAuth = OAuth();
+  final OAuth oAuth = OAuth();
 
   @override
   Widget build(BuildContext context) {
