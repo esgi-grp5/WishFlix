@@ -20,6 +20,7 @@ class LoginScreen extends StatelessWidget {
 
   Future<String?> _authUser(LoginData data) {
     debugPrint('Name: ${data.name}, Password: ${data.password}');
+
     return Future.delayed(loginTime).then((_) {
       if (!users.containsKey(data.name)) {
         return 'User not exists';
@@ -48,7 +49,10 @@ class LoginScreen extends StatelessWidget {
     });
   }
 
-  Future<String> userExists(token) async {
+  Future<String?> authUserApi(LoginData data) async {
+    final OAuth oAuth = OAuth();
+    String token = oAuth.getToken();
+
     // login, password, token
     var data;
 
@@ -58,8 +62,6 @@ class LoginScreen extends StatelessWidget {
         'Authorization': 'Bearer $token',
       },
     );
-
-    print('Token: $token');
 
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
@@ -71,20 +73,22 @@ class LoginScreen extends StatelessWidget {
         debugPrint('--------- data : $data');
       }
     }
-    return data;
+    return Future.delayed(loginTime).then((_) {
+      if (data == "Hello world!") {
+        return null;
+      } else {
+        return "Erreur";
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     debugPrint('--------- LOGIN SCREEN');
-    final OAuth oAuth = OAuth();
-    String token = oAuth.getToken();
-
-    userExists(token);
 
     return FlutterLogin(
       logo: AssetImage('assets/images/logo.png'),
-      onLogin: _authUser,
+      onLogin: authUserApi,
       onSignup: _signupUser,
       onSubmitAnimationCompleted: () {
         Navigator.pushNamed(context, kHomeRoute);
