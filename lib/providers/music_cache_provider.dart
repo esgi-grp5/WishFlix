@@ -21,6 +21,26 @@ class MusicCacheProvider {
     });
   }
 
+  Future<int> insertDefaultData() async {
+    await initDatabase();
+    Music music = Music(
+      image: "assets/images/Kerman.png",
+      name: "Lose yourself",
+      artist: "eminem",
+      genre: "Rap",
+      annee: "2002",
+    );
+    await insertMusic(music);
+    music = Music(
+      image: "assets/images/Kerman.png",
+      name: "Lose yourself",
+      artist: "eminem",
+      genre: "Rap",
+      annee: "2002",
+    );
+    return await insertMusic(music);
+  }
+
   Future<int> insertMusic(Music music) async {
     await initDatabase();
     return await database.insert(tableName, music.toMap(),

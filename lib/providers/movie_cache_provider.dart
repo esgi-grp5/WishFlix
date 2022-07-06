@@ -20,6 +20,22 @@ class MovieCacheProvider {
     });
   }
 
+  Future<int> insertDefaultData() async {
+    await initDatabase();
+    Movie movie = Movie(
+        image: 'assets/images/Tehran.png',
+        name: 'Name test',
+        genre: 'genre test',
+        dateSortie: 'Novembre 2002');
+    await insertMovie(movie);
+    movie = Movie(
+        image: 'assets/images/Tehran.png',
+        name: 'Name test',
+        genre: 'genre test',
+        dateSortie: 'Novembre 2002');
+    return await insertMovie(movie);
+  }
+
   Future<int> insertMovie(Movie movie) async {
     await initDatabase();
     return await database.insert(tableName, movie.toMap(),

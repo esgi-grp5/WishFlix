@@ -15,16 +15,6 @@ import 'package:wishflix/Widgets/Clipper08.dart';
 import 'package:wishflix/Widgets/WishElement.dart';
 // Blocs
 import 'package:wishflix/bloc/export_bloc.dart';
-// Models
-import 'package:wishflix/models/game_model.dart';
-import 'package:wishflix/models/movie_model.dart';
-import 'package:wishflix/models/music_model.dart';
-import 'package:wishflix/models/serie_model.dart';
-// Repository
-import 'package:wishflix/repository/game_repository.dart';
-import 'package:wishflix/repository/movie_repository.dart';
-import 'package:wishflix/repository/music_repository.dart';
-import 'package:wishflix/repository/serie_repository.dart';
 
 double? width;
 double? height;
@@ -38,17 +28,9 @@ class WishListScreen extends StatefulWidget {
 }
 
 class _WishListScreenState extends State<WishListScreen> {
-  // MOVIE
-  final MovieRepository _movieRepository = MovieRepository();
   final MovieBloc movieBloc = locator<MovieBloc>();
-  // SERIE
-  final SerieRepository _serieRepository = SerieRepository();
   final SerieBloc serieBloc = locator<SerieBloc>();
-  // MUSIQUE
-  final MusicRepository _musicRepository = MusicRepository();
   final MusicBloc musicBloc = locator<MusicBloc>();
-  // JEUX
-  final GameRepository _gameRepository = GameRepository();
   final GameBloc gameBloc = locator<GameBloc>();
 
   loadAllBloc() {
@@ -60,80 +42,7 @@ class _WishListScreenState extends State<WishListScreen> {
 
   @override
   void initState() {
-    // _gameRepository.deleteAll();
-    // _movieRepository.deleteAll();
-    // _serieRepository.deleteAll();
-    // _musicRepository.deleteAll();
-
-    Movie movie = Movie(
-        image: 'assets/images/Tehran.png',
-        name: 'Name test',
-        genre: 'genre test',
-        dateSortie: 'Novembre 2002');
-
-    _movieRepository.insertMovie(movie);
-
-    movie = Movie(
-        image: 'assets/images/Tehran.png',
-        name: 'Name test',
-        genre: 'genre test',
-        dateSortie: 'Novembre 2002');
-
-    _movieRepository.insertMovie(movie);
-
-    Serie serie = Serie(
-      image: "assets/images/Kerman.png",
-      name: "Games of throne",
-      genre: "Aventure",
-      dateSortie: "Fevrier 2019",
-    );
-
-    _serieRepository.insertSerie(serie);
-    serie = Serie(
-      image: "assets/images/Kerman.png",
-      name: "Games of throne",
-      genre: "Aventure",
-      dateSortie: "Fevrier 2019",
-    );
-
-    _serieRepository.insertSerie(serie);
-
-    Music music = Music(
-      image: "assets/images/Kerman.png",
-      name: "Lose yourself",
-      artist: "eminem",
-      genre: "Rap",
-      annee: "2002",
-    );
-
-    _musicRepository.insertMusic(music);
-    music = Music(
-      image: "assets/images/Kerman.png",
-      name: "Lose yourself",
-      artist: "eminem",
-      genre: "Rap",
-      annee: "2002",
-    );
-    _musicRepository.insertMusic(music);
-
-    Game game = Game(
-      image: "assets/images/Kerman.png",
-      name: "Call of duty",
-      genre: "Action",
-      dateSortie: "Fevrier 2019",
-    );
-
-    _gameRepository.insertGame(game);
-    game = Game(
-      image: "assets/images/Kerman.png",
-      name: "Call of duty",
-      genre: "Action",
-      dateSortie: "Fevrier 2019",
-    );
-    _gameRepository.insertGame(game);
-
     loadAllBloc();
-
     super.initState();
   }
 

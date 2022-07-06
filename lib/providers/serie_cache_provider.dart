@@ -20,6 +20,24 @@ class SerieCacheProvider {
     });
   }
 
+  Future<int> insertDefaultData() async {
+    await initDatabase();
+    Serie serie = Serie(
+      image: "assets/images/Kerman.png",
+      name: "Games of throne",
+      genre: "Aventure",
+      dateSortie: "Fevrier 2019",
+    );
+    await insertSerie(serie);
+    serie = Serie(
+      image: "assets/images/Kerman.png",
+      name: "Games of throne",
+      genre: "Aventure",
+      dateSortie: "Fevrier 2019",
+    );
+    return await insertSerie(serie);
+  }
+
   Future<int> insertSerie(Serie serie) async {
     await initDatabase();
     return await database.insert(tableName, serie.toMap(),

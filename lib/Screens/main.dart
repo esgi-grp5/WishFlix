@@ -8,6 +8,10 @@ import 'package:wishflix/bloc/movie/movie_bloc.dart';
 import 'package:wishflix/bloc/music/music_bloc.dart';
 import 'package:wishflix/bloc/serie/serie_bloc.dart';
 import 'package:wishflix/core/di/locator.dart';
+import 'package:wishflix/repository/game_repository.dart';
+import 'package:wishflix/repository/movie_repository.dart';
+import 'package:wishflix/repository/music_repository.dart';
+import 'package:wishflix/repository/serie_repository.dart';
 
 void main() {
   setupLocator();
@@ -25,6 +29,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     debugPrint('--------- MAIN SCREEN main.dart');
+    final GameBloc gameBloc = locator<GameBloc>();
+
+    final MovieRepository _movieRepository = MovieRepository();
+    final SerieRepository _serieRepository = SerieRepository();
+    final MusicRepository _musicRepository = MusicRepository();
+    final GameRepository _gameRepository = GameRepository();
+    _gameRepository.insertDefaultData();
+    _movieRepository.insertDefaultData();
+    _serieRepository.insertDefaultData();
+    _musicRepository.insertDefaultData();
+
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'WishList',

@@ -20,6 +20,24 @@ class GameCacheProvider {
     });
   }
 
+  Future<int> insertDefaultData() async {
+    await initDatabase();
+    Game game = Game(
+      image: "assets/images/Kerman.png",
+      name: "Call of duty",
+      genre: "Action",
+      dateSortie: "Fevrier 2019",
+    );
+    await insertGame(game);
+    game = Game(
+      image: "assets/images/Kerman.png",
+      name: "Call of duty",
+      genre: "Action",
+      dateSortie: "Fevrier 2019",
+    );
+    return await insertGame(game);
+  }
+
   Future<int> insertGame(Game game) async {
     await initDatabase();
     return await database.insert(tableName, game.toMap(),
