@@ -15,16 +15,6 @@ import 'package:wishflix/Widgets/Clipper08.dart';
 import 'package:wishflix/Widgets/WishElement.dart';
 // Blocs
 import 'package:wishflix/bloc/export_bloc.dart';
-// Models
-import 'package:wishflix/models/game_model.dart';
-import 'package:wishflix/models/movie_model.dart';
-import 'package:wishflix/models/music_model.dart';
-import 'package:wishflix/models/serie_model.dart';
-// Repository
-import 'package:wishflix/repository/game_repository.dart';
-import 'package:wishflix/repository/movie_repository.dart';
-import 'package:wishflix/repository/music_repository.dart';
-import 'package:wishflix/repository/serie_repository.dart';
 
 double? width;
 double? height;
