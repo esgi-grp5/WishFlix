@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:wishflix/Screens/main.dart' as rootPage;
 // General
 
-import 'package:wishflix/Widgets/ListViewWishEl.dart';
+import 'package:wishflix/Widgets/DisplayItem/ListViewWishEl.dart';
 import 'package:wishflix/core/di/HexColor.dart';
 import 'package:wishflix/core/di/app_routes.dart';
 import 'package:wishflix/core/di/locator.dart';
