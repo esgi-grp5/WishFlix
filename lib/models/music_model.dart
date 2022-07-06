@@ -1,9 +1,6 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:wishflix/Screens/ViewScreens/UniversalViewScreen.dart';
 import 'package:wishflix/Widgets/DisplayItem/ImageTitle.dart';
-import 'package:wishflix/Widgets/DisplayItem/RateSection.dart';
 import 'package:wishflix/Widgets/DisplayItem/RowInformationsWithTitle.dart';
 import 'package:wishflix/Widgets/DisplayItem/RowWishListInfo.dart';
 import 'package:wishflix/models/base_model.dart';
