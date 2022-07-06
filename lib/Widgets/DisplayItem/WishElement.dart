@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wishflix/core/di/app_routes.dart';
+import 'package:wishflix/models/base_model.dart';
 
 double? width;
 double? height;
@@ -9,12 +9,14 @@ class WishElement extends StatefulWidget {
   final String? titre;
   final String? sousTitre;
   final String? date;
+  final Base base;
 
   WishElement(
       {required this.image,
       required this.titre,
       required this.sousTitre,
-      required this.date});
+      required this.date,
+      required this.base});
   @override
   _WishElementState createState() => _WishElementState();
 }
@@ -27,7 +29,8 @@ class _WishElementState extends State<WishElement>
     height = MediaQuery.of(context).size.longestSide;
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, kMovieViewRoute);
+        // Navigator.pushNamed(context, kMovieViewRoute);
+        widget.base.goToPage(context);
       },
       child: Column(
         children: <Widget>[
