@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_notes/app/screens/note/note_screen.dart';
 import 'package:wishflix/Screens/HomeScreen.dart';
 import 'package:wishflix/Screens/LoginScreen.dart';
 import 'package:wishflix/Screens/NotificationsScreen.dart';
 import 'package:wishflix/Screens/ProfilScreen.dart';
 import 'package:wishflix/Screens/SearchScreen.dart';
 import 'package:wishflix/Screens/SplashScreen.dart';
+import 'package:wishflix/Screens/ViewScreens/MovieViewScreen.dart';
 import 'package:wishflix/Screens/WishListScreen.dart';
 
 const kMainRoute = '/';
@@ -15,6 +15,7 @@ const kProfilRoute = '/profil';
 const kSearchRoute = '/search';
 const kWishRoute = '/wishList';
 const kNotifRoute = '/notifications';
+const kMovieViewRoute = '/movieView';
 
 final Map<String, WidgetBuilder> kRoutes = {
   kMainRoute: (_) => SplashScreen(),
@@ -24,4 +25,5 @@ final Map<String, WidgetBuilder> kRoutes = {
   kSearchRoute: (_) => SearchScreen(),
   kWishRoute: (_) => WishListScreen(),
   kNotifRoute: (_) => NotificationScreen(),
+  kMovieViewRoute: (_) => MovieViewScreen(),
 };
