@@ -21,7 +21,7 @@ class _Choice08State extends State<Choice08>
     height = MediaQuery.of(context).size.longestSide;
 
     return Container(
-      width: 120,
+      width: 140,
       padding: EdgeInsets.symmetric(horizontal: 18, vertical: 8),
       decoration: widget.selected!
           ? BoxDecoration(
@@ -31,7 +31,7 @@ class _Choice08State extends State<Choice08>
           : null,
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Icon(
             widget.icon,
