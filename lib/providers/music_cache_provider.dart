@@ -26,19 +26,19 @@ class MusicCacheProvider {
     await initDatabase();
     Music music = Music(
       image: "assets/images/Kerman.png",
-      name: "Lose yourself",
-      artist: "eminem",
       genre: "Rap",
       dateSortie: "2002",
+      name: "Lose yourself",
+      artist: "eminem",
       album: "Oui",
     );
     await insertMusic(music);
     music = Music(
       image: "assets/images/Kerman.png",
-      name: "Lose yourself",
-      artist: "eminem",
       genre: "Rap",
       dateSortie: "2002",
+      name: "Lose yourself",
+      artist: "eminem",
       album: "Oui",
     );
     return await insertMusic(music);

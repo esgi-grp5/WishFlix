@@ -43,7 +43,7 @@ class Music extends Base {
 
     screenBody.add(ImageTitle(
         title: this.name,
-        subTitle1: "2h23",
+        subTitle1: this.artist,
         subTitle2: this.genre,
         imageAssetUrl: this.image));
     screenBody
