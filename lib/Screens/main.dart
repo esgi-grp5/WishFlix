@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wishflix/Widgets/General/OAuth.dart';
 // Classes
 import 'package:wishflix/core/di/HexColor.dart';
 import 'package:wishflix/core/di/app_routes.dart';
@@ -25,6 +26,8 @@ class MyApp extends StatelessWidget {
   final SerieBloc serieBloc = locator<SerieBloc>();
   final GameBloc gameBloc = locator<GameBloc>();
   final MusicBloc musicBloc = locator<MusicBloc>();
+
+  final OAuth oAuth = OAuth();
 
   @override
   Widget build(BuildContext context) {
