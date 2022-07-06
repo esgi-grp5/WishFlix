@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 // Screens
 import 'package:wishflix/Screens/main.dart' as rootPage;
 // General
+
 import 'package:wishflix/HexColor.dart';
 import 'package:wishflix/Widgets/ListViewWishEl.dart';
 import 'package:wishflix/app_routes.dart';
 import 'package:wishflix/core/di/locator.dart';
 // Classes
-import 'package:wishflix/Widgets/CustomBottomNavBar.dart';
+import 'package:wishflix/Widgets/General/CustomBottomNavBar.dart';
 // Widgets
 import 'package:wishflix/Widgets/Choice08.dart';
 import 'package:wishflix/Widgets/Clipper08.dart';
+
 // Blocs
 import 'package:wishflix/bloc/export_bloc.dart';
 
