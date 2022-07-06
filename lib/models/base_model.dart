@@ -44,5 +44,5 @@ abstract class Base {
     }.toString();
   }
 
-  void goToPage();
+  void goToPage(context);
 }

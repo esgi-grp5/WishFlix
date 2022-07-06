@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wishflix/Widgets/WishElement.dart';
+import 'package:wishflix/Widgets/DisplayItem/WishElement.dart';
 import 'package:wishflix/bloc/export_bloc.dart';
 import 'package:wishflix/Screens/main.dart' as rootPage;
 
@@ -33,11 +33,11 @@ class _ListViewWishElState extends State<ListViewWishEl>
                 children: state.musics
                     .map(
                       (music) => WishElement(
-                        image: music.image,
-                        titre: music.name,
-                        sousTitre: music.artist,
-                        date: music.dateSortie,
-                      ),
+                          image: music.image,
+                          titre: music.name,
+                          sousTitre: music.artist,
+                          date: music.dateSortie,
+                          base: music),
                     )
                     .toList(),
               );
@@ -64,11 +64,11 @@ class _ListViewWishElState extends State<ListViewWishEl>
                 children: state.series
                     .map(
                       (serie) => WishElement(
-                        image: serie.image,
-                        titre: serie.name,
-                        sousTitre: serie.genre,
-                        date: serie.dateSortie,
-                      ),
+                          image: serie.image,
+                          titre: serie.name,
+                          sousTitre: serie.genre,
+                          date: serie.dateSortie,
+                          base: serie),
                     )
                     .toList(),
               );
@@ -94,11 +94,11 @@ class _ListViewWishElState extends State<ListViewWishEl>
                 children: state.games
                     .map(
                       (game) => WishElement(
-                        image: game.image,
-                        titre: game.name,
-                        sousTitre: game.genre,
-                        date: game.dateSortie,
-                      ),
+                          image: game.image,
+                          titre: game.name,
+                          sousTitre: game.genre,
+                          date: game.dateSortie,
+                          base: game),
                     )
                     .toList(),
               );
@@ -128,6 +128,7 @@ class _ListViewWishElState extends State<ListViewWishEl>
                         titre: movie.name,
                         sousTitre: movie.genre,
                         date: movie.dateSortie,
+                        base: movie,
                       ),
                     )
                     .toList(),
@@ -156,7 +157,7 @@ class _ListViewWishElState extends State<ListViewWishEl>
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
-                "Vos jeux",
+                "Your ${widget.typeElements}",
                 style: TextStyle(color: Colors.black, fontSize: 16),
               ),
               Spacer(),

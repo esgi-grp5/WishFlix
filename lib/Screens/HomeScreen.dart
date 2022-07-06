@@ -280,11 +280,11 @@ var trendingMovies = Column(
                 children: state.movies
                     .map(
                       (movie) => WishElement(
-                        image: movie.image,
-                        titre: movie.name,
-                        sousTitre: movie.genre,
-                        date: movie.dateSortie,
-                      ),
+                          image: movie.image,
+                          titre: movie.name,
+                          sousTitre: movie.genre,
+                          date: movie.dateSortie,
+                          base: movie),
                     )
                     .toList(),
               );
@@ -342,11 +342,11 @@ var trendingSeries = Column(
                 children: state.series
                     .map(
                       (serie) => WishElement(
-                        image: serie.image,
-                        titre: serie.name,
-                        sousTitre: serie.genre,
-                        date: serie.dateSortie,
-                      ),
+                          image: serie.image,
+                          titre: serie.name,
+                          sousTitre: serie.genre,
+                          date: serie.dateSortie,
+                          base: serie),
                     )
                     .toList(),
               );
@@ -404,11 +404,11 @@ var trendingGames = Column(
                 children: state.games
                     .map(
                       (game) => WishElement(
-                        image: game.image,
-                        titre: game.name,
-                        sousTitre: game.genre,
-                        date: game.dateSortie,
-                      ),
+                          image: game.image,
+                          titre: game.name,
+                          sousTitre: game.genre,
+                          date: game.dateSortie,
+                          base: game),
                     )
                     .toList(),
               );
@@ -466,11 +466,11 @@ var trendingMusics = Column(
                 children: state.musics
                     .map(
                       (music) => WishElement(
-                        image: music.image,
-                        titre: music.name,
-                        sousTitre: music.artist,
-                        date: music.dateSortie,
-                      ),
+                          image: music.image,
+                          titre: music.name,
+                          sousTitre: music.artist,
+                          date: music.dateSortie,
+                          base: music),
                     )
                     .toList(),
               );
