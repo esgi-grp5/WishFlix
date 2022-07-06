@@ -18,19 +18,19 @@ const users = const {
 class LoginScreen extends StatelessWidget {
   Duration get loginTime => Duration(milliseconds: 1000);
 
-  Future<String?> _authUser(LoginData data) {
-    debugPrint('Name: ${data.name}, Password: ${data.password}');
+  // Future<String?> _authUser(LoginData data) {
+  //   debugPrint('Name: ${data.name}, Password: ${data.password}');
 
-    return Future.delayed(loginTime).then((_) {
-      if (!users.containsKey(data.name)) {
-        return 'User not exists';
-      }
-      if (users[data.name] != data.password) {
-        return 'Password does not match';
-      }
-      return null;
-    });
-  }
+  //   return Future.delayed(loginTime).then((_) {
+  //     if (!users.containsKey(data.name)) {
+  //       return 'User not exists';
+  //     }
+  //     if (users[data.name] != data.password) {
+  //       return 'Password does not match';
+  //     }
+  //     return null;
+  //   });
+  // }
 
   Future<String?> _signupUser(SignupData data) {
     debugPrint('Signup Name: ${data.name}, Password: ${data.password}');
