@@ -47,6 +47,7 @@ class RowInformationsWithTitle extends StatelessWidget {
                     scrollDirection: Axis.vertical, //.horizontal
                     child: Text(
                       this.informationContent,
+                      textAlign: TextAlign.left,
                       style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w600,

@@ -14,7 +14,7 @@ class OAuth {
 
   Future<String> getToken() async {
     // Get token from api OAuth
-    var url = Uri.parse('https://example.com/whatsit/create');
+    var url = Uri.parse('http://87.106.171.75:3000/oauth/');
     var body = {
       "client_id": "flutter",
       "client_secret": "Xh7BY4MaPMwkmD-.3ULr"

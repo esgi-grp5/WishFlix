@@ -32,8 +32,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     debugPrint('--------- MAIN SCREEN main.dart');
-    final GameBloc gameBloc = locator<GameBloc>();
 
+    oAuth.getToken();
+
+    final GameBloc gameBloc = locator<GameBloc>();
     final MovieRepository _movieRepository = MovieRepository();
     final SerieRepository _serieRepository = SerieRepository();
     final MusicRepository _musicRepository = MusicRepository();
