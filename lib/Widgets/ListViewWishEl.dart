@@ -9,7 +9,6 @@ double? height;
 
 class ListViewWishEl extends StatefulWidget {
   final String? typeElements;
-  BlocBuilder? bloc;
 
   ListViewWishEl({required this.typeElements});
   @override
@@ -21,9 +20,10 @@ class _ListViewWishElState extends State<ListViewWishEl>
   @override
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.longestSide;
+    BlocBuilder? bloc;
     switch (widget.typeElements) {
       case "Musics":
-        widget.bloc = BlocBuilder<MusicBloc, MusicState>(
+        bloc = BlocBuilder<MusicBloc, MusicState>(
           buildWhen: (previous, current) => previous is MusicListLoadingState,
           builder: (context, state) {
             if (state is MusicListSuccessState) {
@@ -54,7 +54,7 @@ class _ListViewWishElState extends State<ListViewWishEl>
         break;
 
       case "Series":
-        widget.bloc = BlocBuilder<SerieBloc, SerieState>(
+        bloc = BlocBuilder<SerieBloc, SerieState>(
           buildWhen: (previous, current) => previous is SerieListLoadingState,
           builder: (context, state) {
             if (state is SerieListSuccessState) {
@@ -84,7 +84,7 @@ class _ListViewWishElState extends State<ListViewWishEl>
         );
         break;
       case "Games":
-        widget.bloc = BlocBuilder<GameBloc, GameState>(
+        bloc = BlocBuilder<GameBloc, GameState>(
           buildWhen: (previous, current) => previous is GameListLoadingState,
           builder: (context, state) {
             if (state is GameListSuccessState) {
@@ -114,7 +114,7 @@ class _ListViewWishElState extends State<ListViewWishEl>
         );
         break;
       case "Movies":
-        widget.bloc = BlocBuilder<MovieBloc, MovieState>(
+        bloc = BlocBuilder<MovieBloc, MovieState>(
           buildWhen: (previous, current) => previous is MovieListLoadingState,
           builder: (context, state) {
             if (state is MovieListSuccessState) {
@@ -174,7 +174,7 @@ class _ListViewWishElState extends State<ListViewWishEl>
               // child:
               // ConstrainedBox(
               //   constraints: BoxConstraints(maxHeight: 170, minHeight: height! * .13),
-              child: widget.bloc),
+              child: bloc),
         ),
       ],
     );
