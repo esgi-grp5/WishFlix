@@ -5,7 +5,7 @@ import 'package:wishflix/Screens/NotificationsScreen.dart';
 import 'package:wishflix/Screens/ProfilScreen.dart';
 import 'package:wishflix/Screens/SearchScreen.dart';
 import 'package:wishflix/Screens/SplashScreen.dart';
-import 'package:wishflix/Screens/ViewScreens/MovieViewScreen.dart';
+import 'package:wishflix/Screens/ViewScreens/UniversalViewScreen.dart';
 import 'package:wishflix/Screens/WishListScreen.dart';
 
 const kMainRoute = '/';
@@ -25,5 +25,5 @@ final Map<String, WidgetBuilder> kRoutes = {
   kSearchRoute: (_) => SearchScreen(),
   kWishRoute: (_) => WishListScreen(),
   kNotifRoute: (_) => NotificationScreen(),
-  kMovieViewRoute: (_) => MovieViewScreen(),
+  kMovieViewRoute: (_) => UniversalViewScreen(),
 };

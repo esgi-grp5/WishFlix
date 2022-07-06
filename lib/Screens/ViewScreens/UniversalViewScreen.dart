@@ -7,7 +7,7 @@ import 'package:wishflix/Widgets/DisplayItem/RowWishListInfo.dart';
 double? width;
 double? height;
 
-class MovieViewScreen extends StatelessWidget {
+class UniversalViewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.shortestSide;
