@@ -14,9 +14,10 @@ class MusicCacheProvider {
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     image TEXT,
                     name TEXT,
-                    artist TEXT,
                     genre TEXT,
-                    annee TEXT
+                    dateSortie TEXT,
+                    artist TEXT,
+                    album TEXT
                     )''');
     });
   }
@@ -28,7 +29,8 @@ class MusicCacheProvider {
       name: "Lose yourself",
       artist: "eminem",
       genre: "Rap",
-      annee: "2002",
+      dateSortie: "2002",
+      album: "Oui",
     );
     await insertMusic(music);
     music = Music(
@@ -36,7 +38,8 @@ class MusicCacheProvider {
       name: "Lose yourself",
       artist: "eminem",
       genre: "Rap",
-      annee: "2002",
+      dateSortie: "2002",
+      album: "Oui",
     );
     return await insertMusic(music);
   }
@@ -87,9 +90,10 @@ class MusicCacheProvider {
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     image TEXT,
                     name TEXT,
-                    artist TEXT,
                     genre TEXT,
-                    annee TEXT
+                    dateSortie TEXT,
+                    artist TEXT,
+                    album TEXT
                     )''');
   }
 

@@ -469,7 +469,7 @@ var trendingMusics = Column(
                         image: music.image,
                         titre: music.name,
                         sousTitre: music.artist,
-                        date: music.annee,
+                        date: music.dateSortie,
                       ),
                     )
                     .toList(),

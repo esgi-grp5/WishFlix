@@ -1,18 +1,19 @@
 // Flutter
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 // Screens
 import 'package:wishflix/Screens/main.dart' as rootPage;
 // General
-import 'package:wishflix/core/di/HexColor.dart';
-import 'package:wishflix/core/di/app_routes.dart';
+
+import 'package:wishflix/HexColor.dart';
+import 'package:wishflix/Widgets/ListViewWishEl.dart';
+import 'package:wishflix/app_routes.dart';
 import 'package:wishflix/core/di/locator.dart';
 // Classes
 import 'package:wishflix/Widgets/General/CustomBottomNavBar.dart';
 // Widgets
-import 'package:wishflix/Widgets/General/Choice08.dart';
-import 'package:wishflix/Widgets/General/Clipper08.dart';
-import 'package:wishflix/Widgets/DisplayItem/WishElement.dart';
+import 'package:wishflix/Widgets/Choice08.dart';
+import 'package:wishflix/Widgets/Clipper08.dart';
+
 // Blocs
 import 'package:wishflix/bloc/export_bloc.dart';
 
@@ -58,10 +59,10 @@ class _WishListScreenState extends State<WishListScreen> {
         child: Column(
           children: <Widget>[
             WishListTop(),
-            myMovieList,
-            mySerieList,
-            myMusicList,
-            myGameList
+            ListViewWishEl(typeElements: "Movies"),
+            ListViewWishEl(typeElements: "Series"),
+            ListViewWishEl(typeElements: "Musics"),
+            ListViewWishEl(typeElements: "Games")
           ],
         ),
       ),
@@ -250,252 +251,3 @@ class _WishListTop extends State<WishListTop> {
     );
   }
 }
-
-var myMovieList = Column(
-  children: <Widget>[
-    Padding(
-      padding: const EdgeInsets.all(15),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          // SizedBox(
-          //   width: width! * 0.05,
-          // ),
-          Text(
-            "Vos films",
-            style: TextStyle(color: Colors.black, fontSize: 16),
-          ),
-          Spacer(),
-          Text("AFFICHER PLUS",
-              style: TextStyle(
-                  fontSize: 14, color: rootPage.appTheme.primaryColor))
-        ],
-      ),
-    ),
-    Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Container(
-        height: height! * .25 < 170 ? height! * .25 : 170,
-        //height: height! * .25 < 300 ? height! * .25 : 300,
-        // child:
-        // ConstrainedBox(
-        //   constraints: BoxConstraints(maxHeight: 170, minHeight: height! * .13),
-        child: BlocBuilder<MovieBloc, MovieState>(
-          buildWhen: (previous, current) => previous is MovieListLoadingState,
-          builder: (context, state) {
-            if (state is MovieListSuccessState) {
-              return ListView(
-                scrollDirection: Axis.horizontal,
-                shrinkWrap: true,
-                children: state.movies
-                    .map(
-                      (movie) => WishElement(
-                        image: movie.image,
-                        titre: movie.name,
-                        sousTitre: movie.genre,
-                        date: movie.dateSortie,
-                      ),
-                    )
-                    .toList(),
-              );
-            }
-            if (state is MovieListLoadingState) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            if (state is MovieListErrorState) {
-              return Center(child: Text(state.error));
-            }
-            return Container();
-          },
-        ),
-      ),
-    ),
-  ],
-);
-var mySerieList = Column(
-  children: <Widget>[
-    Padding(
-      padding: const EdgeInsets.all(15),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          // SizedBox(
-          //   width: width! * 0.05,
-          // ),
-          Text(
-            "Vos séries",
-            style: TextStyle(color: Colors.black, fontSize: 16),
-          ),
-          Spacer(),
-          Text("AFFICHER PLUS",
-              style: TextStyle(
-                  fontSize: 14, color: rootPage.appTheme.primaryColor))
-        ],
-      ),
-    ),
-    Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Container(
-        height: height! * .25 < 170 ? height! * .25 : 170,
-        //height: height! * .25 < 300 ? height! * .25 : 300,
-        // child:
-        // ConstrainedBox(
-        //   constraints: BoxConstraints(maxHeight: 170, minHeight: height! * .13),
-        child: BlocBuilder<SerieBloc, SerieState>(
-          buildWhen: (previous, current) => previous is SerieListLoadingState,
-          builder: (context, state) {
-            if (state is SerieListSuccessState) {
-              return ListView(
-                scrollDirection: Axis.horizontal,
-                shrinkWrap: true,
-                children: state.series
-                    .map(
-                      (serie) => WishElement(
-                        image: serie.image,
-                        titre: serie.name,
-                        sousTitre: serie.genre,
-                        date: serie.dateSortie,
-                      ),
-                    )
-                    .toList(),
-              );
-            }
-            if (state is SerieListLoadingState) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            if (state is SerieListErrorState) {
-              return Center(child: Text(state.error));
-            }
-            return Container();
-          },
-        ),
-      ),
-    ),
-  ],
-);
-var myGameList = Column(
-  children: <Widget>[
-    Padding(
-      padding: const EdgeInsets.all(15),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          // SizedBox(
-          //   width: width! * 0.05,
-          // ),
-          Text(
-            "Vos jeux",
-            style: TextStyle(color: Colors.black, fontSize: 16),
-          ),
-          Spacer(),
-          Text("AFFICHER PLUS",
-              style: TextStyle(
-                  fontSize: 14, color: rootPage.appTheme.primaryColor))
-        ],
-      ),
-    ),
-    Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Container(
-        height: height! * .25 < 170 ? height! * .25 : 170,
-        //height: height! * .25 < 300 ? height! * .25 : 300,
-        // child:
-        // ConstrainedBox(
-        //   constraints: BoxConstraints(maxHeight: 170, minHeight: height! * .13),
-        child: BlocBuilder<GameBloc, GameState>(
-          buildWhen: (previous, current) => previous is GameListLoadingState,
-          builder: (context, state) {
-            if (state is GameListSuccessState) {
-              return ListView(
-                scrollDirection: Axis.horizontal,
-                shrinkWrap: true,
-                children: state.games
-                    .map(
-                      (game) => WishElement(
-                        image: game.image,
-                        titre: game.name,
-                        sousTitre: game.genre,
-                        date: game.dateSortie,
-                      ),
-                    )
-                    .toList(),
-              );
-            }
-            if (state is GameListLoadingState) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            if (state is GameListErrorState) {
-              return Center(child: Text(state.error));
-            }
-            return Container();
-          },
-        ),
-      ),
-    ),
-  ],
-);
-var myMusicList = Column(
-  children: <Widget>[
-    Padding(
-      padding: const EdgeInsets.all(15),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          // SizedBox(
-          //   width: width! * 0.05,
-          // ),
-          Text(
-            "Vos jeux",
-            style: TextStyle(color: Colors.black, fontSize: 16),
-          ),
-          Spacer(),
-          Text("AFFICHER PLUS",
-              style: TextStyle(
-                  fontSize: 14, color: rootPage.appTheme.primaryColor))
-        ],
-      ),
-    ),
-    Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Container(
-        height: height! * .25 < 170 ? height! * .25 : 170,
-        //height: height! * .25 < 300 ? height! * .25 : 300,
-        // child:
-        // ConstrainedBox(
-        //   constraints: BoxConstraints(maxHeight: 170, minHeight: height! * .13),
-        child: BlocBuilder<MusicBloc, MusicState>(
-          buildWhen: (previous, current) => previous is MusicListLoadingState,
-          builder: (context, state) {
-            if (state is MusicListSuccessState) {
-              return ListView(
-                scrollDirection: Axis.horizontal,
-                shrinkWrap: true,
-                children: state.musics
-                    .map(
-                      (music) => WishElement(
-                        image: music.image,
-                        titre: music.name,
-                        sousTitre: music.artist,
-                        date: music.annee,
-                      ),
-                    )
-                    .toList(),
-              );
-            }
-            if (state is MusicListLoadingState) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            if (state is MusicListErrorState) {
-              return Center(child: Text(state.error));
-            }
-            return Container();
-          },
-        ),
-      ),
-    ),
-  ],
-);
