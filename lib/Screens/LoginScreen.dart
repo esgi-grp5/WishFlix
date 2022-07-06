@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:wishflix/Screens/main.dart' as rootPage;
-import 'package:wishflix/app_routes.dart';
+import 'package:wishflix/core/di/app_routes.dart';
 
 const users = const {
   'yan.parmentier@gmail.com': 'admin',

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:wishflix/Widgets/Clipper08.dart';
-import 'package:wishflix/HexColor.dart';
+import 'package:wishflix/Widgets/General/Clipper08.dart';
+import 'package:wishflix/core/di/HexColor.dart';
 import 'package:wishflix/Screens/main.dart' as rootPage;
-import 'package:wishflix/Widgets/CustomBottomNavBar.dart';
-import 'package:wishflix/app_routes.dart';
+import 'package:wishflix/Widgets/General/CustomBottomNavBar.dart';
+import 'package:wishflix/core/di/app_routes.dart';
 // import 'NotificationsScreen.dart' as notificationPage;
 
 double? width;

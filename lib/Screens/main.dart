@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 // Classes
-import 'package:wishflix/HexColor.dart';
-import 'package:wishflix/app_routes.dart';
+import 'package:wishflix/core/di/HexColor.dart';
+import 'package:wishflix/core/di/app_routes.dart';
 import 'package:wishflix/bloc/game/game_bloc.dart';
 import 'package:wishflix/bloc/movie/movie_bloc.dart';
 import 'package:wishflix/bloc/music/music_bloc.dart';

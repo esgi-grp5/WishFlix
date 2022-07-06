@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wishflix/Screens/main.dart' as rootPage;
-import 'package:wishflix/app_routes.dart';
+import 'package:wishflix/core/di/app_routes.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   final int index;

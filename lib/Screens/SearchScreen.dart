@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 // Widgets
-import 'package:wishflix/Widgets/Choice08.dart';
-import 'package:wishflix/Widgets/Clipper08.dart';
+import 'package:wishflix/Widgets/General/Choice08.dart';
+import 'package:wishflix/Widgets/General/Clipper08.dart';
 
 import 'package:wishflix/Screens/main.dart' as rootPage;
-import 'package:wishflix/Widgets/CustomBottomNavBar.dart';
+import 'package:wishflix/Widgets/General/CustomBottomNavBar.dart';
 
 double? width;
 double? height;
