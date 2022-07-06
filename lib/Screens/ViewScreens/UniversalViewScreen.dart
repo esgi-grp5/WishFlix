@@ -6,8 +6,9 @@ double? height;
 
 class UniversalViewScreen extends StatelessWidget {
   final List<Widget> screenBody;
+  final String screenTitle;
 
-  UniversalViewScreen({required this.screenBody});
+  UniversalViewScreen({required this.screenBody, required this.screenTitle});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class UniversalViewScreen extends StatelessWidget {
         elevation: 0.0,
         centerTitle: true,
         title: Text(
-          'MOVIE',
+          screenTitle.toUpperCase(),
           style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),
         ),
       ),

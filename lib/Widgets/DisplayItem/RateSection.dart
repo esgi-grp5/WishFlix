@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:wishflix/core/di/HexColor.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 double? width;
 double? height;
 
-class RowInformationsWithTitle extends StatelessWidget {
-  RowInformationsWithTitle({
+class RateSection extends StatelessWidget {
+  RateSection({
     Key? key,
-    final this.informationTitle = "",
-    final this.informationContent = "",
+    final this.starNumber = 0.0,
   }) : super(key: key);
 
-  final String informationTitle, informationContent;
+  final double starNumber;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +23,7 @@ class RowInformationsWithTitle extends StatelessWidget {
             color: Colors.white,
             padding: EdgeInsets.all(0),
             width: width,
-            height: height! * .2 < 190 ? height! * .2 : 190,
+            height: height! * .12 < 110 ? height! * .12 : 110,
             child: Padding(
               padding: const EdgeInsets.all(14.0),
               child: Column(mainAxisSize: MainAxisSize.max, children: [
@@ -32,7 +31,7 @@ class RowInformationsWithTitle extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Text(
-                      this.informationTitle,
+                      "Note :",
                       style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w600,
@@ -40,19 +39,23 @@ class RowInformationsWithTitle extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 10),
-                Expanded(
-                  flex: 1,
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.vertical, //.horizontal
-                    child: Text(
-                      this.informationContent,
-                      style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600,
-                          color: HexColor("#555555")),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    RatingBarIndicator(
+                      rating: starNumber,
+                      itemBuilder: (context, index) => Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      itemCount: 5,
+                      itemSize: 50.0,
+                      direction: Axis.horizontal,
                     ),
-                  ),
+                  ],
                 ),
               ]),
             )),

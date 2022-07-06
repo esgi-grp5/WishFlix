@@ -9,8 +9,9 @@ double? height;
 
 class ListViewWishEl extends StatefulWidget {
   final String? typeElements;
+  final String label;
 
-  ListViewWishEl({required this.typeElements});
+  ListViewWishEl({required this.typeElements, this.label = ""});
   @override
   _ListViewWishElState createState() => _ListViewWishElState();
 }
@@ -19,10 +20,12 @@ class _ListViewWishElState extends State<ListViewWishEl>
     with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
+    String label = "";
     height = MediaQuery.of(context).size.longestSide;
     BlocBuilder? bloc;
     switch (widget.typeElements) {
       case "Musics":
+        label = "Musique";
         bloc = BlocBuilder<MusicBloc, MusicState>(
           buildWhen: (previous, current) => previous is MusicListLoadingState,
           builder: (context, state) {
@@ -54,6 +57,7 @@ class _ListViewWishElState extends State<ListViewWishEl>
         break;
 
       case "Series":
+        label = "Séries";
         bloc = BlocBuilder<SerieBloc, SerieState>(
           buildWhen: (previous, current) => previous is SerieListLoadingState,
           builder: (context, state) {
@@ -84,6 +88,7 @@ class _ListViewWishElState extends State<ListViewWishEl>
         );
         break;
       case "Games":
+        label = "Jeux";
         bloc = BlocBuilder<GameBloc, GameState>(
           buildWhen: (previous, current) => previous is GameListLoadingState,
           builder: (context, state) {
@@ -114,6 +119,7 @@ class _ListViewWishElState extends State<ListViewWishEl>
         );
         break;
       case "Movies":
+        label = "Films";
         bloc = BlocBuilder<MovieBloc, MovieState>(
           buildWhen: (previous, current) => previous is MovieListLoadingState,
           builder: (context, state) {
@@ -157,7 +163,7 @@ class _ListViewWishElState extends State<ListViewWishEl>
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
-                "Your ${widget.typeElements}",
+                label,
                 style: TextStyle(color: Colors.black, fontSize: 16),
               ),
               Spacer(),
