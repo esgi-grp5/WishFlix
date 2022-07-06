@@ -1,50 +1,38 @@
-import 'package:uuid/uuid.dart';
+import 'package:wishflix/models/base_model.dart';
 
-// Create uuid object
-const uuid = Uuid();
-
-class Music {
+class Music extends Base {
   Music(
-      {required this.image,
-      required this.genre,
+      {required String image,
+      required String genre,
+      required String dateSortie,
+      required String name,
       required this.artist,
-      required this.annee,
-      required this.name});
+      required this.album})
+      : super(image: image, genre: genre, dateSortie: dateSortie, name: name);
 
-  String image, genre, name, artist, annee;
-
-  int id = uuid.v4().hashCode;
+  String artist, album;
 
   factory Music.fromJson(Map<String, dynamic> json) {
     return Music(
       image: json['image'],
       genre: json['genre'],
       name: json['name'],
+      dateSortie: json['dateSortie'],
       artist: json['artist'],
-      annee: json['annee'],
+      album: json['album'],
     );
   }
 
   Map<String, dynamic> toMap() {
-    Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['image'] = image;
-    data['name'] = name;
-    data['genre'] = genre;
-    data['artist'] = artist;
-    data['annee'] = annee;
-    return data;
+    return super.toMap();
   }
 
   @override
   toString() {
-    return {
-      'id': id,
-      'image': image,
-      'name': name,
-      'genre': genre,
-      'artist': artist,
-      'annee': annee,
-    }.toString();
+    return super.toString();
+  }
+
+  void goToPage() {
+    return;
   }
 }
