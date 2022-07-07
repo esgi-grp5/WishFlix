@@ -7,6 +7,7 @@ import 'package:wishflix/Screens/main.dart' as rootPage;
 import 'package:wishflix/Widgets/General/OAuth.dart';
 import 'package:wishflix/core/di/app_routes.dart';
 import 'package:http/http.dart' as http;
+import 'package:wishflix/models/user_model.dart';
 
 const users = const {
   'yan.parmentier@gmail.com': 'admin',
@@ -58,17 +59,19 @@ class LoginScreen extends StatelessWidget {
     final OAuth oAuth = OAuth();
     String token = oAuth.getToken();
 
+    print('Mail: ${data.name}');
     print('Crypted password: ${generateMd5(data.password)}');
 
     var response = await http.post(
       Uri.parse('http://87.106.171.75:3000/login'),
       headers: <String, String>{
         'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json',
       },
-      body: <String, String>{
+      body: jsonEncode(<String, String>{
         'mail': data.name,
         'password': generateMd5(data.password),
-      },
+      }),
     );
 
     var userData;
@@ -81,9 +84,13 @@ class LoginScreen extends StatelessWidget {
         userData = res;
         debugPrint('--------- data : $userData');
       }
+    } else {
+      return "Erreur, veuillez vérifier vos identifiants";
     }
     return Future.delayed(loginTime).then((_) {
       if (userData["id"] > 0) {
+        final User user = User();
+        user.fromData(userData);
         return null;
       } else {
         return "Erreur, veuillez vérifier vos identifiants";

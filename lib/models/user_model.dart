@@ -1,16 +1,35 @@
-import 'package:uuid/uuid.dart';
-
-// Create uuid object
-const uuid = Uuid();
-
 class User {
-  User({this.token = ""});
+  static final User _user = User._internal();
+  late int id;
+  late String username;
+  late String mail;
+  late String md5Pw;
+  factory User() {
+    return _user;
+  }
 
-  String token;
+  User._internal();
 
-  int id = uuid.v4().hashCode;
+  void fromData(userData) {
+    _user.id = userData["id"];
+    _user.username = userData["username"];
+    _user.mail = userData["mail"];
+    _user.md5Pw = userData["password"];
+  }
 
-  getToken() {
-    // Appel api pour demander token
+  String getUsername() {
+    return _user.username;
+  }
+
+  String getMail() {
+    return _user.mail;
+  }
+
+  String getMD5Pw() {
+    return _user.md5Pw;
+  }
+
+  int getId() {
+    return _user.id;
   }
 }
