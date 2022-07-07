@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:wishflix/Screens/main.dart' as rootPage;
@@ -49,35 +50,43 @@ class LoginScreen extends StatelessWidget {
     });
   }
 
+  String generateMd5(String input) {
+    return md5.convert(utf8.encode(input)).toString();
+  }
+
   Future<String?> authUserApi(LoginData data) async {
     final OAuth oAuth = OAuth();
     String token = oAuth.getToken();
 
-    // login, password, token
-    var data;
+    print('Crypted password: ${generateMd5(data.password)}');
 
-    var response = await http.get(
-      Uri.parse('http://87.106.171.75:3000/hello'),
+    var response = await http.post(
+      Uri.parse('http://87.106.171.75:3000/login'),
       headers: <String, String>{
         'Authorization': 'Bearer $token',
       },
+      body: <String, String>{
+        'mail': data.name,
+        'password': generateMd5(data.password),
+      },
     );
 
+    var userData;
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
     debugPrint('--------- Hello response code : ${response.statusCode}');
     if (response.statusCode == 200) {
       Map<String, dynamic> res = jsonDecode(response.body);
-      if (res.containsKey("data")) {
-        data = res["data"];
-        debugPrint('--------- data : $data');
+      if (res.containsKey("id")) {
+        userData = res;
+        debugPrint('--------- data : $userData');
       }
     }
     return Future.delayed(loginTime).then((_) {
-      if (data == "Hello world!") {
+      if (userData["id"] > 0) {
         return null;
       } else {
-        return "Erreur";
+        return "Erreur, veuillez vérifier vos identifiants";
       }
     });
   }
