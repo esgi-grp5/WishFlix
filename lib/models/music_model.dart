@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wishflix/Screens/ViewScreens/UniversalViewScreen.dart';
 import 'package:wishflix/Widgets/DisplayItem/ImageTitle.dart';
 import 'package:wishflix/Widgets/DisplayItem/RowInformationsWithTitle.dart';
+import 'package:wishflix/Widgets/DisplayItem/RowTimesWishlisted.dart';
 import 'package:wishflix/Widgets/DisplayItem/RowWishListInfo.dart';
 import 'package:wishflix/models/base_model.dart';
 
@@ -72,6 +73,8 @@ class Music extends Base {
             'ut egestas justo lorem vitae nisi. \n'
             'Integer sed ornare lorem. Integer\n'));
 
+    screenBody.add(RowTimesWishlisted(
+        informationTitle: this.name, informationTimesAdded: 200));
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return UniversalViewScreen(
         screenTitle: "Musique",
