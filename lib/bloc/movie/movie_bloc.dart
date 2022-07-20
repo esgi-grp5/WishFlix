@@ -1,13 +1,8 @@
-import 'dart:convert';
-
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wishflix/Widgets/General/OAuth.dart';
 import 'package:wishflix/bloc/movie/movie_events.dart';
 import 'package:wishflix/bloc/movie/movie_states.dart';
 import 'package:wishflix/models/movie_model.dart';
 import 'package:wishflix/repository/movie_repository.dart';
-import 'package:http/http.dart' as http;
 
 class MovieBloc extends Bloc<MovieEvent, MovieState> {
   MovieBloc() : super(InitialMovieState()) {

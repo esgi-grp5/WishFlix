@@ -31,7 +31,7 @@ class HomeScreen extends StatelessWidget {
     width = MediaQuery.of(context).size.shortestSide;
     height = MediaQuery.of(context).size.longestSide;
 
-    final MovieBloc movieBloc = locator<MovieBloc>();
+    // final MovieBloc movieBloc = locator<MovieBloc>();
     final SerieBloc serieBloc = locator<SerieBloc>();
     final MusicBloc musicBloc = locator<MusicBloc>();
     final GameBloc gameBloc = locator<GameBloc>();
