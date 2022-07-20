@@ -12,10 +12,11 @@ import 'package:wishflix/models/base_model.dart';
 class Movie extends Base {
   Movie(
       {required String image,
+      int id = 0,
       required String genre,
       required String dateSortie,
       required String name})
-      : super(image: image, genre: genre, dateSortie: dateSortie, name: name);
+      : super(id:id, image: image, genre: genre, dateSortie: dateSortie, name: name);
 
   factory Movie.fromJson(Map<String, dynamic> json) {
     return Movie(
