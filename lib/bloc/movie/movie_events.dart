@@ -31,3 +31,4 @@ class GetAllMoviesEvent extends MovieEvent {
   @override
   List<Object> get props => [];
 }
+

@@ -25,6 +25,8 @@ dependencies:
   http: ^0.13.4
   flutter_rating_bar: ^4.0.1
   carousel_slider: ^4.1.1
+  crypto: ^3.0.2
+
 
 
 

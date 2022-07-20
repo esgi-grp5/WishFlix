@@ -5,7 +5,9 @@ const uuid = Uuid();
 
 abstract class Base {
   Base(
-      {required this.image,
+      {
+        this.id = 0,
+        required this.image,
       required this.genre,
       required this.dateSortie,
       required this.name});

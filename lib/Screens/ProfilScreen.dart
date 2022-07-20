@@ -4,16 +4,26 @@ import 'package:wishflix/core/di/HexColor.dart';
 import 'package:wishflix/Screens/main.dart' as rootPage;
 import 'package:wishflix/Widgets/General/CustomBottomNavBar.dart';
 import 'package:wishflix/core/di/app_routes.dart';
+import 'package:wishflix/models/user_model.dart';
 // import 'NotificationsScreen.dart' as notificationPage;
 
 double? width;
 double? height;
+final User user = User();
+
+String id = "";
+String username = "";
+String mail = "";
 
 class ProfilScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.shortestSide;
     height = MediaQuery.of(context).size.longestSide;
+
+    id = user.getId().toString();
+    username = user.getUsername();
+    mail = user.getMail();
 
     return Scaffold(
       bottomNavigationBar: CustomBottomNavBar(2),
@@ -37,6 +47,7 @@ class ProfilTop extends StatefulWidget {
 
 class _ProfilTop extends State<ProfilTop> {
   TextEditingController c = TextEditingController(text: "");
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -106,7 +117,7 @@ class _ProfilTop extends State<ProfilTop> {
                   height: 13,
                 ),
                 Text(
-                  'Pseudo',
+                  username,
                   style: TextStyle(
                     fontSize: 24.0,
                     color: HexColor("ff9900"),
@@ -143,26 +154,20 @@ class ProfilBot extends StatefulWidget {
 
 class _ProfilBot extends State<ProfilBot> {
   TextEditingController c = TextEditingController(text: "");
+
   @override
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
-      Row(mainAxisAlignment: MainAxisAlignment.center, children: const <Widget>[
+      Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
         Icon(Icons.email),
         Text(
-          'Email',
+          mail,
           style: TextStyle(fontSize: 20),
         ),
       ]),
       SizedBox(
         height: 20,
       ),
-      Row(mainAxisAlignment: MainAxisAlignment.center, children: const <Widget>[
-        Icon(Icons.phone),
-        Text(
-          'Téléphone',
-          style: TextStyle(fontSize: 20),
-        ),
-      ]),
     ]);
   }
 }

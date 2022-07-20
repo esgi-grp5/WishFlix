@@ -72,6 +72,7 @@ class _WishElementState extends State<WishElement>
                         Container(
                           padding:
                               EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                              width: width! * 0.45 < 160 ? width! * 0.45 : 160,
                           //decoration: BoxDecoration(
                           //   shape: BoxShape.rectangle,
                           //   color: Colors.black.withOpacity(.4),
@@ -86,6 +87,9 @@ class _WishElementState extends State<WishElement>
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white),
+                                maxLines: 1,
+                                softWrap: false,
+                                overflow: TextOverflow.fade,
                               ),
                               Text(
                                 widget.sousTitre!,
@@ -93,6 +97,8 @@ class _WishElementState extends State<WishElement>
                                     fontSize: 14,
                                     fontWeight: FontWeight.w400,
                                     color: Colors.white),
+                                    maxLines: 1,
+                                overflow: TextOverflow.ellipsis
                               ),
                             ],
                           ),
