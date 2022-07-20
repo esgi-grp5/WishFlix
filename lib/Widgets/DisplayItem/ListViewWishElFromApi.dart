@@ -127,29 +127,7 @@ class _ListViewWishElFromApiState extends State<ListViewWishElFromApi>
       //   break;
       case "Movies":
         label = "Films";
-        futureBuilder = FutureBuilder(
-          future: requestMovieTrending(),
-          builder: (context, AsyncSnapshot snapshot) {
-            if (!snapshot.hasData) {
-              return Center(child: CircularProgressIndicator());
-            } else {
-              return Container(
-                  child: ListView.builder(
-                      itemCount: snapshot.data.length,
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      itemBuilder: (BuildContext context, int index) {
-                        return WishElement(
-                        image: snapshot.data[index].image,
-                        titre: snapshot.data[index].name,
-                        sousTitre: snapshot.data[index].genre,
-                        date: snapshot.data[index].dateSortie,
-                        base: snapshot.data[index]
-                      );
-                      }));
-            }
-          }
-          );
+        futureBuilder = futureBuilderFromFunction(requestMovieTrending());
         break;
       default:
         break;
@@ -189,6 +167,31 @@ class _ListViewWishElFromApiState extends State<ListViewWishElFromApi>
   }
 }
 
+futureBuilderFromFunction(futureFunction){
+  return FutureBuilder(
+    future: futureFunction,
+    builder: (context, AsyncSnapshot snapshot) {
+      if (!snapshot.hasData) {
+        return Center(child: CircularProgressIndicator());
+      } else {
+        return Container(
+            child: ListView.builder(
+                itemCount: snapshot.data.length,
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: true,
+                itemBuilder: (BuildContext context, int index) {
+                  return WishElement(
+                  image: snapshot.data[index].image,
+                  titre: snapshot.data[index].name,
+                  sousTitre: snapshot.data[index].genre,
+                  date: snapshot.data[index].dateSortie,
+                  base: snapshot.data[index]
+                );
+                }));
+      }
+    }
+    );
+}
 
 
  Future<List<Movie>> requestMovieTrending() async {
@@ -212,7 +215,6 @@ class _ListViewWishElFromApiState extends State<ListViewWishElFromApi>
       if (res.containsKey("Status") && res["Status"] == 200) {
 
         for(var i = 0 ; i < res["resultList"].length ; i++){
-          debugPrint('--------- FOR : $i');
           Movie newMovie = Movie(
             dateSortie: res["resultList"][i]["release_date"],
             id: res["resultList"][i]["movie_id"],
@@ -222,11 +224,9 @@ class _ListViewWishElFromApiState extends State<ListViewWishElFromApi>
             image: "assets/images/Kerman.png" // temporaire
           );
           movieList.add(newMovie);
-          debugPrint('--------- data : $newMovie');
         }
+          debugPrint('--------- movieList : $movieList');
       }
     }
-    return Future.delayed(Duration(seconds: 0)).then((_) {
       return movieList;
-    });
   }
