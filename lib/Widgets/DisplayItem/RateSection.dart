@@ -23,7 +23,7 @@ class RateSection extends StatelessWidget {
             color: Colors.white,
             padding: EdgeInsets.all(0),
             width: width,
-            height: height! * .12 < 110 ? height! * .12 : 110,
+            height: height! * .14 < 110 ? height! * .14 : 110,
             child: Padding(
               padding: const EdgeInsets.all(14.0),
               child: Column(mainAxisSize: MainAxisSize.max, children: [
