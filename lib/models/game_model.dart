@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:wishflix/Screens/ViewScreens/UniversalViewScreen.dart';
 import 'package:wishflix/Widgets/DisplayItem/ImageTitle.dart';
 import 'package:wishflix/Widgets/DisplayItem/RateSection.dart';
+import 'package:wishflix/Widgets/DisplayItem/RowCarousel.dart';
 import 'package:wishflix/Widgets/DisplayItem/RowInformationsWithTitle.dart';
 import 'package:wishflix/Widgets/DisplayItem/RowTimesWishlisted.dart';
 import 'package:wishflix/Widgets/DisplayItem/RowWishListInfo.dart';
@@ -58,6 +59,17 @@ class Game extends Base {
     screenBody.add(RateSection(
       starNumber: randomNumber,
     ));
+
+    Map<String, String> listSimilarGames = {
+      'Jeu similiaire 1': 'assets/images/Tehran.png',
+      'Jeu similiaire 2': 'assets/images/Tehran.png',
+      'Jeu similiaire 3': 'assets/images/Tehran.png',
+    };
+
+    screenBody.add(RowCarousel(
+        informationTitle: "Jeux similaires",
+        imagesAndDescriptions: listSimilarGames));
+
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return UniversalViewScreen(
         screenTitle: "Jeu",
