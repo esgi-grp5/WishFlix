@@ -17,7 +17,6 @@ class MovieListLoadingState extends MovieState {
   @override
   List<Object> get props => [];
 }
-
 // movieList success state
 class MovieListSuccessState extends MovieState {
   final List<Movie> movies;
