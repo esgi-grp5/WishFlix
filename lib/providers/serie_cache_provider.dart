@@ -14,6 +14,7 @@ class SerieCacheProvider {
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     image TEXT,
                     name TEXT,
+                    slug TEXT,
                     genre TEXT,
                     dateSortie TEXT
                     )''');
@@ -25,6 +26,7 @@ class SerieCacheProvider {
     Serie serie = Serie(
       image: "assets/images/Kerman.png",
       name: "Games of throne",
+      slug: "Games of throne",
       genre: "Aventure",
       dateSortie: "Fevrier 2019",
     );
@@ -32,6 +34,7 @@ class SerieCacheProvider {
     serie = Serie(
       image: "assets/images/Kerman.png",
       name: "Games of throne",
+      slug: "Games of throne",
       genre: "Aventure",
       dateSortie: "Fevrier 2019",
     );
@@ -84,6 +87,7 @@ class SerieCacheProvider {
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     image TEXT,
                     name TEXT,
+                    slug TEXT,
                     genre TEXT,
                     dateSortie TEXT
                     )''');

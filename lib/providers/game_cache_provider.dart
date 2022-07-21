@@ -14,6 +14,7 @@ class GameCacheProvider {
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     image TEXT,
                     name TEXT,
+                    slug TEXT,
                     genre TEXT,
                     dateSortie TEXT
                     )''');
@@ -25,6 +26,7 @@ class GameCacheProvider {
     Game game = Game(
       image: "assets/images/Kerman.png",
       name: "Call of duty",
+      slug: "Call of duty",
       genre: "Action",
       dateSortie: "Fevrier 2019",
     );
@@ -32,6 +34,7 @@ class GameCacheProvider {
     game = Game(
       image: "assets/images/Kerman.png",
       name: "Call of duty",
+      slug: "Call of duty",
       genre: "Action",
       dateSortie: "Fevrier 2019",
     );
@@ -84,6 +87,7 @@ class GameCacheProvider {
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     image TEXT,
                     name TEXT,
+                    slug TEXT,
                     genre TEXT,
                     dateSortie TEXT
                     )''');

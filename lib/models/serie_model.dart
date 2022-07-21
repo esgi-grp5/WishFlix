@@ -14,8 +14,9 @@ class Serie extends Base {
       {required String image,
       required String genre,
       required String dateSortie,
-      required String name})
-      : super(image: image, genre: genre, dateSortie: dateSortie, name: name);
+      required String name,
+      required String slug})
+      : super(image: image, genre: genre, dateSortie: dateSortie, name: name, slug: slug);
 
   factory Serie.fromJson(Map<String, dynamic> json) {
     return Serie(
@@ -23,6 +24,7 @@ class Serie extends Base {
       genre: json['genre'],
       dateSortie: json['dateSortie'],
       name: json['name'],
+      slug: json['slug'],
     );
   }
 

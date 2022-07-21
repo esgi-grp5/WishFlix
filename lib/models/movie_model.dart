@@ -15,8 +15,9 @@ class Movie extends Base {
       int id = 0,
       required String genre,
       required String dateSortie,
-      required String name})
-      : super(id:id, image: image, genre: genre, dateSortie: dateSortie, name: name);
+      required String name,
+      required String slug})
+      : super(id:id, image: image, genre: genre, dateSortie: dateSortie, name: name, slug: slug);
 
   factory Movie.fromJson(Map<String, dynamic> json) {
     return Movie(
@@ -24,6 +25,7 @@ class Movie extends Base {
       genre: json['genre'],
       dateSortie: json['dateSortie'],
       name: json['name'],
+      slug: json['slug'],
     );
   }
 

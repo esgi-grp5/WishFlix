@@ -10,9 +10,10 @@ abstract class Base {
         required this.image,
       required this.genre,
       required this.dateSortie,
-      required this.name});
+      required this.name,
+      required this.slug});
 
-  String image, genre, dateSortie, name;
+  String image, genre, dateSortie, name, slug;
 
   int id = uuid.v4().hashCode;
 
@@ -30,6 +31,7 @@ abstract class Base {
     data['id'] = id;
     data['image'] = image;
     data['name'] = name;
+    data['slug'] = slug;
     data['genre'] = genre;
     data['dateSortie'] = dateSortie;
     return data;
@@ -41,6 +43,7 @@ abstract class Base {
       'id': id,
       'image': image,
       'name': name,
+      'slug': slug,
       'genre': genre,
       'dateSortie': dateSortie
     }.toString();
