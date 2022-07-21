@@ -80,7 +80,7 @@ class _SearchWishElementState extends State<SearchWishElement>
                         Container(
                           padding:
                               EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                              width: width! * 0.85 < 333 ? width! * 0.85 : 333,
+                              width: 300,
                           //decoration: BoxDecoration(
                           //   shape: BoxShape.rectangle,
                           //   color: Colors.black.withOpacity(.4),
