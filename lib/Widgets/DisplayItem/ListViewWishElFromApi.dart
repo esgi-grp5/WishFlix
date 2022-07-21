@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,6 +9,7 @@ import 'package:wishflix/Widgets/General/OAuth.dart';
 import 'package:wishflix/Screens/main.dart' as rootPage;
 import 'package:wishflix/models/movie_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:wishflix/models/serie_model.dart';
 
 double? width;
 double? height;
@@ -30,100 +32,12 @@ class _ListViewWishElFromApiState extends State<ListViewWishElFromApi>
     // BlocBuilder? bloc;
     FutureBuilder? futureBuilder;
     switch (widget.typeElements) {
-      // case "Musics":
-      //   label = "Musique";
-      //   bloc = BlocBuilder<MusicBloc, MusicState>(
-      //     buildWhen: (previous, current) => previous is MusicListLoadingState,
-      //     builder: (context, state) {
-      //       if (state is MusicListSuccessState) {
-      //         return ListView(
-      //           scrollDirection: Axis.horizontal,
-      //           shrinkWrap: true,
-      //           children: state.musics
-      //               .map(
-      //                 (music) => WishElement(
-      //                     image: music.image,
-      //                     titre: music.name,
-      //                     sousTitre: music.artist,
-      //                     date: music.dateSortie,
-      //                     base: music),
-      //               )
-      //               .toList(),
-      //         );
-      //       }
-      //       if (state is MusicListLoadingState) {
-      //         return const Center(child: CircularProgressIndicator());
-      //       }
-      //       if (state is MusicListErrorState) {
-      //         return Center(child: Text(state.error));
-      //       }
-      //       return Container();
-      //     },
-      //   );
-      //   break;
 
-      // case "Series":
-      //   label = "Séries";
-      //   bloc = BlocBuilder<SerieBloc, SerieState>(
-      //     buildWhen: (previous, current) => previous is SerieListLoadingState,
-      //     builder: (context, state) {
-      //       if (state is SerieListSuccessState) {
-      //         return ListView(
-      //           scrollDirection: Axis.horizontal,
-      //           shrinkWrap: true,
-      //           children: state.series
-      //               .map(
-      //                 (serie) => WishElement(
-      //                     image: serie.image,
-      //                     titre: serie.name,
-      //                     sousTitre: serie.genre,
-      //                     date: serie.dateSortie,
-      //                     base: serie),
-      //               )
-      //               .toList(),
-      //         );
-      //       }
-      //       if (state is SerieListLoadingState) {
-      //         return const Center(child: CircularProgressIndicator());
-      //       }
-      //       if (state is SerieListErrorState) {
-      //         return Center(child: Text(state.error));
-      //       }
-      //       return Container();
-      //     },
-      //   );
-      //   break;
-      // case "Games":
-      //   label = "Jeux";
-      //   bloc = BlocBuilder<GameBloc, GameState>(
-      //     buildWhen: (previous, current) => previous is GameListLoadingState,
-      //     builder: (context, state) {
-      //       if (state is GameListSuccessState) {
-      //         return ListView(
-      //           scrollDirection: Axis.horizontal,
-      //           shrinkWrap: true,
-      //           children: state.games
-      //               .map(
-      //                 (game) => WishElement(
-      //                     image: game.image,
-      //                     titre: game.name,
-      //                     sousTitre: game.genre,
-      //                     date: game.dateSortie,
-      //                     base: game),
-      //               )
-      //               .toList(),
-      //         );
-      //       }
-      //       if (state is GameListLoadingState) {
-      //         return const Center(child: CircularProgressIndicator());
-      //       }
-      //       if (state is GameListErrorState) {
-      //         return Center(child: Text(state.error));
-      //       }
-      //       return Container();
-      //     },
-      //   );
-      //   break;
+      case "Series":
+        label = "Séries";
+          futureBuilder = futureBuilderFromFunction(requestSerieTrending());
+        break;
+
       case "Movies":
         label = "Films";
         futureBuilder = futureBuilderFromFunction(requestMovieTrending());
@@ -209,20 +123,83 @@ Future<List<Movie>> requestMovieTrending() async {
   if (response.statusCode == 200) {
     Map<String, dynamic> res = jsonDecode(response.body);
 
-    if (res.containsKey("status") && res["status"] == 200) {
-      for (var i = 0; i < res["result_list"].length; i++) {
-        Movie newMovie = Movie(
-          dateSortie: res["result_list"][i]["release_date"],
-          id: res["result_list"][i]["movie_id"],
-          name: res["result_list"][i]["name"],
-          genre: res["result_list"][i]["genres"][0],
-          image: res["result_list"][i]["screenshots"][0],
-          // image: "assets/images/Kerman.png" // temporaire
-        );
-        movieList.add(newMovie);
+for(var i = 0 ; i < res["result_list"].length ; i++){
+   var nbScreenshot = res["result_list"][i]["screenshots"].length;
+   String coverImage;
+   if(nbScreenshot > 0){
+   Random random = new Random();
+   int randomNumber = random.nextInt(nbScreenshot);
+   coverImage = res["result_list"][i]["screenshots"][randomNumber];
+   }else{
+   coverImage = 'assets/images/nodatafound.png';
+   }
+
+   Movie newMovie = Movie(
+   dateSortie: res["result_list"][i]["release_date"],
+   id: res["result_list"][i]["movie_id"],
+   name: res["result_list"][i]["name"],
+   slug: res["result_list"][i]["slug"],
+   genre: res["result_list"][i]["genres"].join(", "),
+   image: coverImage
+   // image: "assets/images/Kerman.png" // temporaire
+   );
+   movieList.add(newMovie);
+}
+   debugPrint('--------- movieList : $movieList');
       }
       debugPrint('--------- movieList : $movieList');
     }
   }
+
   return movieList;
 }
+
+ 
+ Future<List<Serie>> requestSerieTrending() async {
+    final OAuth oAuth = OAuth();
+    String token = oAuth.getToken();
+
+    var response = await http.get(
+      Uri.parse('https://tvmicroservices.azurewebsites.net/api/Tv/getTrending/day'),
+      headers: <String, String>{
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    List<Serie> serieList = [];
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+    debugPrint('--------- Hello response code : ${response.statusCode}');
+    if (response.statusCode == 200) {
+      Map<String, dynamic> res = jsonDecode(response.body);
+
+      if (res.containsKey("Status") && res["Status"] == 200) {
+
+        for(var i = 0 ; i < res["resultList"].length ; i++){
+          var nbScreenshot = res["resultList"][i]["screenshots"].length;
+          String coverImage;
+          if(nbScreenshot > 0){
+            Random random = new Random();
+            int randomNumber = random.nextInt(nbScreenshot);
+            coverImage = res["resultList"][i]["screenshots"][randomNumber];
+          }else{
+            coverImage = 'assets/images/nodatafound.png';
+          }
+
+          Serie newSerie = Serie(
+            dateSortie: res["resultList"][i]["release_date"],
+            id: res["resultList"][i]["tv_id"],
+            name: res["resultList"][i]["name"],
+            slug: res["resultList"][i]["slug"],
+            genre: res["resultList"][i]["genres"].join(", "),
+            image: coverImage
+            // image: "assets/images/Kerman.png" // temporaire
+          );
+          serieList.add(newSerie);
+        }
+          debugPrint('--------- serieList : $serieList');
+      }
+    }
+      return serieList;
+  }
+

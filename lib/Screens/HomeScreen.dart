@@ -49,7 +49,7 @@ class HomeScreen extends StatelessWidget {
           children: <Widget>[
             HomeTop(),
             ListViewWishElFromApi(typeElements: "Movies"),
-            ListViewWishEl(typeElements: "Series"),
+            ListViewWishElFromApi(typeElements: "Series"),
             ListViewWishEl(typeElements: "Musics"),
             ListViewWishEl(typeElements: "Games")
           ],
@@ -148,11 +148,13 @@ class _HomeTop extends State<HomeTop> {
                                 color: Colors.black,
                               ),
                               onTap: () {
+                                String searchValue = c.text;
+                                c.text = "";
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (context) {
                                   return SearchScreen(
                                       contentTypeIdTemp: selectedType,
-                                      searchTextTemp: c.text);
+                                      searchTextTemp: searchValue);
                                 }));
                               },
                             ),
