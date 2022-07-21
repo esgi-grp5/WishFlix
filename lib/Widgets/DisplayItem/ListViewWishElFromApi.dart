@@ -32,10 +32,9 @@ class _ListViewWishElFromApiState extends State<ListViewWishElFromApi>
     // BlocBuilder? bloc;
     FutureBuilder? futureBuilder;
     switch (widget.typeElements) {
-
       case "Series":
         label = "Séries";
-          futureBuilder = futureBuilderFromFunction(requestSerieTrending());
+        futureBuilder = futureBuilderFromFunction(requestSerieTrending());
         break;
 
       case "Movies":
@@ -123,70 +122,65 @@ Future<List<Movie>> requestMovieTrending() async {
   if (response.statusCode == 200) {
     Map<String, dynamic> res = jsonDecode(response.body);
 
-for(var i = 0 ; i < res["result_list"].length ; i++){
-   var nbScreenshot = res["result_list"][i]["screenshots"].length;
-   String coverImage;
-   if(nbScreenshot > 0){
-   Random random = new Random();
-   int randomNumber = random.nextInt(nbScreenshot);
-   coverImage = res["result_list"][i]["screenshots"][randomNumber];
-   }else{
-   coverImage = 'assets/images/nodatafound.png';
-   }
-
-   Movie newMovie = Movie(
-   dateSortie: res["result_list"][i]["release_date"],
-   id: res["result_list"][i]["movie_id"],
-   name: res["result_list"][i]["name"],
-   slug: res["result_list"][i]["slug"],
-   genre: res["result_list"][i]["genres"].join(", "),
-   image: coverImage
-   // image: "assets/images/Kerman.png" // temporaire
-   );
-   movieList.add(newMovie);
-}
-   debugPrint('--------- movieList : $movieList');
+    for (var i = 0; i < res["result_list"].length; i++) {
+      var nbScreenshot = res["result_list"][i]["screenshots"].length;
+      String coverImage;
+      if (nbScreenshot > 0) {
+        Random random = new Random();
+        int randomNumber = random.nextInt(nbScreenshot);
+        coverImage = res["result_list"][i]["screenshots"][randomNumber];
+      } else {
+        coverImage = 'assets/images/nodatafound.png';
       }
-      debugPrint('--------- movieList : $movieList');
-    }
-  }
 
+      Movie newMovie = Movie(
+          dateSortie: res["result_list"][i]["release_date"],
+          id: res["result_list"][i]["movie_id"],
+          name: res["result_list"][i]["name"],
+          slug: res["result_list"][i]["slug"],
+          genre: res["result_list"][i]["genres"].join(", "),
+          image: coverImage
+          // image: "assets/images/Kerman.png" // temporaire
+          );
+      movieList.add(newMovie);
+    }
+    debugPrint('--------- movieList : $movieList');
+  }
   return movieList;
 }
 
- 
- Future<List<Serie>> requestSerieTrending() async {
-    final OAuth oAuth = OAuth();
-    String token = oAuth.getToken();
+Future<List<Serie>> requestSerieTrending() async {
+  final OAuth oAuth = OAuth();
+  String token = oAuth.getToken();
 
-    var response = await http.get(
-      Uri.parse('https://tvmicroservices.azurewebsites.net/api/Tv/getTrending/day'),
-      headers: <String, String>{
-        'Authorization': 'Bearer $token',
-      },
-    );
+  var response = await http.get(
+    Uri.parse(
+        'https://tvmicroservices.azurewebsites.net/api/Tv/getTrending/day'),
+    headers: <String, String>{
+      'Authorization': 'Bearer $token',
+    },
+  );
 
-    List<Serie> serieList = [];
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
-    debugPrint('--------- Hello response code : ${response.statusCode}');
-    if (response.statusCode == 200) {
-      Map<String, dynamic> res = jsonDecode(response.body);
+  List<Serie> serieList = [];
+  print('Response status: ${response.statusCode}');
+  print('Response body: ${response.body}');
+  debugPrint('--------- Hello response code : ${response.statusCode}');
+  if (response.statusCode == 200) {
+    Map<String, dynamic> res = jsonDecode(response.body);
 
-      if (res.containsKey("Status") && res["Status"] == 200) {
+    if (res.containsKey("Status") && res["Status"] == 200) {
+      for (var i = 0; i < res["resultList"].length; i++) {
+        var nbScreenshot = res["resultList"][i]["screenshots"].length;
+        String coverImage;
+        if (nbScreenshot > 0) {
+          Random random = new Random();
+          int randomNumber = random.nextInt(nbScreenshot);
+          coverImage = res["resultList"][i]["screenshots"][randomNumber];
+        } else {
+          coverImage = 'assets/images/nodatafound.png';
+        }
 
-        for(var i = 0 ; i < res["resultList"].length ; i++){
-          var nbScreenshot = res["resultList"][i]["screenshots"].length;
-          String coverImage;
-          if(nbScreenshot > 0){
-            Random random = new Random();
-            int randomNumber = random.nextInt(nbScreenshot);
-            coverImage = res["resultList"][i]["screenshots"][randomNumber];
-          }else{
-            coverImage = 'assets/images/nodatafound.png';
-          }
-
-          Serie newSerie = Serie(
+        Serie newSerie = Serie(
             dateSortie: res["resultList"][i]["release_date"],
             id: res["resultList"][i]["tv_id"],
             name: res["resultList"][i]["name"],
@@ -194,12 +188,11 @@ for(var i = 0 ; i < res["result_list"].length ; i++){
             genre: res["resultList"][i]["genres"].join(", "),
             image: coverImage
             // image: "assets/images/Kerman.png" // temporaire
-          );
-          serieList.add(newSerie);
-        }
-          debugPrint('--------- serieList : $serieList');
+            );
+        serieList.add(newSerie);
       }
+      debugPrint('--------- serieList : $serieList');
     }
-      return serieList;
   }
-
+  return serieList;
+}
