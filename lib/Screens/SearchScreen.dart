@@ -2,11 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:wishflix/Widgets/DisplayItem/SearchWishElement.dart';
-// Widgets
-import 'package:wishflix/Widgets/General/Choice08.dart';
-import 'package:wishflix/Widgets/General/Clipper08.dart';
 
 import 'package:wishflix/Screens/main.dart' as rootPage;
 import 'package:http/http.dart' as http;
@@ -124,7 +120,7 @@ class StackDown extends StatelessWidget {
 }
 
 searchOnApi() async {
-  print('Search on API : ${searchText}');
+  print('Search on API : $searchText');
 
   switch (selectedType) {
     case 0:
@@ -134,7 +130,7 @@ searchOnApi() async {
 
       var response = await http.get(
         Uri.parse(
-            'https://moviemicroservices.azurewebsites.net/api/Movie/searchByName/${searchText}'),
+            'https://moviemicroservices.azurewebsites.net/api/Movie/searchByName/$searchText'),
         headers: <String, String>{
           'Authorization': 'Bearer $token',
         },
@@ -176,7 +172,6 @@ searchOnApi() async {
         }
       }
       return movieList;
-      break;
     case 1:
       // "tv";
       final OAuth oAuth = OAuth();
@@ -184,7 +179,7 @@ searchOnApi() async {
 
       var response = await http.get(
         Uri.parse(
-            'https://tvmicroservices.azurewebsites.net/api/Tv/searchByName/${searchText}'),
+            'https://tvmicroservices.azurewebsites.net/api/Tv/searchByName/$searchText'),
         headers: <String, String>{
           'Authorization': 'Bearer $token',
         },
@@ -226,7 +221,6 @@ searchOnApi() async {
         }
       }
       return serieList;
-      break;
     case 2:
       // "music";
       break;
