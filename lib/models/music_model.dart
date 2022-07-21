@@ -9,6 +9,7 @@ import 'package:wishflix/models/base_model.dart';
 class Music extends Base {
   Music(
       {required String image,
+      int id = 0,
       required String genre,
       required String dateSortie,
       required String name,

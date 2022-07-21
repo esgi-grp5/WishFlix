@@ -30,10 +30,15 @@ class _SearchWishElementState extends State<SearchWishElement>
     
     ImageProvider<Object> coverImageObject;
     if(widget.image != null && widget.image!.contains('assets/images')){
-      coverImageObject = AssetImage('assets/images/no_image.png');
+      coverImageObject = AssetImage('assets/images/nodatafound_new.png');
     } else {
-      coverImageObject = NetworkImage(widget.image!);
+      if( (widget.image!.contains(".jpg")) || (widget.image!.contains(".png")) || (widget.image!.contains(".webp")) || (widget.image!.contains(".jpeg"))){
+        coverImageObject = NetworkImage(widget.image!);
+      }else{
+        coverImageObject = AssetImage('assets/images/nodatafound_new.png');
+      }
     }
+      debugPrint('- DEBUG cover image : $coverImageObject');
 
     return InkWell(
       onTap: () {
@@ -55,7 +60,8 @@ class _SearchWishElementState extends State<SearchWishElement>
                       decoration: BoxDecoration(
                           image: DecorationImage(
                               image: coverImageObject,
-                              fit: BoxFit.fitWidth)),
+                              fit: BoxFit.fitWidth,
+                              alignment: Alignment.center)),
                     ),
                   ),
                   Positioned(
