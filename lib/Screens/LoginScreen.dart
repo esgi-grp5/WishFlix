@@ -110,6 +110,8 @@ class LoginScreen extends StatelessWidget {
         Navigator.pushNamed(context, kHomeRoute);
       },
       onRecoverPassword: _recoverPassword,
+      savedEmail: "admin@wishflix.com",
+      savedPassword: "admin",
       messages: LoginMessages(
         loginButton: "Connexion",
         signupButton: "Inscription",

@@ -9,7 +9,6 @@ import 'package:wishflix/Screens/main.dart' as rootPage;
 import 'package:wishflix/models/movie_model.dart';
 import 'package:http/http.dart' as http;
 
-
 double? width;
 double? height;
 
@@ -167,66 +166,63 @@ class _ListViewWishElFromApiState extends State<ListViewWishElFromApi>
   }
 }
 
-futureBuilderFromFunction(futureFunction){
+futureBuilderFromFunction(futureFunction) {
   return FutureBuilder(
-    future: futureFunction,
-    builder: (context, AsyncSnapshot snapshot) {
-      if (!snapshot.hasData) {
-        return Center(child: CircularProgressIndicator());
-      } else {
-        return Container(
-            child: ListView.builder(
-                itemCount: snapshot.data.length,
-                scrollDirection: Axis.horizontal,
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index) {
-                  return WishElement(
-                  image: snapshot.data[index].image,
-                  titre: snapshot.data[index].name,
-                  sousTitre: snapshot.data[index].genre,
-                  date: snapshot.data[index].dateSortie,
-                  base: snapshot.data[index]
-                );
-                }));
-      }
-    }
-    );
+      future: futureFunction,
+      builder: (context, AsyncSnapshot snapshot) {
+        if (!snapshot.hasData) {
+          return Center(child: CircularProgressIndicator());
+        } else {
+          return Container(
+              child: ListView.builder(
+                  itemCount: snapshot.data.length,
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    return WishElement(
+                        image: snapshot.data[index].image,
+                        titre: snapshot.data[index].name,
+                        sousTitre: snapshot.data[index].genre,
+                        date: snapshot.data[index].dateSortie,
+                        base: snapshot.data[index]);
+                  }));
+        }
+      });
 }
 
+Future<List<Movie>> requestMovieTrending() async {
+  final OAuth oAuth = OAuth();
+  String token = oAuth.getToken();
 
- Future<List<Movie>> requestMovieTrending() async {
-    final OAuth oAuth = OAuth();
-    String token = oAuth.getToken();
+  var response = await http.get(
+    Uri.parse(
+        'https://moviemicroservices.azurewebsites.net/api/Movie/getTrending/day'),
+    headers: <String, String>{
+      'Authorization': 'Bearer $token',
+    },
+  );
 
-    var response = await http.get(
-      Uri.parse('https://moviemicroservices.azurewebsites.net/api/Movie/getTrending/day'),
-      headers: <String, String>{
-        'Authorization': 'Bearer $token',
-      },
-    );
+  List<Movie> movieList = [];
+  print('Response status: ${response.statusCode}');
+  print('Response body: ${response.body}');
+  debugPrint('--------- Hello response code : ${response.statusCode}');
+  if (response.statusCode == 200) {
+    Map<String, dynamic> res = jsonDecode(response.body);
 
-    List<Movie> movieList = [];
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
-    debugPrint('--------- Hello response code : ${response.statusCode}');
-    if (response.statusCode == 200) {
-      Map<String, dynamic> res = jsonDecode(response.body);
-
-      if (res.containsKey("Status") && res["Status"] == 200) {
-
-        for(var i = 0 ; i < res["resultList"].length ; i++){
-          Movie newMovie = Movie(
-            dateSortie: res["resultList"][i]["release_date"],
-            id: res["resultList"][i]["movie_id"],
-            name: res["resultList"][i]["name"],
-            genre: res["resultList"][i]["genre"].toString(),
-            // image: res["resultList"][i]["screenshots"][0]
-            image: "assets/images/Kerman.png" // temporaire
-          );
-          movieList.add(newMovie);
-        }
-          debugPrint('--------- movieList : $movieList');
+    if (res.containsKey("status") && res["status"] == 200) {
+      for (var i = 0; i < res["result_list"].length; i++) {
+        Movie newMovie = Movie(
+          dateSortie: res["result_list"][i]["release_date"],
+          id: res["result_list"][i]["movie_id"],
+          name: res["result_list"][i]["name"],
+          genre: res["result_list"][i]["genres"][0],
+          image: res["result_list"][i]["screenshots"][0],
+          // image: "assets/images/Kerman.png" // temporaire
+        );
+        movieList.add(newMovie);
       }
+      debugPrint('--------- movieList : $movieList');
     }
-      return movieList;
   }
+  return movieList;
+}

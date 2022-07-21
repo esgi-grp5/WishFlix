@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:wishflix/Screens/main.dart' as rootPage;
+
 import 'package:flutter/material.dart';
 import 'package:wishflix/Screens/ViewScreens/UniversalViewScreen.dart';
 import 'package:wishflix/Widgets/DisplayItem/ImageTitle.dart';
@@ -45,6 +47,19 @@ class Game extends Base {
         subTitle1: "2h23",
         subTitle2: this.genre,
         imageAssetUrl: this.image));
+    screenBody.add(
+      ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: rootPage.appTheme.backgroundColor,
+          minimumSize: const Size.fromHeight(50), // NEW
+        ),
+        onPressed: () {},
+        child: const Icon(
+          Icons.add,
+          color: Colors.black,
+        ),
+      ),
+    );
     screenBody
         .add(RowWishListInfo(dateSortie: this.dateSortie, estVuText: "Non vu"));
     screenBody.add(RowInformationsWithTitle(

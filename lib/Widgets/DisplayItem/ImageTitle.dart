@@ -25,7 +25,7 @@ class ImageTitle extends StatelessWidget {
         height: height! * .24 < 220 ? height! * .24 : 220,
         decoration: BoxDecoration(
             image: DecorationImage(
-          image: AssetImage(this.imageAssetUrl),
+          image: NetworkImage(this.imageAssetUrl),
           fit: BoxFit.cover,
           alignment: Alignment.center,
         )),
