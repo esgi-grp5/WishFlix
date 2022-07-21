@@ -12,6 +12,7 @@ import 'package:wishflix/models/base_model.dart';
 class Serie extends Base {
   Serie(
       {required String image,
+      int id = 0,
       required String genre,
       required String dateSortie,
       required String name,
