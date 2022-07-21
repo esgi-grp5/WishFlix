@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
@@ -215,13 +216,18 @@ futureBuilderFromFunction(futureFunction){
       if (res.containsKey("Status") && res["Status"] == 200) {
 
         for(var i = 0 ; i < res["resultList"].length ; i++){
+          var nbScreenshot = res["resultList"][i]["screenshots"].length;
+          Random random = new Random();
+          int randomNumber = random.nextInt(nbScreenshot);
+
           Movie newMovie = Movie(
             dateSortie: res["resultList"][i]["release_date"],
             id: res["resultList"][i]["movie_id"],
             name: res["resultList"][i]["name"],
+            slug: res["resultList"][i]["slug"],
             genre: res["resultList"][i]["genre"].toString(),
-            // image: res["resultList"][i]["screenshots"][0]
-            image: "assets/images/Kerman.png" // temporaire
+            image: res["resultList"][i]["screenshots"][randomNumber]
+            // image: "assets/images/Kerman.png" // temporaire
           );
           movieList.add(newMovie);
         }
