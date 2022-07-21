@@ -30,9 +30,10 @@ class _WishElementState extends State<WishElement>
     
     ImageProvider<Object> coverImageObject;
     if(widget.image != null && widget.image!.contains('assets/images')){
-      coverImageObject = AssetImage('assets/images/no_image.png');
+      coverImageObject = AssetImage('assets/images/nodatafound_new.png');
     } else {
       coverImageObject = NetworkImage(widget.image!);
+      debugPrint('- DEBUG cover image : $coverImageObject');
     }
 
     return InkWell(
