@@ -217,16 +217,22 @@ futureBuilderFromFunction(futureFunction){
 
         for(var i = 0 ; i < res["resultList"].length ; i++){
           var nbScreenshot = res["resultList"][i]["screenshots"].length;
-          Random random = new Random();
-          int randomNumber = random.nextInt(nbScreenshot);
+          String coverImage;
+          if(nbScreenshot > 0){
+            Random random = new Random();
+            int randomNumber = random.nextInt(nbScreenshot);
+            coverImage = res["resultList"][i]["screenshots"][randomNumber];
+          }else{
+            coverImage = 'assets/images/nodatafound.png';
+          }
 
           Movie newMovie = Movie(
             dateSortie: res["resultList"][i]["release_date"],
             id: res["resultList"][i]["movie_id"],
             name: res["resultList"][i]["name"],
             slug: res["resultList"][i]["slug"],
-            genre: res["resultList"][i]["genre"].toString(),
-            image: res["resultList"][i]["screenshots"][randomNumber]
+            genre: res["resultList"][i]["genres"].join(", "),
+            image: coverImage
             // image: "assets/images/Kerman.png" // temporaire
           );
           movieList.add(newMovie);
