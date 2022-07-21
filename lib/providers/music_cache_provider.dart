@@ -14,6 +14,7 @@ class MusicCacheProvider {
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     image TEXT,
                     name TEXT,
+                    slug TEXT,
                     genre TEXT,
                     dateSortie TEXT,
                     artist TEXT,
@@ -29,6 +30,7 @@ class MusicCacheProvider {
       genre: "Rap",
       dateSortie: "2002",
       name: "Lose yourself",
+      slug: "Lose yourself",
       artist: "eminem",
       album: "Oui",
     );
@@ -38,6 +40,7 @@ class MusicCacheProvider {
       genre: "Rap",
       dateSortie: "2002",
       name: "Lose yourself",
+      slug: "Lose yourself",
       artist: "eminem",
       album: "Oui",
     );
@@ -90,6 +93,7 @@ class MusicCacheProvider {
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     image TEXT,
                     name TEXT,
+                    slug TEXT,
                     genre TEXT,
                     dateSortie TEXT,
                     artist TEXT,

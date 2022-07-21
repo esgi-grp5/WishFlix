@@ -27,6 +27,14 @@ class _WishElementState extends State<WishElement>
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.shortestSide;
     height = MediaQuery.of(context).size.longestSide;
+    
+    ImageProvider<Object> coverImageObject;
+    if(widget.image != null && widget.image!.contains('assets/images')){
+      coverImageObject = AssetImage('assets/images/no_image.png');
+    } else {
+      coverImageObject = NetworkImage(widget.image!);
+    }
+
     return InkWell(
       onTap: () {
         // Navigator.pushNamed(context, kMovieViewRoute);
@@ -46,7 +54,7 @@ class _WishElementState extends State<WishElement>
                       //   child: Image.asset(image,fit: BoxFit.cover,)
                       decoration: BoxDecoration(
                           image: DecorationImage(
-                              image: AssetImage(widget.image!),
+                              image: coverImageObject,
                               fit: BoxFit.fill)),
                     ),
                   ),

@@ -12,9 +12,10 @@ class Music extends Base {
       required String genre,
       required String dateSortie,
       required String name,
+      required String slug,
       required this.artist,
       required this.album})
-      : super(image: image, genre: genre, dateSortie: dateSortie, name: name);
+      : super(image: image, genre: genre, dateSortie: dateSortie, name: name, slug: slug);
 
   String artist, album;
 
@@ -22,6 +23,7 @@ class Music extends Base {
     return Music(
       image: json['image'],
       genre: json['genre'],
+      slug: json['slug'],
       name: json['name'],
       dateSortie: json['dateSortie'],
       artist: json['artist'],

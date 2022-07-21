@@ -14,6 +14,7 @@ class MovieCacheProvider {
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     image TEXT,
                     name TEXT,
+                    slug TEXT,
                     genre TEXT,
                     dateSortie TEXT
                     )''');
@@ -25,12 +26,14 @@ class MovieCacheProvider {
     Movie movie = Movie(
         image: 'assets/images/Tehran.png',
         name: 'Name test',
+        slug: 'Name test',
         genre: 'genre test',
         dateSortie: 'Novembre 2002');
     await insertMovie(movie);
     movie = Movie(
         image: 'assets/images/Tehran.png',
         name: 'Name test',
+        slug: 'Name test',
         genre: 'genre test',
         dateSortie: 'Novembre 2002');
     return await insertMovie(movie);
@@ -82,6 +85,7 @@ class MovieCacheProvider {
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     image TEXT,
                     name TEXT,
+                    slug TEXT,
                     genre TEXT,
                     dateSortie TEXT
                     )''');

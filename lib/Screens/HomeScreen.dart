@@ -49,7 +49,7 @@ class HomeScreen extends StatelessWidget {
           children: <Widget>[
             HomeTop(),
             ListViewWishElFromApi(typeElements: "Movies"),
-            ListViewWishEl(typeElements: "Series"),
+            ListViewWishElFromApi(typeElements: "Series"),
             ListViewWishEl(typeElements: "Musics"),
             ListViewWishEl(typeElements: "Games")
           ],
