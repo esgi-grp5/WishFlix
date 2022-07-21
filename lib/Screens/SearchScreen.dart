@@ -1,13 +1,22 @@
+import 'dart:convert';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:wishflix/Widgets/DisplayItem/SearchWishElement.dart';
 // Widgets
 import 'package:wishflix/Widgets/General/Choice08.dart';
 import 'package:wishflix/Widgets/General/Clipper08.dart';
 
 import 'package:wishflix/Screens/main.dart' as rootPage;
+import 'package:http/http.dart' as http;
 import 'package:wishflix/Widgets/General/CustomBottomNavBar.dart';
+import 'package:wishflix/Widgets/General/OAuth.dart';
+import 'package:wishflix/models/serie_model.dart';
 
 double? width;
 double? height;
+TextEditingController c = TextEditingController(text: searchText);
+
 int sel = 0;
 
 final Color discountBackground = rootPage.appTheme.primaryColor;
@@ -51,7 +60,7 @@ class SearchScreen extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 StackTop(),
-                // StackDown(),
+                StackDown(),
               ],
             )));
     // children: <Widget>[StackTop(), StackDown()],
@@ -64,7 +73,6 @@ class StackTop extends StatefulWidget {
 }
 
 class _StackTop extends State<StackTop> {
-  TextEditingController c = TextEditingController(text: searchText);
   @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.shortestSide;
@@ -131,6 +139,7 @@ class _StackTop extends State<StackTop> {
                                   ),
                                   onTap: () {
                                     // Refresh results
+                                    searchButtonPressed();
                                   },
                                 ),
                                 elevation: 2.0,
@@ -242,191 +251,113 @@ class _StackTop extends State<StackTop> {
   }
 }
 
-// class StackDown extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(
-//         padding: const EdgeInsets.only(left: 16.0, top: 16),
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.center,
-//           children: <Widget>[
-//             Text('Résultats les plus pertinents',
-//                 style: TextStyle(fontWeight: FontWeight.w900, fontSize: 20)),
-//             ListView(
-//               scrollDirection: Axis.vertical,
-//               shrinkWrap: true,
-//               physics: ClampingScrollPhysics(),
-//               children: <Widget>[
-//                 FlightCard(
-//                   date: "01 Far 1399",
-//                   percentOff: "34",
-//                   price: "500",
-//                   rating: 3.5,
-//                   flightTo: "Rafsanjani",
-//                   oldprice: "999",
-//                 ),
-//                 FlightCard(
-//                   date: "02 Esf 1398",
-//                   percentOff: "45",
-//                   price: "600",
-//                   rating: 5,
-//                   flightTo: "Rafsanjani",
-//                   oldprice: "1000",
-//                 ),
-//                 FlightCard(
-//                   date: "01 Far 1399",
-//                   percentOff: "34",
-//                   price: "300",
-//                   rating: 3.5,
-//                   flightTo: "Rafsanjani",
-//                   oldprice: "999",
-//                 ),
-//                 FlightCard(
-//                   date: "02 Esf 1398",
-//                   percentOff: "45",
-//                   price: "700",
-//                   rating: 5,
-//                   flightTo: "Rafsanjani",
-//                   oldprice: "1000",
-//                 ),
-//               ],
-//             )
-//           ],
-//         ));
-//   }
-// }
+searchButtonPressed() async {
+  print('Response body: ${selectedType}');
 
-// class FlightCard extends StatelessWidget {
-//   final String? price;
-//   final String? flightTo;
-//   final String? percentOff;
-//   final String? date;
-//   final double? rating;
-//   final String? oldprice;
+  switch (selectedType) {
+    case 0:
+      // "movie";
+      break;
+    case 1:
+      // "tv";
+      final OAuth oAuth = OAuth();
+      String token = oAuth.getToken();
 
-//   FlightCard(
-//       {this.date,
-//       this.flightTo,
-//       this.percentOff,
-//       this.price,
-//       this.rating,
-//       this.oldprice});
+      var response = await http.get(
+        Uri.parse(
+            'https://tvmicroservices.azurewebsites.net/api/Tv/searchByName/${c.text}'),
+        headers: <String, String>{
+          'Authorization': 'Bearer $token',
+        },
+      );
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(
-//       padding: const EdgeInsets.symmetric(vertical: 8.0),
-//       child: Center(
-//         child: Stack(
-//           children: <Widget>[
-//             Container(
-//               //height: rootPage.height/6,
-//               width: width! * .8,
-//               padding: EdgeInsets.all(10),
-//               decoration: BoxDecoration(
-//                 borderRadius: BorderRadius.all(Radius.lerp(
-//                     Radius.elliptical(10, 20), Radius.circular(20), 2)!),
-//                 border: Border.all(color: borderColor),
-//               ),
-//               child: Column(
-//                 mainAxisSize: MainAxisSize.max,
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: <Widget>[
-//                   Row(
-//                     children: <Widget>[
-//                       Text(
-//                         price! + '\$',
-//                         style: TextStyle(
-//                             fontSize: 18, fontWeight: FontWeight.bold),
-//                       ),
-//                       SizedBox(
-//                         width: width! * .02,
-//                       ),
-//                       Text(
-//                         oldprice! + '\$',
-//                         style: TextStyle(
-//                             fontSize: 15,
-//                             fontWeight: FontWeight.bold,
-//                             decoration: TextDecoration.lineThrough,
-//                             color: Colors.grey),
-//                       ),
-//                     ],
-//                   ),
-//                   SizedBox(
-//                     height: height! * .03,
-//                   ),
-//                   Wrap(
-//                     spacing: 5.0,
-//                     runSpacing: -5.0,
-//                     children: <Widget>[
-//                       Tag(
-//                         label: date!,
-//                         avatar: Icon(
-//                           Icons.calendar_today,
-//                           size: 18,
-//                         ),
-//                       ),
-//                       Tag(
-//                         label: flightTo!,
-//                         avatar: Icon(Icons.flight_takeoff, size: 18),
-//                       ),
-//                       Tag(
-//                         label: rating.toString(),
-//                         avatar: Icon(Icons.star, size: 18),
-//                       ),
-//                     ],
-//                   )
-//                 ],
-//               ),
-//             ),
-//             Positioned(
-//               top: height! * .025,
-//               right: 15,
-//               child: Container(
-//                 padding: EdgeInsets.symmetric(horizontal: 2, vertical: 3),
-//                 width: width! * .09,
-//                 decoration: BoxDecoration(
-//                     borderRadius: BorderRadius.all(Radius.circular(5)),
-//                     color: discountBackground.withOpacity(.2)),
-//                 child: Center(
-//                   child: Text(
-//                     percentOff! + '%',
-//                     style: TextStyle(
-//                         fontSize: 14,
-//                         fontWeight: FontWeight.w200,
-//                         color: discountBackground),
-//                   ),
-//                 ),
-//               ),
-//             )
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
+      List<Serie> serieList = [];
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+      debugPrint('--------- Hello response code : ${response.statusCode}');
+      if (response.statusCode == 200) {
+        Map<String, dynamic> res = jsonDecode(response.body);
 
-// class Tag extends StatelessWidget {
-//   final String? label;
-//   final Widget? avatar;
+        if (res.containsKey("Status") && res["Status"] == 200) {
+          for (var i = 0; i < res["resultList"].length; i++) {
+            var nbScreenshot = res["resultList"][i]["screenshots"].length;
+            String coverImage;
+            if (nbScreenshot > 0) {
+              Random random = new Random();
+              int randomNumber = random.nextInt(nbScreenshot);
+              coverImage = res["resultList"][i]["screenshots"][randomNumber];
+            } else {
+              coverImage = 'assets/images/nodatafound.png';
+            }
 
-//   Tag({this.avatar, this.label});
+            Serie newSerie = Serie(
+                dateSortie: res["resultList"][i]["release_date"],
+                id: res["resultList"][i]["tv_id"],
+                name: res["resultList"][i]["name"],
+                slug: res["resultList"][i]["slug"],
+                genre: res["resultList"][i]["genres"].join(", "),
+                image: coverImage
+                // image: "assets/images/Kerman.png" // temporaire
+                );
+            serieList.add(newSerie);
+          }
+          debugPrint('--------------------------');
+          debugPrint('--------------------------');
+          debugPrint('-------------------------- serieList : $serieList');
+        }
+      }
+      return serieList;
+      break;
+    case 2:
+      // "music";
+      break;
+    case 3:
+      // "game";
+      break;
+    case 4:
+      // "all";
+      break;
+    default:
+      break;
+  }
+}
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       margin: EdgeInsets.symmetric(vertical: 5),
-//       child: RawChip(
-//         label: Text(
-//           label!,
-//         ),
-//         labelStyle: TextStyle(
-//             fontWeight: FontWeight.w400, fontSize: 8, color: Colors.black),
-//         avatar: avatar,
-//         backgroundColor: chipBackground,
-//         shape: RoundedRectangleBorder(
-//             borderRadius: BorderRadius.all(Radius.circular(10))),
-//       ),
-//     );
-//   }
-// }
+class StackDown extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: Container(
+            height: height! * .25 < 170 ? height! * .25 : 170,
+            //height: height! * .25 < 300 ? height! * .25 : 300,
+            // child:
+            // ConstrainedBox(
+            //   constraints: BoxConstraints(maxHeight: 170, minHeight: height! * .13),
+            child: FutureBuilder(
+                future: searchButtonPressed(),
+                builder: (context, AsyncSnapshot snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(child: CircularProgressIndicator());
+                  } else {
+                    return Container(
+                        child: ListView.builder(
+                            itemCount: snapshot.data.length,
+                            shrinkWrap: true,
+                            itemBuilder: (BuildContext context, int index) {
+                              return SearchWishElement(
+                                  image: snapshot.data[index].image,
+                                  titre: snapshot.data[index].name,
+                                  sousTitre: snapshot.data[index].genre,
+                                  date: snapshot.data[index].dateSortie,
+                                  base: snapshot.data[index]);
+                            }));
+                  }
+                }),
+          ),
+        ),
+      ],
+    );
+  }
+}

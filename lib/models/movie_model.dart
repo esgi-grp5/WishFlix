@@ -41,6 +41,7 @@ class Movie extends Base {
   @override
   void goToPage(context) {
     List<Widget> screenBody = [];
+    debugPrint('--------- idMovie : $id');
 
     screenBody.add(ImageTitle(
         title: this.name,
