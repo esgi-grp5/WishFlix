@@ -4,24 +4,24 @@ import 'package:wishflix/models/base_model.dart';
 double? width;
 double? height;
 
-class WishElement extends StatefulWidget {
+class SearchWishElement extends StatefulWidget {
   final String? image;
   final String? titre;
   final String? sousTitre;
   final String? date;
   final Base base;
 
-  WishElement(
+  SearchWishElement(
       {required this.image,
       required this.titre,
       required this.sousTitre,
       required this.date,
       required this.base});
   @override
-  _WishElementState createState() => _WishElementState();
+  _SearchWishElementState createState() => _SearchWishElementState();
 }
 
-class _WishElementState extends State<WishElement>
+class _SearchWishElementState extends State<SearchWishElement>
     with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
@@ -43,14 +43,14 @@ class _WishElementState extends State<WishElement>
       child: Column(
         children: <Widget>[
           ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(20)),
+              borderRadius: BorderRadius.all(Radius.elliptical(20, 40)),
               child: Stack(
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 5),
                     child: Container(
                       height: height! * .137 < 160 ? height! * .137 : 160,
-                      width: width! * .5 < 250 ? width! * .5 : 250,
+                      width: width! * .9 < 355 ? width! * .9 : 355,
                       //   child: Image.asset(image,fit: BoxFit.cover,)
                       decoration: BoxDecoration(
                           image: DecorationImage(
@@ -60,7 +60,7 @@ class _WishElementState extends State<WishElement>
                   ),
                   Positioned(
                     height: 60,
-                    width: width! * .5 < 250 ? width! * .5 : 250,
+                    width: width! * .95 < 353 ? width! * .95 : 353,
                     left: 5,
                     //right: 0,
                     bottom: 0,
@@ -80,7 +80,7 @@ class _WishElementState extends State<WishElement>
                         Container(
                           padding:
                               EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                              width: width! * 0.45 < 160 ? width! * 0.45 : 160,
+                              width: width! * 0.85 < 333 ? width! * 0.85 : 333,
                           //decoration: BoxDecoration(
                           //   shape: BoxShape.rectangle,
                           //   color: Colors.black.withOpacity(.4),
@@ -121,7 +121,7 @@ class _WishElementState extends State<WishElement>
               )),
           Row(
             mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               SizedBox(
                 height: 25,
@@ -132,7 +132,10 @@ class _WishElementState extends State<WishElement>
                       fontWeight: FontWeight.w400,
                       fontStyle: FontStyle.italic)),
             ],
-          )
+          ),
+          SizedBox(
+                  height: height! / 30,
+                ),
         ],
       ),
     );
