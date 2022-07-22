@@ -126,6 +126,7 @@ class User {
       if (userData["id"] > 0) {
         final User user = User();
         user.fromData(userData);
+        user.saveUserSession();
         user.setIsConnected();
         return true;
       } else {
