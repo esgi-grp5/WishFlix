@@ -144,6 +144,7 @@ class _ListViewWishElState extends State<ListViewWishEl>
               return const Center(child: CircularProgressIndicator());
             }
             if (state is MovieListErrorState) {
+              print("State error : ${state.error}");
               return Center(child: Text(state.error));
             }
             return Container();

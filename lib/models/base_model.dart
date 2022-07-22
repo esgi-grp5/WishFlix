@@ -5,16 +5,17 @@ const uuid = Uuid();
 
 abstract class Base {
   Base(
-      {
-        this.id = 0,
-        required this.image,
+      {this.id = 0,
+      required this.image,
       required this.genre,
       required this.dateSortie,
       required this.name,
+      required this.description,
+      required this.note,
       required this.slug});
 
-  String image, genre, dateSortie, name, slug;
-
+  String image, genre, dateSortie, name, slug, description;
+  int note;
   int id = uuid.v4().hashCode;
 
   /* factory Base.fromJson(Map<String, dynamic> json) {
@@ -33,6 +34,8 @@ abstract class Base {
     data['name'] = name;
     data['slug'] = slug;
     data['genre'] = genre;
+    data['description'] = description;
+    data['note'] = note;
     data['dateSortie'] = dateSortie;
     return data;
   }
@@ -45,6 +48,8 @@ abstract class Base {
       'name': name,
       'slug': slug,
       'genre': genre,
+      'description': description,
+      'note': note,
       'dateSortie': dateSortie
     }.toString();
   }

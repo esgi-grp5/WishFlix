@@ -4,9 +4,9 @@ import 'package:wishflix/providers/movie_cache_provider.dart';
 class MovieRepository {
   final MovieCacheProvider _cache = MovieCacheProvider();
 
-  Future<int> insertDefaultData() async {
+  /* Future<int> insertDefaultData() async {
     return await _cache.insertDefaultData();
-  }
+  } */
 
   Future<int> insertMovie(Movie movie) async {
     return await _cache.insertMovie(movie);

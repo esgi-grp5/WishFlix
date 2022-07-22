@@ -138,6 +138,8 @@ Future<List<Movie>> requestMovieTrending() async {
           id: res["result_list"][i]["movie_id"],
           name: res["result_list"][i]["name"],
           slug: res["result_list"][i]["slug"],
+          description: res["result_list"][i]["description"],
+          // note: res["result_list"][i]["vote_average"] / 2,
           genre: res["result_list"][i]["genres"].join(", "),
           image: coverImage
           // image: "assets/images/Kerman.png" // temporaire
@@ -185,6 +187,8 @@ Future<List<Serie>> requestSerieTrending() async {
             id: res["resultList"][i]["tv_id"],
             name: res["resultList"][i]["name"],
             slug: res["resultList"][i]["slug"],
+            // description: res["resultList"][i]["description"],
+            // note: res["resultList"][i]["vote_average"] /2,
             genre: res["resultList"][i]["genres"].join(", "),
             image: coverImage
             // image: "assets/images/Kerman.png" // temporaire

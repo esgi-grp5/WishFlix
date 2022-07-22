@@ -16,12 +16,14 @@ class GameCacheProvider {
                     name TEXT,
                     slug TEXT,
                     genre TEXT,
+                    description TEXT,
+                    note INTEGER,
                     dateSortie TEXT
                     )''');
     });
   }
 
-  Future<int> insertDefaultData() async {
+  /* Future<int> insertDefaultData() async {
     await initDatabase();
     Game game = Game(
       image: "assets/images/Kerman.png",
@@ -39,7 +41,7 @@ class GameCacheProvider {
       dateSortie: "Fevrier 2019",
     );
     return await insertGame(game);
-  }
+  } */
 
   Future<int> insertGame(Game game) async {
     await initDatabase();
@@ -89,6 +91,8 @@ class GameCacheProvider {
                     name TEXT,
                     slug TEXT,
                     genre TEXT,
+                    description TEXT,
+                    note INTEGER,
                     dateSortie TEXT
                     )''');
   }

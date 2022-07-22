@@ -18,12 +18,14 @@ class MusicCacheProvider {
                     genre TEXT,
                     dateSortie TEXT,
                     artist TEXT,
+                    description TEXT,
+                    note INTEGER,
                     album TEXT
                     )''');
     });
   }
 
-  Future<int> insertDefaultData() async {
+  /* Future<int> insertDefaultData() async {
     await initDatabase();
     Music music = Music(
       image: "assets/images/Kerman.png",
@@ -45,7 +47,7 @@ class MusicCacheProvider {
       album: "Oui",
     );
     return await insertMusic(music);
-  }
+  } */
 
   Future<int> insertMusic(Music music) async {
     await initDatabase();
@@ -96,6 +98,8 @@ class MusicCacheProvider {
                     slug TEXT,
                     genre TEXT,
                     dateSortie TEXT,
+                    description TEXT,
+                    note INTEGER,
                     artist TEXT,
                     album TEXT
                     )''');

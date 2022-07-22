@@ -4,9 +4,9 @@ import 'package:wishflix/providers/serie_cache_provider.dart';
 class SerieRepository {
   final SerieCacheProvider _cache = SerieCacheProvider();
 
-  Future<int> insertDefaultData() async {
+  /* Future<int> insertDefaultData() async {
     return await _cache.insertDefaultData();
-  }
+  } */
 
   Future<int> insertSerie(Serie serie) async {
     return await _cache.insertSerie(serie);

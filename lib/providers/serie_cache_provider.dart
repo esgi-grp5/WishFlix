@@ -16,12 +16,14 @@ class SerieCacheProvider {
                     name TEXT,
                     slug TEXT,
                     genre TEXT,
+                    description TEXT,
+                    note INTEGER,
                     dateSortie TEXT
                     )''');
     });
   }
 
-  Future<int> insertDefaultData() async {
+  /* Future<int> insertDefaultData() async {
     await initDatabase();
     Serie serie = Serie(
       image: "assets/images/Kerman.png",
@@ -39,7 +41,7 @@ class SerieCacheProvider {
       dateSortie: "Fevrier 2019",
     );
     return await insertSerie(serie);
-  }
+  } */
 
   Future<int> insertSerie(Serie serie) async {
     await initDatabase();
@@ -89,6 +91,8 @@ class SerieCacheProvider {
                     name TEXT,
                     slug TEXT,
                     genre TEXT,
+                    description TEXT,
+                    note INTEGER,
                     dateSortie TEXT
                     )''');
   }
