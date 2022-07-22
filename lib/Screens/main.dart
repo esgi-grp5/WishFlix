@@ -14,8 +14,11 @@ import 'package:wishflix/core/di/locator.dart';
 // import 'package:wishflix/repository/music_repository.dart';
 // import 'package:wishflix/repository/serie_repository.dart';
 
-void main() {
+void main() async {
   setupLocator();
+  final OAuth oAuth = OAuth();
+
+  await oAuth.requestToken();
   runApp(MyApp());
 }
 
@@ -27,13 +30,10 @@ class MyApp extends StatelessWidget {
   final GameBloc gameBloc = locator<GameBloc>();
   final MusicBloc musicBloc = locator<MusicBloc>();
 
-  final OAuth oAuth = OAuth();
 
   @override
   Widget build(BuildContext context) {
     debugPrint('--------- MAIN SCREEN main.dart');
-
-    oAuth.requestToken();
 
     final GameBloc gameBloc = locator<GameBloc>();
     // final MovieRepository _movieRepository = MovieRepository();
