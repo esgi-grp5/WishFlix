@@ -1,9 +1,11 @@
+
 class User {
   static final User _user = User._internal();
   late int id;
   late String username;
   late String mail;
   late String md5Pw;
+  late bool isConnected;
   factory User() {
     return _user;
   }
@@ -32,4 +34,14 @@ class User {
   int getId() {
     return _user.id;
   }
+
+  void setIsConnected() {
+    isConnected = true;
+  }
+
+  void setIsDisconnected() {
+    isConnected = false;
+  }
+
+
 }
