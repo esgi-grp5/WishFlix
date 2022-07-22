@@ -28,6 +28,9 @@ class _SearchWishElementState extends State<SearchWishElement>
     width = MediaQuery.of(context).size.shortestSide;
     height = MediaQuery.of(context).size.longestSide;
     
+    debugPrint('- NEW SEARCH RESULT : ${widget.titre} ');
+
+
     ImageProvider<Object> coverImageObject;
     if(widget.image != null && widget.image!.contains('assets/images')){
       coverImageObject = AssetImage('assets/images/nodatafound_new.png');
@@ -38,7 +41,6 @@ class _SearchWishElementState extends State<SearchWishElement>
         coverImageObject = AssetImage('assets/images/nodatafound_new.png');
       }
     }
-      debugPrint('- DEBUG cover image : $coverImageObject');
 
     return InkWell(
       onTap: () {
