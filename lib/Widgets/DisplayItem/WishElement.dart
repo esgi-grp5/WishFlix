@@ -28,12 +28,13 @@ class _WishElementState extends State<WishElement>
     width = MediaQuery.of(context).size.shortestSide;
     height = MediaQuery.of(context).size.longestSide;
     
+    debugPrint('- NEW SEARCH RESULT : ${widget.titre} ');
+
     ImageProvider<Object> coverImageObject;
     if(widget.image != null && widget.image!.contains('assets/images')){
       coverImageObject = AssetImage('assets/images/nodatafound_new.png');
     } else {
       coverImageObject = NetworkImage(widget.image!);
-      debugPrint('- DEBUG cover image : $coverImageObject');
     }
 
     return InkWell(

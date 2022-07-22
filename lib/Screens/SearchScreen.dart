@@ -143,24 +143,24 @@ searchOnApi() async {
       if (response.statusCode == 200) {
         Map<String, dynamic> res = jsonDecode(response.body);
 
-        if (res.containsKey("Status") && res["Status"] == 200) {
-          for (var i = 0; i < res["resultList"].length; i++) {
-            var nbScreenshot = res["resultList"][i]["screenshots"].length;
+        if (res.containsKey("status") && res["status"] == 200) {
+          for (var i = 0; i < res["result_list"].length; i++) {
+            var nbScreenshot = res["result_list"][i]["screenshots"].length;
             String coverImage;
             if (nbScreenshot > 0) {
               Random random = new Random();
               int randomNumber = random.nextInt(nbScreenshot);
-              coverImage = res["resultList"][i]["screenshots"][randomNumber];
+              coverImage = res["result_list"][i]["screenshots"][randomNumber];
             } else {
               coverImage = 'assets/images/nodatafound.png';
             }
 
             Movie newMovie = Movie(
-                dateSortie: res["resultList"][i]["release_date"],
-                id: res["resultList"][i]["movie_id"],
-                name: res["resultList"][i]["name"],
-                slug: res["resultList"][i]["slug"],
-                genre: res["resultList"][i]["genres"].join(", "),
+                dateSortie: res["result_list"][i]["release_date"],
+                id: res["result_list"][i]["movie_id"],
+                name: res["result_list"][i]["name"],
+                slug: res["result_list"][i]["slug"],
+                genre: res["result_list"][i]["genres"].join(", "),
                 image: coverImage
                 // image: "assets/images/Kerman.png" // temporaire
                 );
