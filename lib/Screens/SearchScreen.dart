@@ -68,54 +68,53 @@ class SearchScreen extends StatelessWidget {
 class StackDown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column (
-      children: <Widget>[
-          SizedBox(
-            height: 25,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              // height: height! * .25 < 170 ? height! * .25 : 170,
-              //height: height! * .25 < 300 ? height! * .25 : 300,
-              // child:
-              // ConstrainedBox(
-              //   constraints: BoxConstraints(maxHeight: 170, minHeight: height! * .13),
-              child: FutureBuilder(
-                  future: searchOnApi(),
-                  builder: (context, AsyncSnapshot snapshot) {
-                    if (!snapshot.hasData) {
-                      return Padding(
-                        padding: const EdgeInsets.only(top: 200),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CircularProgressIndicator(),
-                          ],
-                        ),
-                      );
-                    } else {
-                      return Container(
-                          child: ListView.builder(
-                              itemCount: snapshot.data.length,
-                              scrollDirection: Axis.vertical,
-                              shrinkWrap: true,
-                              itemBuilder: (BuildContext context, int index) {
-                                return SearchWishElement(
-                                    image: snapshot.data[index].image,
-                                    titre: snapshot.data[index].name,
-                                    sousTitre: snapshot.data[index].genre,
-                                    date: snapshot.data[index].dateSortie,
-                                    base: snapshot.data[index]);
-                              }));
-                    }
-                  }),
-            ),
-          ),
-  ]);
+    return Column(children: <Widget>[
+      SizedBox(
+        height: 25,
+      ),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15),
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          // height: height! * .25 < 170 ? height! * .25 : 170,
+          //height: height! * .25 < 300 ? height! * .25 : 300,
+          // child:
+          // ConstrainedBox(
+          //   constraints: BoxConstraints(maxHeight: 170, minHeight: height! * .13),
+          child: FutureBuilder(
+              future: searchOnApi(),
+              builder: (context, AsyncSnapshot snapshot) {
+                if (!snapshot.hasData) {
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 200),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CircularProgressIndicator(),
+                      ],
+                    ),
+                  );
+                } else {
+                  return Container(
+                      child: ListView.builder(
+                          itemCount: snapshot.data.length,
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          itemBuilder: (BuildContext context, int index) {
+                            return SearchWishElement(
+                                image: snapshot.data[index].image,
+                                titre: snapshot.data[index].name,
+                                sousTitre: snapshot.data[index].genre,
+                                date: snapshot.data[index].dateSortie,
+                                base: snapshot.data[index]);
+                          }));
+                }
+              }),
+        ),
+      ),
+    ]);
   }
 }
 
@@ -143,24 +142,26 @@ searchOnApi() async {
       if (response.statusCode == 200) {
         Map<String, dynamic> res = jsonDecode(response.body);
 
-        if (res.containsKey("Status") && res["Status"] == 200) {
-          for (var i = 0; i < res["resultList"].length; i++) {
-            var nbScreenshot = res["resultList"][i]["screenshots"].length;
+        if (res.containsKey("status") && res["status"] == 200) {
+          for (var i = 0; i < res["result_list"].length; i++) {
+            var nbScreenshot = res["result_list"][i]["screenshots"].length;
             String coverImage;
             if (nbScreenshot > 0) {
               Random random = new Random();
               int randomNumber = random.nextInt(nbScreenshot);
-              coverImage = res["resultList"][i]["screenshots"][randomNumber];
+              coverImage = res["result_list"][i]["screenshots"][randomNumber];
             } else {
               coverImage = 'assets/images/nodatafound.png';
             }
 
             Movie newMovie = Movie(
-                dateSortie: res["resultList"][i]["release_date"],
-                id: res["resultList"][i]["movie_id"],
-                name: res["resultList"][i]["name"],
-                slug: res["resultList"][i]["slug"],
-                genre: res["resultList"][i]["genres"].join(", "),
+                dateSortie: res["result_list"][i]["release_date"],
+                id: res["result_list"][i]["movie_id"],
+                name: res["result_list"][i]["name"],
+                slug: res["result_list"][i]["slug"],
+                description: res["result_list"][i]["description"],
+                // note: res["result_list"][i]["vote_average"],
+                genre: res["result_list"][i]["genres"].join(", "),
                 image: coverImage
                 // image: "assets/images/Kerman.png" // temporaire
                 );
@@ -209,6 +210,8 @@ searchOnApi() async {
                 id: res["resultList"][i]["tv_id"],
                 name: res["resultList"][i]["name"],
                 slug: res["resultList"][i]["slug"],
+                // description: res["resultList"][i]["description"],
+                // note: res["resultList"][i]["vote_average"],
                 genre: res["resultList"][i]["genres"].join(", "),
                 image: coverImage
                 // image: "assets/images/Kerman.png" // temporaire

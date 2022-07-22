@@ -30,7 +30,6 @@ class MyApp extends StatelessWidget {
   final GameBloc gameBloc = locator<GameBloc>();
   final MusicBloc musicBloc = locator<MusicBloc>();
 
-
   @override
   Widget build(BuildContext context) {
     debugPrint('--------- MAIN SCREEN main.dart');

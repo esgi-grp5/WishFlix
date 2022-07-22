@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:math';
+// import 'dart:math';
 
 import 'package:wishflix/Screens/main.dart' as rootPage;
 
@@ -13,24 +13,38 @@ import 'package:wishflix/Widgets/DisplayItem/RowWishListInfo.dart';
 import 'package:wishflix/Widgets/General/OAuth.dart';
 import 'package:wishflix/models/base_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:wishflix/models/user_model.dart';
 import 'package:wishflix/repository/movie_repository.dart';
 
 class Movie extends Base {
   Movie(
       {required String image,
-      int id = 0,
+      required int id,
       required String genre,
       required String dateSortie,
       required String name,
+      required String description,
+      int note = 0,
       required String slug})
-      : super(id:id, image: image, genre: genre, dateSortie: dateSortie, name: name, slug: slug);
+      : super(
+            id: id,
+            image: image,
+            genre: genre,
+            dateSortie: dateSortie,
+            name: name,
+            description: description,
+            note: note,
+            slug: slug);
 
   factory Movie.fromJson(Map<String, dynamic> json) {
     return Movie(
+      id: json['id'],
       image: json['image'],
       genre: json['genre'],
       dateSortie: json['dateSortie'],
       name: json['name'],
+      description: json['description'],
+      note: json['note'],
       slug: json['slug'],
     );
   }
@@ -45,22 +59,27 @@ class Movie extends Base {
   }
 
   @override
-  void goToPage(context) {
+  Future<void> goToPage(context) async {
     final OAuth oAuth = OAuth();
     String token = oAuth.getToken();
+    int wishlistCount = 0;
 
-    /*var response = await http.get(
-      Uri.http('87.106.171.75:3000', '/movie/wishlist', {
-        "id": "1",
-      }),
+    User user = new User();
+
+    var response = await http.get(
+      Uri.http('87.106.171.75:3000', '/movie/count/${this.id}'),
       headers: <String, String>{
         'Authorization': 'Bearer $token',
-        HttpHeaders.contentTypeHeader: 'application/json'
+        'Content-Type': 'application/json'
       },
     );
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
-    debugPrint('--------- Hello response code : ${response.statusCode}'); */
+    debugPrint('--------- Hello response code : ${response.statusCode}');
+    if (response.statusCode == 200) {
+      Map<String, dynamic> res = jsonDecode(response.body);
+      wishlistCount = res['count'];
+    }
 
     List<Widget> screenBody = [];
     debugPrint('--------- idMovie : $id');
@@ -78,6 +97,7 @@ class Movie extends Base {
         ),
         onPressed: () async {
           MovieRepository _movieRepository = MovieRepository();
+          print("Movie inserted: $this");
           _movieRepository.insertMovie(this);
           final http.Response response = await http.post(
               Uri.parse('http://87.106.171.75:3000/movie/wishlist'),
@@ -86,7 +106,7 @@ class Movie extends Base {
                 'Authorization': 'Bearer $token',
               },
               body: jsonEncode(
-                <String, int>{"username_id": 1, "movie_id": this.id},
+                <String, int>{"username_id": user.id, "movie_id": this.id},
               ));
           print('Token: $token');
           print('Request: ${response.request}');
@@ -107,6 +127,7 @@ class Movie extends Base {
         ),
         onPressed: () async {
           MovieRepository _movieRepository = MovieRepository();
+          print("Movie deleted: ${this.id}");
           _movieRepository.deleteMovie(this.id);
           final http.Response response = await http.delete(
               Uri.parse('http://87.106.171.75:3000/movie/wishlist'),
@@ -115,7 +136,7 @@ class Movie extends Base {
                 'Authorization': 'Bearer $token',
               },
               body: jsonEncode(
-                <String, int>{"username_id": 1, "movie_id": this.id},
+                <String, int>{"username_id": user.id, "movie_id": this.id},
               ));
           print('Token: $token');
           print('Request: ${response.request}');
@@ -132,15 +153,14 @@ class Movie extends Base {
         .add(RowWishListInfo(dateSortie: this.dateSortie, estVuText: "Non vu"));
     screenBody.add(RowInformationsWithTitle(
       informationTitle: "Synopsis",
-      informationContent:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac facilisis ligula, sit amet lacinia erat. Suspendisse vel sagittis elit. Praesent suscipit nisl sit amet eros feugiat finibus. Nullam suscipit enim eleifend lorem rutrum, vel tempor enim faucibus. Vestibulum vitae facilisis lacus, eu ultrices felis. In scelerisque risus vitae justo convallis cursus. Maecenas ultrices eget tellus nec fermentum. Donec porttitor, leo sagittis aliquet efficitur, urna libero aliquam nibh, ut egestas justo lorem vitae nisi. Integer sed ornare lorem. Integer ornare augue eget erat aliquam hendrerit. Nulla consequat enim sit amet risus gravida, nec rutrum libero tincidunt. Ut non massa sed enim dictum volutpat. In diam justo, convallis vitae commodo vitae, pulvinar at nisl. Fusce ultricies non dolor at malesuada. \n Etiam gravida eleifend interdum. Integer et finibus mauris. Curabitur dapibus lacinia tincidunt. Nam ut quam at eros ultrices sodales. Suspendisse pellentesque ullamcorper pulvinar. Sed sed nisl enim. Pellentesque placerat ullamcorper velit sed tempus. Proin dictum volutpat fermentum. Aliquam erat volutpat. Suspendisse sollicitudin, tellus id luctus consectetur, est nulla iaculis ex, condimentum euismod dolor nulla sit amet lacus. Praesent placerat non velit ut dignissim. Maecenas porttitor sollicitudin turpis. Integer finibus eros eget velit aliquet, et consequat sapien posuere.",
+      informationContent: this.description,
     ));
     screenBody.add(RowTimesWishlisted(
-        informationTitle: this.name, informationTimesAdded: 200));
-    Random random = new Random();
-    double randomNumber = random.nextInt(6).toDouble();
+        informationTitle: this.name, informationTimesAdded: wishlistCount));
+    // Random random = new Random();
+    // double randomNumber = random.nextInt(6).toDouble();
     screenBody.add(RateSection(
-      starNumber: randomNumber,
+      starNumber: this.note.toDouble(),
     ));
 
     Navigator.push(context, MaterialPageRoute(builder: (context) {

@@ -9,24 +9,37 @@ import 'package:wishflix/models/base_model.dart';
 class Music extends Base {
   Music(
       {required String image,
-      int id = 0,
+      required int id,
       required String genre,
       required String dateSortie,
       required String name,
       required String slug,
       required this.artist,
+      required String description,
+      required int note,
       required this.album})
-      : super(image: image, genre: genre, dateSortie: dateSortie, name: name, slug: slug);
+      : super(
+            image: image,
+            genre: genre,
+            dateSortie: dateSortie,
+            name: name,
+            slug: slug,
+            description: description,
+            note: note,
+            id: id);
 
   String artist, album;
 
   factory Music.fromJson(Map<String, dynamic> json) {
     return Music(
+      id: json['id'],
       image: json['image'],
       genre: json['genre'],
       slug: json['slug'],
       name: json['name'],
       dateSortie: json['dateSortie'],
+      description: json['description'],
+      note: json['note'],
       artist: json['artist'],
       album: json['album'],
     );

@@ -27,18 +27,21 @@ class _SearchWishElementState extends State<SearchWishElement>
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.shortestSide;
     height = MediaQuery.of(context).size.longestSide;
-    
+
     ImageProvider<Object> coverImageObject;
-    if(widget.image != null && widget.image!.contains('assets/images')){
+    if (widget.image != null && widget.image!.contains('assets/images')) {
       coverImageObject = AssetImage('assets/images/nodatafound_new.png');
     } else {
-      if( (widget.image!.contains(".jpg")) || (widget.image!.contains(".png")) || (widget.image!.contains(".webp")) || (widget.image!.contains(".jpeg"))){
+      if ((widget.image!.contains(".jpg")) ||
+          (widget.image!.contains(".png")) ||
+          (widget.image!.contains(".webp")) ||
+          (widget.image!.contains(".jpeg"))) {
         coverImageObject = NetworkImage(widget.image!);
-      }else{
+      } else {
         coverImageObject = AssetImage('assets/images/nodatafound_new.png');
       }
     }
-      debugPrint('- DEBUG cover image : $coverImageObject');
+    // debugPrint('- DEBUG cover image : $coverImageObject');
 
     return InkWell(
       onTap: () {
@@ -86,7 +89,7 @@ class _SearchWishElementState extends State<SearchWishElement>
                         Container(
                           padding:
                               EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                              width: 300,
+                          width: 300,
                           //decoration: BoxDecoration(
                           //   shape: BoxShape.rectangle,
                           //   color: Colors.black.withOpacity(.4),
@@ -105,15 +108,13 @@ class _SearchWishElementState extends State<SearchWishElement>
                                 softWrap: false,
                                 overflow: TextOverflow.fade,
                               ),
-                              Text(
-                                widget.sousTitre!,
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.white),
-                                    maxLines: 1,
-                                overflow: TextOverflow.ellipsis
-                              ),
+                              Text(widget.sousTitre!,
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.white),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis),
                             ],
                           ),
                         ),
@@ -140,8 +141,8 @@ class _SearchWishElementState extends State<SearchWishElement>
             ],
           ),
           SizedBox(
-                  height: height! / 30,
-                ),
+            height: height! / 30,
+          ),
         ],
       ),
     );

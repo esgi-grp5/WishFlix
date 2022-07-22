@@ -15,19 +15,32 @@ import 'package:wishflix/models/base_model.dart';
 class Game extends Base {
   Game(
       {required String image,
-      int id = 0,
+      required int id,
       required String genre,
       required String dateSortie,
       required String name,
+      required String description,
+      required int note,
       required String slug})
-      : super(image: image, genre: genre, dateSortie: dateSortie, name: name, slug: slug);
+      : super(
+            image: image,
+            genre: genre,
+            dateSortie: dateSortie,
+            name: name,
+            slug: slug,
+            description: description,
+            note: note,
+            id: id);
 
   factory Game.fromJson(Map<String, dynamic> json) {
     return Game(
+      id: json['id'],
       image: json['image'],
       genre: json['genre'],
       dateSortie: json['dateSortie'],
       name: json['name'],
+      description: json['description'],
+      note: json['note'],
       slug: json['slug'],
     );
   }

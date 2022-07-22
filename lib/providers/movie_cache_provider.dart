@@ -16,12 +16,14 @@ class MovieCacheProvider {
                     name TEXT,
                     slug TEXT,
                     genre TEXT,
+                    description TEXT,
+                    note INTEGER,
                     dateSortie TEXT
                     )''');
     });
   }
 
-  Future<int> insertDefaultData() async {
+  /* Future<int> insertDefaultData() async {
     await initDatabase();
     Movie movie = Movie(
         image: 'assets/images/Tehran.png',
@@ -37,7 +39,7 @@ class MovieCacheProvider {
         genre: 'genre test',
         dateSortie: 'Novembre 2002');
     return await insertMovie(movie);
-  }
+  } */
 
   Future<int> insertMovie(Movie movie) async {
     await initDatabase();
@@ -87,6 +89,8 @@ class MovieCacheProvider {
                     name TEXT,
                     slug TEXT,
                     genre TEXT,
+                    description TEXT,
+                    note INTEGER,
                     dateSortie TEXT
                     )''');
   }

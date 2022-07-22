@@ -27,13 +27,13 @@ class _WishElementState extends State<WishElement>
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.shortestSide;
     height = MediaQuery.of(context).size.longestSide;
-    
+
     ImageProvider<Object> coverImageObject;
-    if(widget.image != null && widget.image!.contains('assets/images')){
+    if (widget.image != null && widget.image!.contains('assets/images')) {
       coverImageObject = AssetImage('assets/images/nodatafound_new.png');
     } else {
       coverImageObject = NetworkImage(widget.image!);
-      debugPrint('- DEBUG cover image : $coverImageObject');
+      // debugPrint('- DEBUG cover image : $coverImageObject');
     }
 
     return InkWell(
@@ -55,8 +55,7 @@ class _WishElementState extends State<WishElement>
                       //   child: Image.asset(image,fit: BoxFit.cover,)
                       decoration: BoxDecoration(
                           image: DecorationImage(
-                              image: coverImageObject,
-                              fit: BoxFit.fitWidth)),
+                              image: coverImageObject, fit: BoxFit.fitWidth)),
                     ),
                   ),
                   Positioned(
