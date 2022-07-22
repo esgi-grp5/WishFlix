@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:wishflix/Widgets/General/Clipper08.dart';
 import 'package:wishflix/core/di/HexColor.dart';
 import 'package:wishflix/Screens/main.dart' as rootPage;
@@ -168,6 +169,21 @@ class _ProfilBot extends State<ProfilBot> {
       SizedBox(
         height: 20,
       ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          ElevatedButton(onPressed: () {
+            disconnectUser();
+          },
+          child: Text("Disconnect")),
+        ],
+      ),
     ]);
   }
+}
+
+disconnectUser(){
+    final User user = User();
+    user.disconnectUser();
+    SystemNavigator.pop();
 }

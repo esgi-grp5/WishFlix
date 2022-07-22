@@ -1,15 +1,8 @@
-import 'dart:convert';
-
-import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:wishflix/Screens/main.dart' as rootPage;
-import 'package:wishflix/Widgets/General/OAuth.dart';
 import 'package:wishflix/core/di/app_routes.dart';
-import 'package:http/http.dart' as http;
 import 'package:wishflix/models/user_model.dart';
-
-import 'package:shared_preferences/shared_preferences.dart';
 
 
 const users = const {
@@ -23,19 +16,6 @@ const users = const {
 class LoginScreen extends StatelessWidget {
   Duration get loginTime => Duration(milliseconds: 1000);
 
-  // Future<String?> _authUser(LoginData data) {
-  //   debugPrint('Name: ${data.name}, Password: ${data.password}');
-
-  //   return Future.delayed(loginTime).then((_) {
-  //     if (!users.containsKey(data.name)) {
-  //       return 'User not exists';
-  //     }
-  //     if (users[data.name] != data.password) {
-  //       return 'Password does not match';
-  //     }
-  //     return null;
-  //   });
-  // }
 
   Future<String?> _signupUser(SignupData data) {
     debugPrint('Signup Name: ${data.name}, Password: ${data.password}');
@@ -54,58 +34,21 @@ class LoginScreen extends StatelessWidget {
     });
   }
 
-  String generateMd5(String input) {
-    return md5.convert(utf8.encode(input)).toString();
-  }
 
-  void saveSession(_user) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('username', _user.username);
-    prefs.setString('mail', _user.mail);
-    prefs.setString('md5Pw', _user.md5Pw);
-    prefs.setInt('id', _user.id);
 
-    var tempId = prefs.getInt('id') ?? 0;
-    debugPrint("Id session : $tempId");
-  }
 
-  Future<String?> authUserApi(LoginData data) async {
-    final OAuth oAuth = OAuth();
-    String token = oAuth.getToken();
 
-    print('Mail: ${data.name}');
-    print('Crypted password: ${generateMd5(data.password)}');
 
-    var response = await http.post(
-      Uri.parse('http://87.106.171.75:3000/login'),
-      headers: <String, String>{
-        'Authorization': 'Bearer $token',
-        'Content-Type': 'application/json',
-      },
-      body: jsonEncode(<String, String>{
-        'mail': data.name,
-        'password': generateMd5(data.password),
-      }),
-    );
+  Future<String?> _authUser(LoginData data) async {
+    final User user = User();
+    bool isConnectedSuccessfuly = await user.encodeAndAuthUserApi(data.name, data.password);
 
-    var userData;
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
-    debugPrint('--------- Hello response code : ${response.statusCode}');
-    if (response.statusCode == 200) {
-      Map<String, dynamic> res = jsonDecode(response.body);
-      if (res.containsKey("id")) {
-        userData = res;
-        debugPrint('--------- data : $userData');
-      }
-    } else {
+    debugPrint('--------- isConnectedSuccessfuly : $isConnectedSuccessfuly');
+    if (isConnectedSuccessfuly == false) {
       return "Erreur, veuillez vérifier vos identifiants";
     }
     return Future.delayed(loginTime).then((_) {
-      if (userData["id"] > 0) {
-        final User user = User();
-        user.fromData(userData);
-        saveSession(user);
+      if (isConnectedSuccessfuly == true) {
         return null;
       } else {
         return "Erreur, veuillez vérifier vos identifiants";
@@ -135,7 +78,7 @@ class LoginScreen extends StatelessWidget {
 
       return FlutterLogin(
         logo: AssetImage('assets/images/logo.png'),
-        onLogin: authUserApi,
+        onLogin: _authUser,
         onSignup: _signupUser,
         onSubmitAnimationCompleted: () {
           Navigator.pushNamed(context, kHomeRoute);
