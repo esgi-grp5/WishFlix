@@ -19,8 +19,6 @@ class Game extends Base {
       required String genre,
       required String dateSortie,
       required String name,
-      required String description,
-      required int note,
       required String slug})
       : super(
             image: image,
@@ -28,8 +26,6 @@ class Game extends Base {
             dateSortie: dateSortie,
             name: name,
             slug: slug,
-            description: description,
-            note: note,
             id: id);
 
   factory Game.fromJson(Map<String, dynamic> json) {
@@ -39,8 +35,6 @@ class Game extends Base {
       genre: json['genre'],
       dateSortie: json['dateSortie'],
       name: json['name'],
-      description: json['description'],
-      note: json['note'],
       slug: json['slug'],
     );
   }

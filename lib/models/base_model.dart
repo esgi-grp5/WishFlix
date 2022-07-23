@@ -10,12 +10,11 @@ abstract class Base {
       required this.genre,
       required this.dateSortie,
       required this.name,
-      required this.description,
-      required this.note,
       required this.slug});
 
-  String image, genre, dateSortie, name, slug, description;
-  int note;
+  String image, genre, dateSortie, name, slug;
+  String? description;
+  double? note;
   int id = uuid.v4().hashCode;
 
   /* factory Base.fromJson(Map<String, dynamic> json) {
