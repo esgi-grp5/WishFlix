@@ -144,10 +144,10 @@ class Serie extends Base {
                 body: jsonEncode(
                   <String, int>{"username_id": user.id, "serie_id": this.id},
                 ));
-            // print('Token: $token');
-            // print('Request: ${response.request}');
-            // print('Response status: ${response.statusCode}');
-            // print('Response body: ${response.body}');
+            print('Token: $token');
+            print('Request: ${response.request}');
+            print('Response status: ${response.statusCode}');
+            print('Response body: ${response.body}');
             this.goToPage(context);
           },
           child: const Icon(
@@ -176,10 +176,10 @@ class Serie extends Base {
                 body: jsonEncode(
                   <String, int>{"username_id": user.id, "serie_id": this.id},
                 ));
-            // print('Token: $token');
-            // print('Request: ${response.request}');
-            // print('Response status: ${response.statusCode}');
-            // print('Response body: ${response.body}');
+            print('Token: $token');
+            print('Request: ${response.request}');
+            print('Response status: ${response.statusCode}');
+            print('Response body: ${response.body}');
             this.goToPage(context);
           },
           child: const Icon(
