@@ -116,12 +116,12 @@ Future<List<Movie>> requestMovieTrending() async {
   );
 
   List<Movie> movieList = [];
-  print('Response status: ${response.statusCode}');
-  print('Response body: ${response.body}');
+  // print('Response status: ${response.statusCode}');
+  // print('Response body: ${response.body}');
   debugPrint('--------- Hello response code : ${response.statusCode}');
   if (response.statusCode == 200) {
     Map<String, dynamic> res = jsonDecode(response.body);
-
+    // print('Res Movie: $res');
     for (var i = 0; i < res["result_list"].length; i++) {
       var nbScreenshot = res["result_list"][i]["screenshots"].length;
       String coverImage;
@@ -138,7 +138,7 @@ Future<List<Movie>> requestMovieTrending() async {
           id: res["result_list"][i]["movie_id"],
           name: res["result_list"][i]["name"],
           slug: res["result_list"][i]["slug"],
-          description: res["result_list"][i]["description"],
+          // description: res["result_list"][i]["description"],
           // note: res["result_list"][i]["vote_average"] / 2,
           genre: res["result_list"][i]["genres"].join(", "),
           image: coverImage
@@ -146,7 +146,7 @@ Future<List<Movie>> requestMovieTrending() async {
           );
       movieList.add(newMovie);
     }
-    debugPrint('--------- movieList : $movieList');
+    print('--------- movieList : $movieList');
   }
   return movieList;
 }
@@ -164,38 +164,39 @@ Future<List<Serie>> requestSerieTrending() async {
   );
 
   List<Serie> serieList = [];
-  print('Response status: ${response.statusCode}');
-  print('Response body: ${response.body}');
+  // print('Response status: ${response.statusCode}');
+  // print('Response body: ${response.body}');
   debugPrint('--------- Hello response code : ${response.statusCode}');
   if (response.statusCode == 200) {
     Map<String, dynamic> res = jsonDecode(response.body);
+    // print('Res Serie: $res');
 
-    if (res.containsKey("Status") && res["Status"] == 200) {
-      for (var i = 0; i < res["resultList"].length; i++) {
-        var nbScreenshot = res["resultList"][i]["screenshots"].length;
+    if (res.containsKey("status") && res["status"] == 200) {
+      for (var i = 0; i < res["result_list"].length; i++) {
+        var nbScreenshot = res["result_list"][i]["screenshots"].length;
         String coverImage;
         if (nbScreenshot > 0) {
           Random random = new Random();
           int randomNumber = random.nextInt(nbScreenshot);
-          coverImage = res["resultList"][i]["screenshots"][randomNumber];
+          coverImage = res["result_list"][i]["screenshots"][randomNumber];
         } else {
           coverImage = 'assets/images/nodatafound.png';
         }
 
         Serie newSerie = Serie(
-            dateSortie: res["resultList"][i]["release_date"],
-            id: res["resultList"][i]["tv_id"],
-            name: res["resultList"][i]["name"],
-            slug: res["resultList"][i]["slug"],
-            // description: res["resultList"][i]["description"],
-            // note: res["resultList"][i]["vote_average"] /2,
-            genre: res["resultList"][i]["genres"].join(", "),
+            dateSortie: res["result_list"][i]["release_date"],
+            id: res["result_list"][i]["tv_id"],
+            name: res["result_list"][i]["name"],
+            slug: res["result_list"][i]["slug"],
+            // description: res["result_list"][i]["description"],
+            // note: res["result_list"][i]["vote_average"] /2,
+            genre: res["result_list"][i]["genres"].join(", "),
             image: coverImage
             // image: "assets/images/Kerman.png" // temporaire
             );
         serieList.add(newSerie);
       }
-      debugPrint('--------- serieList : $serieList');
+      print('--------- serieList : $serieList');
     }
   }
   return serieList;

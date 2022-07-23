@@ -47,7 +47,7 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
   //   if (response.statusCode == 200) {
   //     Map<String, dynamic> res = jsonDecode(response.body);
 
-  //     if (res.containsKey("Status") && res["Status"] == 200) {
+  //     if (res.containsKey("status") && res["status"] == 200) {
   //       for(var i = 0 ; i < res["resultList"].length ; i++){
   //         Movie newMovie = Movie(
   //           dateSortie: res["resultList"][i]["release_date"],

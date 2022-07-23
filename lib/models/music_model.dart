@@ -15,8 +15,6 @@ class Music extends Base {
       required String name,
       required String slug,
       required this.artist,
-      required String description,
-      required int note,
       required this.album})
       : super(
             image: image,
@@ -24,8 +22,6 @@ class Music extends Base {
             dateSortie: dateSortie,
             name: name,
             slug: slug,
-            description: description,
-            note: note,
             id: id);
 
   String artist, album;
@@ -38,8 +34,6 @@ class Music extends Base {
       slug: json['slug'],
       name: json['name'],
       dateSortie: json['dateSortie'],
-      description: json['description'],
-      note: json['note'],
       artist: json['artist'],
       album: json['album'],
     );

@@ -23,8 +23,6 @@ class Movie extends Base {
       required String genre,
       required String dateSortie,
       required String name,
-      required String description,
-      int note = 0,
       required String slug})
       : super(
             id: id,
@@ -32,8 +30,6 @@ class Movie extends Base {
             genre: genre,
             dateSortie: dateSortie,
             name: name,
-            description: description,
-            note: note,
             slug: slug);
 
   factory Movie.fromJson(Map<String, dynamic> json) {
@@ -43,8 +39,6 @@ class Movie extends Base {
       genre: json['genre'],
       dateSortie: json['dateSortie'],
       name: json['name'],
-      description: json['description'],
-      note: json['note'],
       slug: json['slug'],
     );
   }
@@ -63,22 +57,67 @@ class Movie extends Base {
     final OAuth oAuth = OAuth();
     String token = oAuth.getToken();
     int wishlistCount = 0;
+    bool isWishlisted = false;
 
     User user = new User();
 
-    var response = await http.get(
+    var isAlreadyAdded = await http.get(
+      Uri.http('87.106.171.75:3000', '/movie/wishlist/${user.id}'),
+      headers: <String, String>{
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json'
+      },
+    );
+    print('isAlreadyAdded status: ${isAlreadyAdded.statusCode}');
+    print('isAlreadyAdded body: ${isAlreadyAdded.body}');
+    debugPrint(
+        '--------- isAlreadyAdded response code : ${isAlreadyAdded.statusCode}');
+    if (isAlreadyAdded.statusCode == 200) {
+      List<dynamic> res = jsonDecode(isAlreadyAdded.body);
+      for (var i = 0; i < res.length; i++) {
+        if (res[i]['movie_id'] == this.id) {
+          isWishlisted = true;
+          break;
+        }
+      }
+    }
+
+    var movieCount = await http.get(
       Uri.http('87.106.171.75:3000', '/movie/count/${this.id}'),
       headers: <String, String>{
         'Authorization': 'Bearer $token',
         'Content-Type': 'application/json'
       },
     );
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
-    debugPrint('--------- Hello response code : ${response.statusCode}');
-    if (response.statusCode == 200) {
-      Map<String, dynamic> res = jsonDecode(response.body);
+    print('Movie count status: ${movieCount.statusCode}');
+    print('Movie count body: ${movieCount.body}');
+    debugPrint(
+        '--------- Movie count response code : ${movieCount.statusCode}');
+    if (movieCount.statusCode == 200) {
+      Map<String, dynamic> res = jsonDecode(movieCount.body);
       wishlistCount = res['count'];
+    }
+
+    var movieApi = await http.get(
+      Uri.http('moviemicroservices.azurewebsites.net',
+          '/api/Movie/searchById/${this.id}'),
+      headers: <String, String>{
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json'
+      },
+    );
+    print('Movie getByID status: ${movieApi.statusCode}');
+    print('Movie getByID body: ${movieApi.body}');
+    debugPrint(
+        '--------- Movie getByID response code : ${movieApi.statusCode}');
+    if (movieApi.statusCode == 200) {
+      Map<String, dynamic> res = jsonDecode(movieApi.body);
+
+      this.description = res['result_by_id'][0]['description'];
+      this.note = res['result_by_id'][0]['vote_average'] / 2;
+      // print('Vote averarge Movie : ${this.note}');
+      // this.note = 0;
+      // print('Vote averarge Movie :  ${res['result_by_id']['vote_average']}');
     }
 
     List<Widget> screenBody = [];
@@ -89,78 +128,84 @@ class Movie extends Base {
         subTitle1: "2h23",
         subTitle2: this.genre,
         imageAssetUrl: this.image));
-    screenBody.add(
-      ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          primary: rootPage.appTheme.backgroundColor,
-          minimumSize: const Size.fromHeight(50), // NEW
+    if (isWishlisted) {
+      screenBody.add(
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            primary: rootPage.appTheme.primaryColor,
+            minimumSize: const Size.fromHeight(50), // NEW
+          ),
+          onPressed: () async {
+            MovieRepository _movieRepository = MovieRepository();
+            print("Movie deleted: ${this.id}");
+            _movieRepository.deleteMovie(this.id);
+            final http.Response response = await http.delete(
+                Uri.parse('http://87.106.171.75:3000/movie/wishlist'),
+                headers: <String, String>{
+                  'Content-Type': 'application/json',
+                  'Authorization': 'Bearer $token',
+                },
+                body: jsonEncode(
+                  <String, int>{"username_id": user.id, "movie_id": this.id},
+                ));
+            print('Token: $token');
+            print('Request: ${response.request}');
+            print('Response status: ${response.statusCode}');
+            print('Response body: ${response.body}');
+            this.goToPage(context);
+          },
+          child: const Icon(
+            Icons.remove,
+            color: Colors.white,
+          ),
         ),
-        onPressed: () async {
-          MovieRepository _movieRepository = MovieRepository();
-          print("Movie inserted: $this");
-          _movieRepository.insertMovie(this);
-          final http.Response response = await http.post(
-              Uri.parse('http://87.106.171.75:3000/movie/wishlist'),
-              headers: <String, String>{
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer $token',
-              },
-              body: jsonEncode(
-                <String, int>{"username_id": user.id, "movie_id": this.id},
-              ));
-          print('Token: $token');
-          print('Request: ${response.request}');
-          print('Response status: ${response.statusCode}');
-          print('Response body: ${response.body}');
-        },
-        child: const Icon(
-          Icons.add,
-          color: Colors.black,
+      );
+    } else {
+      screenBody.add(
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            primary: rootPage.appTheme.backgroundColor,
+            minimumSize: const Size.fromHeight(50), // NEW
+          ),
+          onPressed: () async {
+            MovieRepository _movieRepository = MovieRepository();
+            print("Movie inserted: $this");
+            _movieRepository.insertMovie(this);
+            final http.Response response = await http.post(
+                Uri.parse('http://87.106.171.75:3000/movie/wishlist'),
+                headers: <String, String>{
+                  'Content-Type': 'application/json',
+                  'Authorization': 'Bearer $token',
+                },
+                body: jsonEncode(
+                  <String, int>{"username_id": user.id, "movie_id": this.id},
+                ));
+            print('Token: $token');
+            print('Request: ${response.request}');
+            print('Response status: ${response.statusCode}');
+            print('Response body: ${response.body}');
+            this.goToPage(context);
+          },
+          child: const Icon(
+            Icons.add,
+            color: Colors.black,
+          ),
         ),
-      ),
-    );
-    screenBody.add(
-      ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          primary: rootPage.appTheme.primaryColor,
-          minimumSize: const Size.fromHeight(50), // NEW
-        ),
-        onPressed: () async {
-          MovieRepository _movieRepository = MovieRepository();
-          print("Movie deleted: ${this.id}");
-          _movieRepository.deleteMovie(this.id);
-          final http.Response response = await http.delete(
-              Uri.parse('http://87.106.171.75:3000/movie/wishlist'),
-              headers: <String, String>{
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer $token',
-              },
-              body: jsonEncode(
-                <String, int>{"username_id": user.id, "movie_id": this.id},
-              ));
-          print('Token: $token');
-          print('Request: ${response.request}');
-          print('Response status: ${response.statusCode}');
-          print('Response body: ${response.body}');
-        },
-        child: const Icon(
-          Icons.remove,
-          color: Colors.white,
-        ),
-      ),
-    );
+      );
+    }
+
     screenBody
         .add(RowWishListInfo(dateSortie: this.dateSortie, estVuText: "Non vu"));
     screenBody.add(RowInformationsWithTitle(
       informationTitle: "Synopsis",
-      informationContent: this.description,
+      informationContent: this.description!,
     ));
     screenBody.add(RowTimesWishlisted(
         informationTitle: this.name, informationTimesAdded: wishlistCount));
     // Random random = new Random();
     // double randomNumber = random.nextInt(6).toDouble();
     screenBody.add(RateSection(
-      starNumber: this.note.toDouble(),
+      starNumber: this.note!.toDouble(),
     ));
 
     Navigator.push(context, MaterialPageRoute(builder: (context) {
