@@ -114,10 +114,10 @@ class Serie extends Base {
     // '--------- Serie getByID response code : ${serieApi.statusCode}');
     if (serieApi.statusCode == 200) {
       Map<String, dynamic> res = jsonDecode(serieApi.body);
-      this.description = res['result_list'][0]['description'];
-      // this.note = res['result_list']['vote_average'] / 2; // : change to note from api
+      this.description = res['result_by_id'][0]['description'];
+      this.note = double.parse(res['result_by_id'][0]['vote_average']) / 2;
       // this.description = "En attente API";
-      this.note = 0; //En attente API
+      // this.note = 0; //En attente API
     }
     if (isWishlisted) {
       screenBody.add(ImageTitle(
