@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wishflix/Screens/main.dart' as rootPage;
+import 'package:wishflix/core/di/app_routes.dart';
 
 double? width;
 double? height;
@@ -23,7 +24,7 @@ class UniversalViewScreen extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pushNamed(context, kHomeRoute);
           },
         ),
         elevation: 0.0,
