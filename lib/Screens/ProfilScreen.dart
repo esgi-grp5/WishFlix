@@ -169,14 +169,16 @@ class _ProfilBot extends State<ProfilBot> {
       SizedBox(
         height: 20,
       ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          ElevatedButton(onPressed: () {
+      ElevatedButton.icon(
+          onPressed: (){
             disconnectUser();
-          },
-          child: Text("Disconnect")),
-        ],
+          }, 
+          icon: Icon(Icons.logout ),
+          label: Text("Se déconnecter"),
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(rootPage.appTheme.primaryColor),
+            padding: MaterialStateProperty.all(EdgeInsets.all(10)),
+      ),
       ),
     ]);
   }
