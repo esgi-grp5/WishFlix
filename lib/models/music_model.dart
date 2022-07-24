@@ -1,6 +1,11 @@
+import 'dart:math';
+
+import 'package:wishflix/Screens/main.dart' as rootPage;
+
 import 'package:flutter/material.dart';
 import 'package:wishflix/Screens/ViewScreens/UniversalViewScreen.dart';
 import 'package:wishflix/Widgets/DisplayItem/ImageTitle.dart';
+import 'package:wishflix/Widgets/DisplayItem/RateSection.dart';
 import 'package:wishflix/Widgets/DisplayItem/RowInformationsWithTitle.dart';
 import 'package:wishflix/Widgets/DisplayItem/RowTimesWishlisted.dart';
 import 'package:wishflix/Widgets/DisplayItem/RowWishListInfo.dart';
@@ -9,11 +14,11 @@ import 'package:wishflix/models/base_model.dart';
 class Music extends Base {
   Music(
       {required String image,
-      required int id,
       required String genre,
       required String dateSortie,
       required String name,
       required String slug,
+      required int id,
       required this.artist,
       required this.album})
       : super(
@@ -61,6 +66,19 @@ class Music extends Base {
         subTitle1: this.artist,
         subTitle2: this.genre,
         imageAssetUrl: this.image));
+    screenBody.add(
+      ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: rootPage.appTheme.backgroundColor,
+          minimumSize: const Size.fromHeight(50), // NEW
+        ),
+        onPressed: () {},
+        child: const Icon(
+          Icons.add,
+          color: Colors.black,
+        ),
+      ),
+    );
     screenBody
         .add(RowWishListInfo(dateSortie: this.dateSortie, estVuText: "Non vu"));
     screenBody.add(RowInformationsWithTitle(
@@ -84,7 +102,12 @@ class Music extends Base {
             'Integer sed ornare lorem. Integer\n'));
 
     screenBody.add(RowTimesWishlisted(
-        informationTitle: this.name, informationTimesAdded: 200));
+        informationTitle: this.name, informationTimesAdded: 12));
+    Random random = new Random();
+    double randomNumber = random.nextInt(6).toDouble();
+    screenBody.add(RateSection(
+      starNumber: randomNumber,
+    ));
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return UniversalViewScreen(
         screenTitle: "Musique",

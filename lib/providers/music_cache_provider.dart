@@ -25,10 +25,12 @@ class MusicCacheProvider {
     });
   }
 
-  /* Future<int> insertDefaultData() async {
+  Future<int> insertDefaultData() async {
     await initDatabase();
     Music music = Music(
-      image: "assets/images/Kerman.png",
+      id: 1,
+      image:
+          "https://i.discogs.com/CqJqPY6cDh9YFAmNsogLwKv4JqsTp2vx9UhQ9sDrTM4/rs:fit/g:sm/q:90/h:524/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTQ0MDcw/MzctMTU2NzIxOTEy/Ni05MzM1LmpwZWc.jpeg",
       genre: "Rap",
       dateSortie: "2002",
       name: "Lose yourself",
@@ -38,7 +40,9 @@ class MusicCacheProvider {
     );
     await insertMusic(music);
     music = Music(
-      image: "assets/images/Kerman.png",
+      id: 2,
+      image:
+          "https://i.discogs.com/CqJqPY6cDh9YFAmNsogLwKv4JqsTp2vx9UhQ9sDrTM4/rs:fit/g:sm/q:90/h:524/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTQ0MDcw/MzctMTU2NzIxOTEy/Ni05MzM1LmpwZWc.jpeg",
       genre: "Rap",
       dateSortie: "2002",
       name: "Lose yourself",
@@ -47,7 +51,7 @@ class MusicCacheProvider {
       album: "Oui",
     );
     return await insertMusic(music);
-  } */
+  }
 
   Future<int> insertMusic(Music music) async {
     await initDatabase();
