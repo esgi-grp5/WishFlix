@@ -23,10 +23,12 @@ class GameCacheProvider {
     });
   }
 
-  /* Future<int> insertDefaultData() async {
+  Future<int> insertDefaultData() async {
     await initDatabase();
     Game game = Game(
-      image: "assets/images/Kerman.png",
+      id: 1,
+      image:
+          "https://www.presse-citron.net/app/uploads/2019/11/test-call-of-duty-modern-warfare.jpg",
       name: "Call of duty",
       slug: "Call of duty",
       genre: "Action",
@@ -34,14 +36,16 @@ class GameCacheProvider {
     );
     await insertGame(game);
     game = Game(
-      image: "assets/images/Kerman.png",
+      id: 2,
+      image:
+          "https://www.presse-citron.net/app/uploads/2019/11/test-call-of-duty-modern-warfare.jpg",
       name: "Call of duty",
       slug: "Call of duty",
       genre: "Action",
       dateSortie: "Fevrier 2019",
     );
     return await insertGame(game);
-  } */
+  }
 
   Future<int> insertGame(Game game) async {
     await initDatabase();

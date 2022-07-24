@@ -4,10 +4,10 @@ import 'package:wishflix/providers/music_cache_provider.dart';
 class MusicRepository {
   final MusicCacheProvider _cache = MusicCacheProvider();
 
-  /* Future<int> insertDefaultData() async {
+  Future<int> insertDefaultData() async {
     return await _cache.insertDefaultData();
   }
- */
+
   Future<int> insertMusic(Music music) async {
     return await _cache.insertMusic(music);
   }
