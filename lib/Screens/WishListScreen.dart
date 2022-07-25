@@ -1,12 +1,10 @@
 // Flutter
 import 'package:flutter/material.dart';
-import 'package:wishflix/Screens/SearchScreen.dart';
 // Screens
 import 'package:wishflix/Screens/main.dart' as rootPage;
 // General
 
 import 'package:wishflix/Widgets/DisplayItem/ListViewWishEl.dart';
-import 'package:wishflix/Widgets/DisplayItem/ListViewWishElFromApi.dart';
 import 'package:wishflix/core/di/HexColor.dart';
 import 'package:wishflix/core/di/app_routes.dart';
 import 'package:wishflix/core/di/locator.dart';
@@ -22,34 +20,47 @@ import 'package:wishflix/bloc/export_bloc.dart';
 double? width;
 double? height;
 
-class HomeScreen extends StatelessWidget {
+class WishListScreen extends StatefulWidget {
+  const WishListScreen({Key? key}) : super(key: key);
+
   @override
-  Widget build(BuildContext context) {
-    // Navigation.selindex=0;
-    debugPrint('--------- HOME SCREEN main.dart');
+  // ignore: library_private_types_in_public_api
+  _WishListScreenState createState() => _WishListScreenState();
+}
 
-    width = MediaQuery.of(context).size.shortestSide;
-    height = MediaQuery.of(context).size.longestSide;
+class _WishListScreenState extends State<WishListScreen> {
+  final MovieBloc movieBloc = locator<MovieBloc>();
+  final SerieBloc serieBloc = locator<SerieBloc>();
+  final MusicBloc musicBloc = locator<MusicBloc>();
+  final GameBloc gameBloc = locator<GameBloc>();
 
-    // final MovieBloc movieBloc = locator<MovieBloc>();
-    final SerieBloc serieBloc = locator<SerieBloc>();
-    final MusicBloc musicBloc = locator<MusicBloc>();
-    final GameBloc gameBloc = locator<GameBloc>();
-
-    // movieBloc.add(GetAllMoviesEvent());
+  loadAllBloc() {
+    movieBloc.add(GetAllMoviesEvent());
     serieBloc.add(GetAllSeriesEvent());
     musicBloc.add(GetAllMusicsEvent());
     gameBloc.add(GetAllGamesEvent());
+  }
+
+  @override
+  void initState() {
+    loadAllBloc();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    width = MediaQuery.of(context).size.shortestSide;
+    height = MediaQuery.of(context).size.longestSide;
 
     return Scaffold(
-      bottomNavigationBar: CustomBottomNavBar(0),
+      bottomNavigationBar: CustomBottomNavBar(1),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
           children: <Widget>[
-            HomeTop(),
-            ListViewWishElFromApi(typeElements: "Movies"),
-            ListViewWishElFromApi(typeElements: "Series"),
+            WishListTop(),
+            ListViewWishEl(typeElements: "Movies"),
+            ListViewWishEl(typeElements: "Series"),
             ListViewWishEl(typeElements: "Musics"),
             ListViewWishEl(typeElements: "Games")
           ],
@@ -59,12 +70,14 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class HomeTop extends StatefulWidget {
+var selectedType = 4;
+
+class WishListTop extends StatefulWidget {
   @override
-  _HomeTop createState() => _HomeTop();
+  _WishListTop createState() => _WishListTop();
 }
 
-class _HomeTop extends State<HomeTop> {
+class _WishListTop extends State<WishListTop> {
   TextEditingController c = TextEditingController(text: "");
   @override
   Widget build(BuildContext context) {
@@ -86,7 +99,7 @@ class _HomeTop extends State<HomeTop> {
                     rootPage.appTheme.scaffoldBackgroundColor
                   ])),
               // height: height! * .65 < 460 ? height! * .65 : 510, //400
-              height: (height! * .6) + 10, //400
+              height: (height! * .6) + 10,
             ),
           ),
         ),
@@ -95,7 +108,6 @@ class _HomeTop extends State<HomeTop> {
           child: Container(
             color: rootPage.appTheme.primaryColor,
             height: height! * .6, //400
-            // height: height! * .65 < 450 ? height! * .65 : 500, //400
             child: Column(
               children: <Widget>[
                 SizedBox(
@@ -116,7 +128,7 @@ class _HomeTop extends State<HomeTop> {
                   height: height! / 16,
                 ),
                 Text(
-                  'Que recherchez-vous ?',
+                  'Ma liste',
                   style: TextStyle(
                     fontSize: 24.0,
                     color: HexColor("ff9900"),
@@ -124,48 +136,33 @@ class _HomeTop extends State<HomeTop> {
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: height! * 0.0375),
-                Container(
-                  width: 335,
-                  padding: EdgeInsets.symmetric(horizontal: 32.0),
-                  child: Material(
-                    elevation: 5.0,
-                    borderRadius: BorderRadius.all(Radius.circular(30)),
-                    child: TextField(
-                      controller: c,
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        color: Colors.black,
-                      ),
-                      cursorColor: rootPage.appTheme.primaryColor,
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: 32, vertical: 13),
-                          suffixIcon: Material(
-                            child: InkWell(
-                              child: Icon(
-                                Icons.search,
-                                color: Colors.black,
-                              ),
-                              onTap: () {
-                                String searchValue = c.text;
-                                c.text = "";
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return SearchScreen(
-                                      contentTypeIdTemp: selectedType,
-                                      searchTextTemp: searchValue);
-                                }));
-                              },
-                            ),
-                            elevation: 2.0,
-                            borderRadius: BorderRadius.all(Radius.circular(30)),
-                          )),
+                SizedBox(
+                  height: height! * 0.025,
+                ),
+                // myMovieList,
+                // myGameList
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    InkWell(
+                      child: Choice08(
+                          icon: Icons.filter_alt_off,
+                          text: "TOUS",
+                          selected: selectedType == 4),
+                      onTap: () {
+                        setState(() {
+                          selectedType = 4;
+                        });
+                      },
                     ),
-                  ),
+                    SizedBox(
+                      width: width! * 0.055,
+                    ),
+                  ],
                 ),
                 SizedBox(
-                  height: height! * 0.03,
+                  height: height! * .015,
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.min,

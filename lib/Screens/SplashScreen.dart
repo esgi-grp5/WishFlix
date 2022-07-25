@@ -1,9 +1,11 @@
-import 'package:assets_audio_player/assets_audio_player.dart';
+// import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
-import 'package:wishflix/Screens/Login.dart';
+import 'package:wishflix/Screens/LoginScreen.dart';
 import 'package:wishflix/Screens/main.dart' as rootPage;
+
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:wishflix/models/user_model.dart';
 
 // import 'package:wishflix/Screens/main.dart';
 
@@ -13,54 +15,83 @@ class SplashScreen extends StatefulWidget {
   _SplashScreen createState() => _SplashScreen();
 }
 
+
 var nextScreen;
+
+  void asyncInitState() async{
+    debugPrint('lgn --------- asyncInitState');
+    final User user = User();
+
+    await user.importFromStorage();
+    
+    debugPrint('lgn --------- loginSaved : ${user.username}');
+
+    if(user.id > 0){
+      bool successfullogin = await user.authUserApi();
+      debugPrint('lgn --------- successfullogin : $successfullogin');
+
+      if(successfullogin == true){
+        user.setIsConnected();
+      }else{
+        user.disconnectUser();
+      }
+    }else
+    {
+      user.disconnectUser();
+    }
+}
 
 class _SplashScreen extends State<SplashScreen> {
   TextEditingController c = TextEditingController(text: "");
 
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 1), () {
-      // Vefif si connecté
-      bool isLogin = false;
-      if (!isLogin) {
-        nextScreen = LoginScreen();
-        // Navigator.pushReplacement(
-        //   context,
-        //   MaterialPageRoute(builder: (context) => LoginScreen()),
-        // );
-      } /*else {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => RootScreen()),
-        );
-      };*/
-    });
     super.initState();
+    asyncInitState();
   }
 
   @override
   Widget build(BuildContext context) {
-    AudioPlayer audioPlayer = AudioPlayer();
-    audioPlayer.play("assets/sounds/introsound.mp3", isLocal: true);
-    return MaterialApp(
-        title: 'WishFlix',
-        home: AnimatedSplashScreen.withScreenFunction(
+    debugPrint('lgn --------- SPLASH SCREEN isLogin : ');
+
+    // final assetsAudioPlayer = AssetsAudioPlayer();
+    // assetsAudioPlayer.open(
+    //     Audio("assets/sounds/introsound.mp3"),
+    // );
+    // assetsAudioPlayer.play();
+    return Scaffold(
+        body: AnimatedSplashScreen(
             duration: 1000,
             splash: 'assets/images/logo_mini.png',
             splashIconSize: 125,
             centered: true,
-            screenFunction: () async {
-              bool isLogin = false;
-              if (!isLogin) {
-                return LoginScreen();
-              } /*else{
-                 return rootPage.RootScreen();
-              }*/
-            },
+            nextScreen: LoginScreen(),
+
+            // screenFunction: () async {
+            //   Navigator.pushReplacementNamed(context, kLoginRoute);
+            //   /*bool isLogin = false;
+            //   if (!isLogin) {
+            //     return LoginScreen();
+            //   }else{
+            //      return rootPage.RootScreen();
+            //   }*/
+            // },
             // nextScreen: LoginScreen(),
             splashTransition: SplashTransition.sizeTransition,
             pageTransitionType: PageTransitionType.fade,
             backgroundColor: rootPage.appTheme.primaryColor));
   }
 }
+
+class UserData {
+  UserData(
+      {
+      required this.id,
+      required this.username,
+      required this.mail,
+      required this.md5Pw});
+
+  int id;
+  String username, mail, md5Pw;
+}
+
